@@ -83,6 +83,7 @@
 //_/_/ 
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
+#include <conio.h>
 #include <algorithm>
 #include "mem.h"
 #include "mdl_controller.h"
@@ -529,7 +530,12 @@ void _Mem::run_in_diagnostic_time(milliseconds run_time) {
 
   DiagnosticTimeState diagnostic_time_state(this, run_time);
   // Step until we reach the run_time.
-  while (diagnostic_time_state.step()) {}
+  while (diagnostic_time_state.step()) {
+    // Check console.
+    if (kbhit())
+      // Early termination.
+      break;
+  }
 }
 
 DiagnosticTimeState::DiagnosticTimeState(_Mem* mem, milliseconds run_time)
