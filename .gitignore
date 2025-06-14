@@ -39,3 +39,6 @@
 *.exe
 *.o
 *.d
+
+# NuGet packages
+/packages/
