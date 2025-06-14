@@ -43,6 +43,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>C:\Users\shmax\source\repos\AERA_tests\usr_operators;C:\Users\shmax\source\repos\AERA_tests\r_exec;C:\Users\shmax\source\repos\AERA_tests\r_comp;C:\Users\shmax\source\repos\AERA_tests\r_code;C:\Users\shmax\source\repos\AERA_tests\output_window;C:\Users\shmax\source\repos\AERA_tests\AERA;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,7 +101,8 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="test_1.cpp" />
+    <ClCompile Include="test_0_basics.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -110,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="run_coverage.bat" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AERA\AERA.vcxproj">
