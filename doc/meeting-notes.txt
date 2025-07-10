@@ -1252,9 +1252,11 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 2025-01-31
 * DONE. Release AERA and AERA_Visualizer to master
 
+2025-07-10
+* abagraph-mercury
+  * DONE. Remove Prolog backtracking, keep parallel solutions.
+
 next meeting
-* AERA in Ubuntu
-  * Fix Linux CriticalSection. (Use C++11 std::mutex?)
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
   * Standardization of ready command https://github.com/IIIM-IS/AERA/issues/155
@@ -1262,11 +1264,8 @@ next meeting
   * Zombie code found https://github.com/IIIM-IS/AERA/issues/273
   * Delta calculation for matching of delta in CTPX should be done with context operators https://github.com/IIIM-IS/AERA/issues/275
   * Matching in binding maps should be done on structures if possible https://github.com/IIIM-IS/AERA/issues/276
-* Next meeting with Francesca et al
-  * Need help with "exclusive" operator
-  * Need help with extending abagraph with preferences
-  * Need help with "is X a member of set S" with unbound constraint variables
-  * Need help with incremental graph updates on all of the above
+* AERA in Ubuntu
+  * Fix Linux CriticalSection. (Use C++11 std::mutex?)
 * blocks example
   * Use var for timestamps and T2 = T0 + 100. Remove "succ" relation.
   * Demonstrate multiple solutions if there are more intermediate positions.
