@@ -1256,7 +1256,15 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 * abagraph-mercury
   * DONE. Remove Prolog backtracking, keep parallel solutions.
 
+2025-07-17
+* abagraph-mercury
+  * DONE. Process constraints immediately so that they aren't nodes in the graph.
+
 next meeting
+* abagraph-mercury
+  * Optimize processing of A1 -> not(A2), A2 -> not(A1). Remove exclusive.
+  * Mark another solution as exclusive if its assumption is in an opponent graph.
+  * Recompute solutions based on enable/disable a rule.
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
   * Standardization of ready command https://github.com/IIIM-IS/AERA/issues/155
