@@ -36,14 +36,14 @@
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\shmax\source\repos\AERA_tests\usr_operators;C:\Users\shmax\source\repos\AERA_tests\r_exec;C:\Users\shmax\source\repos\AERA_tests\r_comp;C:\Users\shmax\source\repos\AERA_tests\r_code;C:\Users\shmax\source\repos\AERA_tests\output_window;C:\Users\shmax\source\repos\AERA_tests\AERA;C:\Users\shmax\Desktop\googletest-1.17.0\googletest\include;C:\Users\shmax\source\repos\AERA_tests\gtest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\shmax\source\repos\AERA_tests\usr_operators;C:\Users\shmax\source\repos\AERA_tests\r_exec;C:\Users\shmax\source\repos\AERA_tests\r_comp;C:\Users\shmax\source\repos\AERA_tests\r_code;C:\Users\shmax\source\repos\AERA_tests\output_window;C:\Users\shmax\source\repos\AERA_tests\AERA;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -74,6 +74,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -157,6 +158,9 @@
     <ProjectReference Include="..\usr_operators\usr_operators.vcxproj">
       <Project>{3de12b3f-d45e-46e1-b501-e294009ad4b9}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="blackbox\settings_template.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
