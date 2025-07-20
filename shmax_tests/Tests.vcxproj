@@ -36,14 +36,15 @@
   <ItemDefinitionGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>C:\Users\shmax\source\repos\AERA_tests\usr_operators;C:\Users\shmax\source\repos\AERA_tests\r_exec;C:\Users\shmax\source\repos\AERA_tests\r_comp;C:\Users\shmax\source\repos\AERA_tests\r_code;C:\Users\shmax\source\repos\AERA_tests\output_window;C:\Users\shmax\source\repos\AERA_tests\AERA;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\shmax\source\repos\AERA_tests\usr_operators;C:\Users\shmax\source\repos\AERA_tests\r_exec;C:\Users\shmax\source\repos\AERA_tests\r_comp;C:\Users\shmax\source\repos\AERA_tests\r_code;C:\Users\shmax\source\repos\AERA_tests\output_window;C:\Users\shmax\source\repos\AERA_tests\AERA;C:\Users\shmax\Desktop\googletest-1.17.0\googletest\include;C:\Users\shmax\source\repos\AERA_tests\gtest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -101,6 +102,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="test_1.cpp" />
     <ClCompile Include="test_0_basics.cpp" />
     <ClCompile Include="pch.cpp">
@@ -109,8 +111,27 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="test_blackbox.cpp" />
+    <ClCompile Include="test_blackbox_parameterized.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blackbox\1.replicode">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="blackbox\2.replicode" />
+    <None Include="blackbox\3.replicode" />
+    <None Include="blackbox\4.replicode" />
+    <None Include="blackbox\5.replicode" />
+    <None Include="coverage_report\index.html" />
+    <None Include="coverage_report\Modules\shmax_tests.html" />
+    <None Include="coverage_report\Modules\shmax_tests\atom.inline.cpp.html" />
+    <None Include="coverage_report\Modules\shmax_tests\gtest-internal.h.html" />
+    <None Include="coverage_report\Modules\shmax_tests\gtest-message.h.html" />
+    <None Include="coverage_report\Modules\shmax_tests\gtest-port.h.html" />
+    <None Include="coverage_report\Modules\shmax_tests\gtest-printers.h.html" />
+    <None Include="coverage_report\Modules\shmax_tests\gtest.h.html" />
+    <None Include="coverage_report\Modules\shmax_tests\test_0_basics.cpp.html" />
+    <None Include="coverage_report\Modules\shmax_tests\test_1.cpp.html" />
     <None Include="packages.config" />
     <None Include="run_coverage.bat" />
   </ItemGroup>
@@ -139,12 +160,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets" Condition="Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" />
+    <Import Project="..\packages\gmock.1.11.0\build\native\gmock.targets" Condition="Exists('..\packages\gmock.1.11.0\build\native\gmock.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7\build\native\Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.targets'))" />
+    <Error Condition="!Exists('..\packages\gmock.1.11.0\build\native\gmock.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\gmock.1.11.0\build\native\gmock.targets'))" />
   </Target>
 </Project>
