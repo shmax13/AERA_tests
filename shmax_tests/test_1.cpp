@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "r_code.h"
+#include <gtest/gtest.h>
 
 namespace TestSomething {
 	TEST(TestSomething, TestEq) {
