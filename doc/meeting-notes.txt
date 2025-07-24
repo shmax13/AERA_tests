@@ -1260,11 +1260,15 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 * abagraph-mercury
   * DONE. Process constraints immediately so that they aren't nodes in the graph.
 
-next meeting
+2025-07-24
 * abagraph-mercury
-  * Optimize processing of A1 -> not(A2), A2 -> not(A1). Remove exclusive.
-  * Mark another solution as exclusive if its assumption is in an opponent graph.
-  * Recompute solutions based on enable/disable a rule.
+  * DONE. Check if can remove exclusive.
+
+next meeting
+* Deutsch quote on: If a thought is possible, must describe a physical system which has the thought
+* abagraph-mercury
+  * Introduce assumptions between solutions to narrow to one.
+  * Make assumptions about what state transitions are possible (not what's "real", "true", "happened")
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
   * Standardization of ready command https://github.com/IIIM-IS/AERA/issues/155
