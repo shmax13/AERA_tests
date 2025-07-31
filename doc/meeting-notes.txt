@@ -1264,8 +1264,10 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 * abagraph-mercury
   * DONE. Check if can remove exclusive.
 
+2025-07-31
+* DONE. Find Deutsch quote on: If a thought is possible, must describe a physical system which has the thought
+
 next meeting
-* Deutsch quote on: If a thought is possible, must describe a physical system which has the thought
 * abagraph-mercury
   * Introduce assumptions between solutions to narrow to one.
   * Make assumptions about what state transitions are possible (not what's "real", "true", "happened")
