@@ -1,3 +1,5 @@
+; disable for now, as this requires loading the user.classes.replicode file. which we don't want for basic unit tests
+
 ; AGI-13 Summer School - AERA 6. Example by Eric Nivel.
 ; https://www.youtube.com/watch?v=LDbOHxUtVlU&t=5561
 ; A robotic arm is holding a cube and needs to put a sphere somewhere.

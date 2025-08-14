@@ -4,7 +4,7 @@
   />
 	<Load
 	  usr_operator_path="./usr_operators.dll"
-	  usr_class_path="../AERA/replicode_v1.2/user.classes.replicode"
+	  usr_class_path="../shmax_tests/blackbox/user.classes.replicode"
 	  source_file_name="../shmax_tests/blackbox/{{SOURCE_FILE_NAME}}"
   />
 	<Init

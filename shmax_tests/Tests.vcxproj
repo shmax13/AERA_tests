@@ -106,13 +106,10 @@
     <ClCompile Include="test_blackbox_parameterized.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="blackbox\1.replicode">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="blackbox\2.replicode" />
-    <None Include="blackbox\3.replicode" />
-    <None Include="blackbox\4.replicode" />
-    <None Include="blackbox\5.replicode" />
+    <None Include="blackbox\std.replicode" />
+    <None Include="blackbox\test-basic-class-declaration.replicode" />
+    <None Include="blackbox\basic-hand-grab-sphere.replicode" />
+    <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
     <None Include="coverage_report\Modules\shmax_tests\atom.inline.cpp.html" />
@@ -153,11 +150,9 @@
     <Xml Include="blackbox\settings_template.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="blackbox\1.txt" />
-    <Text Include="blackbox\2.txt" />
-    <Text Include="blackbox\3.txt" />
-    <Text Include="blackbox\4.txt" />
-    <Text Include="blackbox\5.txt" />
+    <Text Include="blackbox\AERA_output.log" />
+    <Text Include="blackbox\test-basic-class-declaration.txt" />
+    <Text Include="blackbox\basic-hand-grab-sphere.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
