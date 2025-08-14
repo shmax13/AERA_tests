@@ -101,8 +101,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test_1.cpp" />
-    <ClCompile Include="test_0_basics.cpp" />
     <ClCompile Include="test_blackbox_parameterized.cpp" />
   </ItemGroup>
   <ItemGroup>
