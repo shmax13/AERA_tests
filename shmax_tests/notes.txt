@@ -1,1 +1,3 @@
 // TODO: Ensure NuGet packages are restored on checkout!
+
+run tests in debug! or log msgs wont show up
