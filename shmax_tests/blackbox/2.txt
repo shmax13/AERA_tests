@@ -1,1 +1,0 @@
-s_is_a_hand:(mk.val s essence hand 1) |[]

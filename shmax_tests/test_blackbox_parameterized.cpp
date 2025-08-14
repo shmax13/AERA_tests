@@ -2,7 +2,6 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <Windows.h>
 
 namespace fs = std::filesystem;
 
@@ -12,9 +11,10 @@ const fs::path prj_path = sln_path / "shmax_tests";
 const fs::path blackbox_path = prj_path / "blackbox";
 const fs::path settings_template_path = blackbox_path / "settings_template.xml";
 const fs::path settings_filled_path = blackbox_path / "settings_filled.xml";
+const fs::path output_log_path = blackbox_path / "AERA_output.log";
 const fs::path decompiled_objects_path = sln_path / "Debug" / "decompiled_objects.txt";
 
-namespace TestBlackBoxParameterized {
+namespace TestBlackBoxParameterized { 
 
     class BlackBoxTest : public ::testing::TestWithParam<fs::path> {};
 
@@ -47,10 +47,19 @@ namespace TestBlackBoxParameterized {
         outFile << xmlContent;
         outFile.close();
 
-        // run AERA
-        std::string command = "\"" + aera_exe_path.string() + "\" " + settings_filled_path.string();
+        // Clear previous contents
+        std::ofstream ofs(output_log_path, std::ofstream::trunc);
+        ofs.close();
+
+        // Run AERA and redirect stdout/stderr to log file
+        std::string command = "cmd /C \"\""
+            + aera_exe_path.string() + "\" \""
+            + settings_filled_path.string() + "\" > \""
+            + output_log_path.string() + "\" 2>&1\"";
+        std::string x = command.c_str();
         int result = std::system(command.c_str());
-        ASSERT_EQ(result, 0) << "Failed to run AERA.exe with settings: " << command;
+
+        ASSERT_EQ(result, 0) << "Failed to run AERA.exe, check " << output_log_path.string();
 
         // Read decompiled output
         std::ifstream decompiledFile(decompiled_objects_path);
@@ -86,7 +95,10 @@ namespace TestBlackBoxParameterized {
             }
 
             for (const auto& entry : fs::directory_iterator(blackbox_path)) {
-                if (entry.is_regular_file() && entry.path().extension() == ".replicode") {
+                if (entry.is_regular_file() &&
+                    entry.path().extension() == ".replicode" &&
+                    entry.path().filename().string().rfind("test", 0) == 0) // starts with "test"
+                {
                     inputs.push_back(entry.path());
                 }
             }
