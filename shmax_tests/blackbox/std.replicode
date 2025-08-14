@@ -62,8 +62,7 @@
 !class (mk.grp_pair (_obj {primary:grp secondary:grp}))
 
 ; performance counters (latencies).
-!class (
-(_obj {rj_ltcy:nb d_rj_ltcy:nb tj_ltcy:nb d_tj_ltcy:nb})); latencies and derivatives in us encoded as floats.
+!class (perf (_obj {rj_ltcy:nb d_rj_ltcy:nb tj_ltcy:nb d_tj_ltcy:nb})); latencies and derivatives in us encoded as floats.
 
 !class (var v:nb)
 
