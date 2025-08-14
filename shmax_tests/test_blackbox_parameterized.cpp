@@ -2,6 +2,7 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <Windows.h>
 
 namespace fs = std::filesystem;
 
@@ -11,7 +12,7 @@ const fs::path prj_path = sln_path / "shmax_tests";
 const fs::path blackbox_path = prj_path / "blackbox";
 const fs::path settings_template_path = blackbox_path / "settings_template.xml";
 const fs::path settings_filled_path = blackbox_path / "settings_filled.xml";
-const fs::path decompiled_objects_path = sln_path / "Release" / "decompiled_objects.txt";
+const fs::path decompiled_objects_path = sln_path / "Debug" / "decompiled_objects.txt";
 
 namespace TestBlackBoxParameterized {
 
@@ -45,6 +46,11 @@ namespace TestBlackBoxParameterized {
         std::ofstream outFile(settings_filled_path);
         outFile << xmlContent;
         outFile.close();
+
+        // run AERA
+        std::string command = "\"" + aera_exe_path.string() + "\" " + settings_filled_path.string();
+        int result = std::system(command.c_str());
+        ASSERT_EQ(result, 0) << "Failed to run AERA.exe with settings: " << command;
 
         // Read decompiled output
         std::ifstream decompiledFile(decompiled_objects_path);
