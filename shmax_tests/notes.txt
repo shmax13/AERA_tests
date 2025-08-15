@@ -1,3 +1,11 @@
 // TODO: Ensure NuGet packages are restored on checkout!
 
 run tests in debug! or log msgs wont show up
+
+
+
+
+Stuff that seems wrong:
+
+-) blank-space..carriage-return is supposed to be line continuation. 
+Can only appear in the commented part of a line, not within code. Cant reproduce this.

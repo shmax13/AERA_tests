@@ -131,8 +131,7 @@ bool Compile(std::istream &source_code, const std::string& filePath, std::string
     std::streampos i = preprocessed_code_in.tellg();
     std::cerr.write(preprocessed_code_in.str().c_str(), i);
     std::cerr << " <- " << error << std::endl;
-    std::cerr << "Exiting with hack...";
-    std::exit(1);
+    return false;
   }
 
   return true;
