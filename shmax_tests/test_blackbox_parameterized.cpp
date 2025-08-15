@@ -14,9 +14,14 @@ const fs::path settings_filled_path = blackbox_path / "settings_filled.xml";
 const fs::path output_log_path = blackbox_path / "AERA_output.log";
 const fs::path decompiled_objects_path = sln_path / "Debug" / "decompiled_objects.txt";
 
-namespace TestBlackBoxParameterized { 
+namespace BlackBoxTests { 
 
-    class BlackBoxTest : public ::testing::TestWithParam<fs::path> {};
+    class BlackBoxTest : public ::testing::TestWithParam<fs::path> {
+    protected:
+        // optional setup/teardown
+        void SetUp() override {}
+        void TearDown() override {}
+    };
 
     TEST_P(BlackBoxTest, RunAndCheckOutput) {
         const fs::path inputFile = GetParam();
@@ -31,9 +36,14 @@ namespace TestBlackBoxParameterized {
         std::string xmlContent((std::istreambuf_iterator<char>(templateFile)),
             std::istreambuf_iterator<char>());
 
-        // Replace source_file_name with current input file
+        // Get path relative to blackbox_path
+        fs::path relPath = fs::relative(inputFile, blackbox_path);
+
+        // Convert to string with forward slashes (if needed for XML)
+        std::string replacement = relPath.generic_string();
+
+        // Replace {{SOURCE_FILE_NAME}} in XML template
         std::string toReplace = "{{SOURCE_FILE_NAME}}";
-        std::string replacement = inputFile.filename().string();
         size_t pos = xmlContent.find(toReplace);
         if (pos != std::string::npos) {
             xmlContent.replace(pos, toReplace.length(), replacement);
@@ -51,6 +61,9 @@ namespace TestBlackBoxParameterized {
         std::ofstream ofs(output_log_path, std::ofstream::trunc);
         ofs.close();
 
+        // Check if this is a negative test
+        bool expectDecompilation = inputFile.filename().string().rfind("testFail", 0) != 0;
+
         // Run AERA and redirect stdout/stderr to log file
         std::string command = "cmd /C \"\""
             + aera_exe_path.string() + "\" \""
@@ -59,14 +72,14 @@ namespace TestBlackBoxParameterized {
         std::string x = command.c_str();
         int result = std::system(command.c_str());
 
-        ASSERT_EQ(result, 0) << "Failed to run AERA.exe, check " << output_log_path.string();
+        // Read output log
+        std::ifstream logFile(output_log_path);
+        ASSERT_TRUE(logFile) << "Cannot open AERA output log: " << output_log_path;
 
-        // Read decompiled output
-        std::ifstream decompiledFile(decompiled_objects_path);
-        ASSERT_TRUE(decompiledFile) << "Cannot open decompiled objects file: " << decompiled_objects_path;
-        std::string decompiledContent((std::istreambuf_iterator<char>(decompiledFile)),
+        std::string logContent((std::istreambuf_iterator<char>(logFile)),
             std::istreambuf_iterator<char>());
 
+        // Load expected lines
         fs::path expectedTxtPath = inputFile;
         expectedTxtPath.replace_extension(".txt");
         ASSERT_TRUE(fs::exists(expectedTxtPath)) << "Expected text file not found: " << expectedTxtPath;
@@ -74,10 +87,41 @@ namespace TestBlackBoxParameterized {
         std::ifstream expectedFile(expectedTxtPath);
         ASSERT_TRUE(expectedFile) << "Cannot open expected text file: " << expectedTxtPath;
 
+        // Collect expected lines
+        std::vector<std::string> expectedLines;
         std::string line;
         while (std::getline(expectedFile, line)) {
-            if (!line.empty() && decompiledContent.find(line) == std::string::npos) {
-                FAIL() << "Expected line not found in decompiled output: " << line;
+            if (!line.empty()) expectedLines.push_back(line);
+        }
+
+        if (expectDecompilation) {
+            // Positive test: DECOMPILATION must appear
+            ASSERT_NE(logContent.find("DECOMPILATION"), std::string::npos)
+                << "AERA call failed, 'DECOMPILATION' not found in output. See " << output_log_path;
+
+            // Check expected lines in decompiled file
+            std::ifstream decompiledFile(decompiled_objects_path);
+            ASSERT_TRUE(decompiledFile) << "Cannot open decompiled objects file: " << decompiled_objects_path;
+
+            std::string decompiledContent((std::istreambuf_iterator<char>(decompiledFile)),
+                std::istreambuf_iterator<char>());
+
+            for (const auto& expectedLine : expectedLines) {
+                if (decompiledContent.find(expectedLine) == std::string::npos) {
+                    FAIL() << "Expected line not found in decompiled output: " << expectedLine;
+                }
+            }
+        }
+        else {
+            // Negative test: DECOMPILATION must NOT appear
+            ASSERT_EQ(logContent.find("DECOMPILATION"), std::string::npos)
+                << "Unexpected decompilation for negative test: " << inputFile;
+
+            // Check expected lines in log instead
+            for (const auto& expectedLine : expectedLines) {
+                if (logContent.find(expectedLine) == std::string::npos) {
+                    FAIL() << "Expected line not found in log output: " << expectedLine;
+                }
             }
         }
     }
@@ -87,14 +131,14 @@ namespace TestBlackBoxParameterized {
         BlackBoxTest,
         ::testing::ValuesIn([]() {
             std::vector<fs::path> inputs;
-            GTEST_LOG_(INFO) << "Scanning folder: " << blackbox_path;
+            GTEST_LOG_(INFO) << "Scanning folder recursively: " << blackbox_path;
 
             if (!fs::exists(blackbox_path)) {
                 GTEST_LOG_(WARNING) << "Directory not found: " << blackbox_path;
                 return inputs;
             }
 
-            for (const auto& entry : fs::directory_iterator(blackbox_path)) {
+            for (const auto& entry : fs::recursive_directory_iterator(blackbox_path)) {
                 if (entry.is_regular_file() &&
                     entry.path().extension() == ".replicode" &&
                     entry.path().filename().string().rfind("test", 0) == 0) // starts with "test"
@@ -104,6 +148,13 @@ namespace TestBlackBoxParameterized {
             }
             GTEST_LOG_(INFO) << "Found " << inputs.size() << " .replicode files.";
             return inputs;
-            }())
+            }()),
+        // Custom test name generator
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.filename().string();
+            // Replace any chars that are invalid in Google Test names
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
     );
 }

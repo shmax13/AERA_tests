@@ -105,8 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="blackbox\std.replicode" />
-    <None Include="blackbox\test-basic-class-declaration.replicode" />
-    <None Include="blackbox\basic-hand-grab-sphere.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.2\test-comments.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
@@ -149,8 +150,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="blackbox\AERA_output.log" />
-    <Text Include="blackbox\test-basic-class-declaration.txt" />
-    <Text Include="blackbox\basic-hand-grab-sphere.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.2\test-comments.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

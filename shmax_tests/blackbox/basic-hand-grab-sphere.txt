@@ -1,3 +1,0 @@
-; disable for now, as this requires loading the user.classes.replicode file. which we don't want for basic unit tests
-
-s_is_a_hand:(mk.val s essence hand 1) |[]
