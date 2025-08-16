@@ -108,6 +108,11 @@
     <None Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\test-comments.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.3\test-sets.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.3\testFail-sets.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.4\test-expressions.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.4\testFail-expressions.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.5\test-code-formatting.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
@@ -153,6 +158,11 @@
     <Text Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\test-comments.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.3\test-sets.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.3\testFail-sets.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.4\test-expressions.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.4\testFail-expressions.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.5\test-code-formatting.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
