@@ -1,7 +1,7 @@
 !load std.replicode
 
 ; ; domain-dependent classes.
-; ; For now, lets not load all the custom stuff....theyre in the user.classes.replicode file in the main repo
+; ; For now, lets not load all of the custom stuff....theyre in the user.classes.replicode file in the main repo
 ; !class (vec2 x:nb y:nb)
 ; !class (vec3 x:nb y:nb z:nb)
 ; !class (vec vals:[])
@@ -46,7 +46,7 @@
 ;
 ; ; attributes.
 ;
-; essence:(ont 1) [[SYNC_ONCE now 0 forever root nil]]; usage: (mk.val x essence "sphere" 1) or (mk.val x essence sphere 1) if sphere is defined as an entity.
+essence:(ont 1) [[SYNC_ONCE now 0 forever root nil]]; usage: (mk.val x essence "sphere" 1) or (mk.val x essence sphere 1) if sphere is defined as an entity.
 ; color:(ont 1) [[SYNC_ONCE now 0 forever root nil]]; usage: (mk.val x color "green" 1) or (mk.val x color green 1) if green is defined as an entity.
 ; role:(ont 1) [[SYNC_ONCE now 0 forever root nil]]; usage (mk.val self role interviewer 1)
 ;
@@ -89,7 +89,7 @@
 ; actor:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 ; interviewer:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 ; interviewee:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
-; hand:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
+hand:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 ; head:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 ; cube:(ont 1) [[SYNC_ONCE now 1 forever root nil]]
 ; sphere:(ont 1) [[SYNC_ONCE now 1 forever root nil]]
