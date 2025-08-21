@@ -126,35 +126,40 @@ namespace BlackBoxTests {
         }
     }
 
+    // Helper: recursively gather all .replicode files in a folder
+    std::vector<fs::path> GetReplicodeFiles(const fs::path& folder) {
+        std::vector<fs::path> files;
+        if (!fs::exists(folder)) return files;
+        for (const auto& entry : fs::recursive_directory_iterator(folder))
+            if (entry.is_regular_file() && entry.path().extension() == ".replicode")
+                files.push_back(entry.path());
+        return files;
+    }
+
+    // EXISTING
     INSTANTIATE_TEST_SUITE_P(
-        ReplicodeInputs,
+        EXISTING,
         BlackBoxTest,
-        ::testing::ValuesIn([]() {
-            std::vector<fs::path> inputs;
-            GTEST_LOG_(INFO) << "Scanning folder recursively: " << blackbox_path;
-
-            if (!fs::exists(blackbox_path)) {
-                GTEST_LOG_(WARNING) << "Directory not found: " << blackbox_path;
-                return inputs;
-            }
-
-            for (const auto& entry : fs::recursive_directory_iterator(blackbox_path)) {
-                if (entry.is_regular_file() &&
-                    entry.path().extension() == ".replicode" &&
-                    entry.path().filename().string().rfind("test", 0) == 0) // starts with "test"
-                {
-                    inputs.push_back(entry.path());
-                }
-            }
-            GTEST_LOG_(INFO) << "Found " << inputs.size() << " .replicode files.";
-            return inputs;
-            }()),
-        // Custom test name generator
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "existing")),
         [](const ::testing::TestParamInfo<fs::path>& info) {
-            std::string name = info.param.filename().string();
-            // Replace any chars that are invalid in Google Test names
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
             for (auto& c : name) if (!isalnum(c)) c = '_';
             return name;
         }
     );
+
+    // TECHNICAL REPORT
+    INSTANTIATE_TEST_SUITE_P(
+        TECHNICAL_REPORT,
+        BlackBoxTest,
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report")),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
 }

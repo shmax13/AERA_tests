@@ -1,3 +1,3 @@
 person:(ont 1) []
-essence:(ont 1) []
-position:(ont 1) []
+fruit:(ont 1) []
+vegetable:(ont 1) []
