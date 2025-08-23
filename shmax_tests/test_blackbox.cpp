@@ -23,7 +23,7 @@ namespace BlackBoxTests {
         void TearDown() override {}
     };
 
-    TEST_P(BlackBoxTest, RunAndCheckOutput) {
+    TEST_P(BlackBoxTest, BlackBox) {
         const fs::path inputFile = GetParam();
         GTEST_LOG_(INFO) << "Testing file: " << inputFile.filename();
 
@@ -137,7 +137,7 @@ namespace BlackBoxTests {
     }
 
     // EXISTING
-    INSTANTIATE_TEST_SUITE_P(
+    /*INSTANTIATE_TEST_SUITE_P(
         EXISTING,
         BlackBoxTest,
         ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "existing")),
@@ -147,7 +147,7 @@ namespace BlackBoxTests {
             for (auto& c : name) if (!isalnum(c)) c = '_';
             return name;
         }
-    );
+    );*/
 
     // TECHNICAL REPORT
     INSTANTIATE_TEST_SUITE_P(

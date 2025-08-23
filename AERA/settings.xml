@@ -4,10 +4,11 @@
   <IODevice
 	  io_device="test_mem"
   />
+<!--TODO: change source-file-name back to a default test once debugging is complete-->
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../AERA/replicode_v1.2/user.classes.replicode"
-    source_file_name="../AERA/replicode_v1.2/hand-grab-sphere.replicode"
+    source_file_name="../shmax_tests/blackbox/technical-report/annex1/2.6/test-misc.replicode"
   />
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
