@@ -119,6 +119,11 @@ namespace BlackBoxTests {
 
             // Check expected lines in log instead
             for (const auto& expectedLine : expectedLines) {
+                // Skip lines starting with ';'
+                if (!expectedLine.empty() && expectedLine.front() == ';') {
+                    continue;
+                }
+
                 if (logContent.find(expectedLine) == std::string::npos) {
                     FAIL() << "Expected line not found in log output: " << expectedLine;
                 }
