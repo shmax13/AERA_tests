@@ -187,6 +187,10 @@
     <None Include="blackbox\technical-report\annex1\2.6\test-misc.replicode" />
     <None Include="blackbox\technical-report\annex1\2.6\testFail-literals.replicode" />
     <None Include="blackbox\technical-report\annex1\2.6\testFail_load.replicode" />
+    <None Include="blackbox\technical-report\annex1\3.1\test-operators.replicode" />
+    <None Include="blackbox\technical-report\annex1\3.5\testFail-entities.replicode" />
+    <None Include="blackbox\technical-report\annex1\3.6\test-groups.replicode" />
+    <None Include="blackbox\technical-report\annex1\3.6\testFail-groups.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
@@ -311,6 +315,10 @@
     <Text Include="blackbox\technical-report\annex1\2.6\test-misc.txt" />
     <Text Include="blackbox\technical-report\annex1\2.6\testFail-literals.txt" />
     <Text Include="blackbox\technical-report\annex1\2.6\testFail_load.txt" />
+    <Text Include="blackbox\technical-report\annex1\3.1\test-operators.txt" />
+    <Text Include="blackbox\technical-report\annex1\3.5\testFail-entities.txt" />
+    <Text Include="blackbox\technical-report\annex1\3.6\test-groups.txt" />
+    <Text Include="blackbox\technical-report\annex1\3.6\testFail-groups.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
