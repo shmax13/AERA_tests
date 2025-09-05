@@ -1,0 +1,4 @@
+; Doc - Annex 2 - 4.1 - Semantics - Operators
+
+; now	; TODO: add a test that waits for a few milliseconds
+oNow:(ont 1) [[SYNC_ONCE (_now) 0 forever primary nil]]
