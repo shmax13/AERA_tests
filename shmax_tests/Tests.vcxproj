@@ -191,6 +191,15 @@
     <None Include="blackbox\technical-report\annex1\3.5\testFail-entities.replicode" />
     <None Include="blackbox\technical-report\annex1\3.6\test-groups.replicode" />
     <None Include="blackbox\technical-report\annex1\3.6\testFail-groups.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.1\test-operators-illegal-arguments.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.1\test-operators.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-anti-programs.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-facts.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-group-views.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-object-classes-structure.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-program-views.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-programs.replicode" />
+    <None Include="blackbox\technical-report\annex1\4.2\test-views.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
@@ -319,6 +328,15 @@
     <Text Include="blackbox\technical-report\annex1\3.5\testFail-entities.txt" />
     <Text Include="blackbox\technical-report\annex1\3.6\test-groups.txt" />
     <Text Include="blackbox\technical-report\annex1\3.6\testFail-groups.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.1\test-operators-illegal-arguments.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.1\test-operators.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-anti-programs.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-facts.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-group-views.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-object-classes-structure.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-program-views.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-programs.txt" />
+    <Text Include="blackbox\technical-report\annex1\4.2\test-views.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
