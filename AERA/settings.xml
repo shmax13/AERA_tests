@@ -8,7 +8,7 @@
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../AERA/replicode_v1.2/user.classes.replicode"
-    source_file_name="../shmax_tests/blackbox/technical-report/annex1/4.2/test-performance-counters.replicode"
+    source_file_name="../shmax_tests/blackbox/technical-report/annex1/4.3/test-mk-low-sln.replicode"
   />
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
