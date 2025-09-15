@@ -1,6 +1,0 @@
-; Doc - Annex 2 - 4.1 - Semantics - Operators
-
-; test the 3 standard groups...
-oRoot:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
-oStdin:(ont 1) [[SYNC_ONCE now 0 forever stdin nil]]
-oStdout:(ont 1) [[SYNC_ONCE now 0 forever stdout nil]]

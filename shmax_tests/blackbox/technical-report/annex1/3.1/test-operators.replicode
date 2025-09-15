@@ -3,8 +3,7 @@
 ; now	; TODO: add a test that waits for a few milliseconds
 oNow:(ont 1) [[SYNC_ONCE now 0 forever primary nil]]
 
-; equ	; TODO: hard to test several of these as they seem to be only used as part of
-; models/patterns, which I haven't done yet. so here's a few simple tests in the meantime...
+; equ
 oEqu1:(ont (equ 1 1)) [[SYNC_ONCE now 0 forever root nil]]
 oEqu2:(ont (= 1 1)) [[SYNC_ONCE now 0 forever root nil]]
 
@@ -66,5 +65,5 @@ oSyn2:(ont (\ 1)) [[SYNC_ONCE now 0 forever root nil]]
 ; rnd
 oRnd:(ont (rnd 100)) [[SYNC_ONCE now 0 forever root nil]]
 
-; ins, red, fvm:
-; TODO.
+; ins, red, fvm, ...
+; see 4.1

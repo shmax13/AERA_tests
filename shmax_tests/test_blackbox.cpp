@@ -173,11 +173,11 @@ namespace BlackBoxTests {
         }
     );*/
 
-    // TECHNICAL REPORT
+    // TECHNICAL REPORT - MAIN
     INSTANTIATE_TEST_SUITE_P(
-        TECHNICAL_REPORT,
+        MAIN,
         BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report")),
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/main")),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -186,4 +186,29 @@ namespace BlackBoxTests {
         }
     );
 
+    // TECHNICAL REPORT - ANNEX 1
+    INSTANTIATE_TEST_SUITE_P(
+        ANNEX_1,
+        BlackBoxTest,
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex1")),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // FREE TESTS
+    INSTANTIATE_TEST_SUITE_P(
+        FREE_TESTS,
+        BlackBoxTest,
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "free-tests")),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
 }
