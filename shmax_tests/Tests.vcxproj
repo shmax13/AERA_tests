@@ -171,7 +171,9 @@
     <None Include="blackbox\existing\replicode_v1.2\test.domain.replicode" />
     <None Include="blackbox\existing\replicode_v1.2\test_cmd.replicode" />
     <None Include="blackbox\existing\replicode_v1.2\user.classes.replicode" />
+    <None Include="blackbox\free-tests\colors.replicode" />
     <None Include="blackbox\std.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.1\test-atoms.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\test-comments.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.replicode" />
@@ -191,7 +193,6 @@
     <None Include="blackbox\technical-report\annex1\3.5\testFail-entities.replicode" />
     <None Include="blackbox\technical-report\annex1\3.6\test-groups.replicode" />
     <None Include="blackbox\technical-report\annex1\3.6\testFail-groups.replicode" />
-    <None Include="blackbox\technical-report\annex1\4.1\test-operators-illegal-arguments.replicode" />
     <None Include="blackbox\technical-report\annex1\4.1\test-operators.replicode" />
     <None Include="blackbox\technical-report\annex1\4.2\test-anti-programs.replicode" />
     <None Include="blackbox\technical-report\annex1\4.2\test-cmd.replicode" />
@@ -236,6 +237,7 @@
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdin.replicode" />
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdout.replicode" />
     <None Include="blackbox\technical-report\annex1\4.6\test-exe.replicode" />
+    <None Include="blackbox\technical-report\main\2_overview\programs.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
     <None Include="coverage_report\Modules\shmax_tests.html" />
@@ -345,6 +347,8 @@
     <Text Include="blackbox\existing\replicode_v1.2\test.domain.txt" />
     <Text Include="blackbox\existing\replicode_v1.2\test_cmd.txt" />
     <Text Include="blackbox\existing\replicode_v1.2\user.classes.txt" />
+    <Text Include="blackbox\free-tests\colors.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.1\test-atoms.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\test-comments.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.txt" />
@@ -364,7 +368,6 @@
     <Text Include="blackbox\technical-report\annex1\3.5\testFail-entities.txt" />
     <Text Include="blackbox\technical-report\annex1\3.6\test-groups.txt" />
     <Text Include="blackbox\technical-report\annex1\3.6\testFail-groups.txt" />
-    <Text Include="blackbox\technical-report\annex1\4.1\test-operators-illegal-arguments.txt" />
     <Text Include="blackbox\technical-report\annex1\4.1\test-operators.txt" />
     <Text Include="blackbox\technical-report\annex1\4.2\test-anti-programs.txt" />
     <Text Include="blackbox\technical-report\annex1\4.2\test-cmd.txt" />
@@ -409,6 +412,7 @@
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdin.txt" />
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdout.txt" />
     <Text Include="blackbox\technical-report\annex1\4.6\test-exe.txt" />
+    <Text Include="blackbox\technical-report\main\2_overview\programs.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,0 +1,37 @@
+; Doc - Annex 2 - 2.1 - Syntax - Atoms
+
+; test if different atoms exist
+pgm0:(pgm 
+[]
+   (ptn pos: |[])
+[]
+   (ptn x: |[])
+   (ptn y: |[])
+[]
+   (= x nil)   ; undefinded expression
+   (= x [])    ; set
+   (= x |[])   ; empty set
+   (= x [nil]) ; set containing 1 element (nil)
+   (= x |nb)   ; undefined number
+   (= x |ts)   ; undefined timestamp
+   (= x |did)  ; undefined device identifier
+   (= x |fid)  ; undefined device function identifier
+   (= x |nid)  ; undefined node identifier
+   (= x |bl)   ; undefined boolean
+   (= x |st)   ; undefined string
+   (= x forever)  ; time constant (infinite time)
+   (= x true)  ; boolean constant
+   (= x false) ; boolean constant
+|[] 
+1) |[]
+
+; instantiate so compiling works
+ipgm0:(ipgm pgm0 |[] RUN_ONCE 50ms VOLATILE SILENT 1) [[SYNC_ONCE now 0 1 stdin nil 1]]
+
+
+
+; a-name:an-expression
+!class (vec2 x:nb y:nb)
+
+
+; TODO: remaining atoms
