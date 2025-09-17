@@ -238,6 +238,16 @@
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdin.replicode" />
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdout.replicode" />
     <None Include="blackbox\technical-report\annex1\4.6\test-exe.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-del-class.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-eje.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-inj.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-ldc.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-mod.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-new-class.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-prb.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-set.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-stop.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.2\test-swp.replicode" />
     <None Include="blackbox\technical-report\main\2_overview\programs.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
@@ -414,6 +424,16 @@
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdin.txt" />
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdout.txt" />
     <Text Include="blackbox\technical-report\annex1\4.6\test-exe.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-del-class.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-eje.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-inj.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-ldc.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-mod.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-new-class.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-prb.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-set.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-stop.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.2\test-swp.txt" />
     <Text Include="blackbox\technical-report\main\2_overview\programs.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>

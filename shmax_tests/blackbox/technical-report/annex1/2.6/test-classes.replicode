@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.6 - Pre-Processor Directives
+; Doc - Annex 1 - 2.6 - Pre-Processor Directives
 
 ; this section refers a lot to annex 2; 4.2.1; so more extensive class tests should go there.
 ; but a few basic tests here that check if declaration works, from my current understanding:

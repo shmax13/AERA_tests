@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Patterns
+; Doc - Annex 1 - 4.2.2 - Object Classes - Patterns
 
 ; !class ( ptn skel:xpr guards:[::xpr])
 ; !class (|ptn skel:xpr guards:[::xpr])

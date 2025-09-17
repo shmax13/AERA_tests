@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.1 - Syntax - Atoms
+; Doc - Annex 1 - 2.1 - Syntax - Atoms
 
 ; test if different atoms exist
 pgm0:(pgm 

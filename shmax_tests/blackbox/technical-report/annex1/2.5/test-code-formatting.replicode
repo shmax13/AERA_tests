@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.5 - Code Formatting
+; Doc - Annex 1 - 2.5 - Code Formatting
 
 ; Replicode supports a CR + indent instead of an opening parenthesis, and a CR + back indent instead of closing parenthesis.
 ; Let's test this...

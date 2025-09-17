@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.1 - Syntax - Misc
+; Doc - Annex 1 - 2.1 - Syntax - Misc
 
 ; Replicode is case-sensitive.
 a:(ent 1) [[SYNC_ONCE now 0 forever root nil]]

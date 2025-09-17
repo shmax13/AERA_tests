@@ -1,0 +1,5 @@
+; Doc - Annex 2 - 3.2 - rMem's - Functions
+
+; P R O B E
+; !dfn (_prb :nb :st :st :[])
+; !def (prb args) (icmd _prb args)

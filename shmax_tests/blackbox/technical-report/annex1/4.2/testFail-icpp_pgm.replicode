@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Instantiated C++ Programs
+; Doc - Annex 1 - 4.2.2 - Object Classes - Instantiated C++ Programs
 
 ; !class (icpp_pgm (_obj {code:st args:[] run:bl tsc:us res:bl nfr:bl}))
 
