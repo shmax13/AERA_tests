@@ -134,7 +134,8 @@ namespace BlackBoxTests {
     // TODO: some of the blackbox tests can fail seemingly at random. 
     // this makes sure they aren't executed.
     static const std::vector<std::string> blacklist = {
-        "mk", "performance-counters"
+        "mk",  // marker classes
+        "performance-counters" 
     };
 
     // Helper: recursively gather all .replicode files in a folder

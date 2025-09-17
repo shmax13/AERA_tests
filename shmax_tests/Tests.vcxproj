@@ -174,6 +174,7 @@
     <None Include="blackbox\free-tests\colors.replicode" />
     <None Include="blackbox\std.replicode" />
     <None Include="blackbox\technical-report\annex1\2.1\test-atoms.replicode" />
+    <None Include="blackbox\technical-report\annex1\2.1\test-misc.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\test-comments.replicode" />
     <None Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.replicode" />
@@ -349,6 +350,7 @@
     <Text Include="blackbox\existing\replicode_v1.2\user.classes.txt" />
     <Text Include="blackbox\free-tests\colors.txt" />
     <Text Include="blackbox\technical-report\annex1\2.1\test-atoms.txt" />
+    <Text Include="blackbox\technical-report\annex1\2.1\test-misc.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\test-blank-space-CR.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\test-comments.txt" />
     <Text Include="blackbox\technical-report\annex1\2.2\testFail-tab-characters-illegal.txt" />
