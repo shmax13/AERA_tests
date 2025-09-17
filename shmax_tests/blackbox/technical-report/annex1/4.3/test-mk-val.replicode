@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.3 - Semantics - Marker Classes
+; Doc - Annex 1 - 4.3 - Semantics - Marker Classes
 
 ; !class (mk.val (_obj {obj: attr:ont val:}))
 

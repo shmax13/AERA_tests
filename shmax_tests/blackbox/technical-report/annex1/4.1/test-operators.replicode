@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.1 - Semantics - Operators
+; Doc - Annex 1 - 4.1 - Semantics - Operators
 
 ; this only tests syntax, not semantics
 pgm0:(pgm 

@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.6 - Pre-Processor Directives
+; Doc - Annex 1 - 2.6 - Pre-Processor Directives
 
 ; load something that works first
 !load test-misc.replicode

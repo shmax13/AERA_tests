@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Commands
+; Doc - Annex 1 - 4.2.2 - Object Classes - Commands
 
 ; !class (cmd (_obj {function:fid args:[]}))
 

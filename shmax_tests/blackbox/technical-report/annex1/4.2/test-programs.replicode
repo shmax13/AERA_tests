@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Programs
+; Doc - Annex 1 - 4.2.2 - Object Classes - Programs
 
 ; !class (pgm (_obj {tpl:[::ptn] inputs:[] guards:[::xpr] prods:}))
 

@@ -1,0 +1,5 @@
+; Doc - Annex 2 - 3.2 - rMem's - Functions
+
+; N E W   C L A S S
+; !dfn (_new_class :)
+; !def (new_class args) (icmd _new_class args)

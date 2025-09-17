@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.6 - Semantics - Devices
+; Doc - Annex 1 - 4.6 - Semantics - Devices
 
 ; ensure exe is defined
 ; exe is just a !def, not an actual device object!

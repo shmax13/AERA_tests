@@ -1,0 +1,5 @@
+; Doc - Annex 2 - 3.2 - rMem's - Functions
+
+; S W P
+; !dfn (_swp :nb)
+; !def (swp args) (icmd _swp args)

@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.6 - Pre-Processor Directives
+; Doc - Annex 1 - 2.6 - Pre-Processor Directives
 
 ; Test different literals that should be allowed (here, use them as counter names)
 ; no output checks, successful parsing is enough

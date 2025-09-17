@@ -1,0 +1,5 @@
+; Doc - Annex 2 - 3.2 - rMem's - Functions
+
+; M O D
+; !dfn (_mod : :nb)
+; !def (mod args) (icmd _mod args)

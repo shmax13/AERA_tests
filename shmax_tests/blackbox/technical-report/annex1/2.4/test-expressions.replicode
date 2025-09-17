@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 2.4 - Expressions
+; Doc - Annex 1 - 2.4 - Expressions
 
 ; inside the round brackets (), there is an expression, including an opcode and a list of elements
 g1:(std_grp 2 0 0.4 0 []) []

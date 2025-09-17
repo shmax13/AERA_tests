@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Groups
+; Doc - Annex 1 - 4.2.2 - Object Classes - Groups
 
 ; !class (_grp (_obj {upr:nb sln_thr:nb act_thr:nb vis_thr:nb c_sln:nb c_sln_thr:nb
 ; c_act:nb c_act_thr:nb dcy_per:nb dcy_tgt:nb dcy_prd:nb dcy_auto:nb sln_chg_thr:nb

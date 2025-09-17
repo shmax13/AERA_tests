@@ -1,4 +1,4 @@
-; Doc - Annex 2 - 4.2.2 - Object Classes - Instantiated Programs
+; Doc - Annex 1 - 4.2.2 - Object Classes - Instantiated Programs
 
 ; !class (ipgm (_obj {code: args:[] run:bl tsc:us res:bl nfr:bl}))
 
