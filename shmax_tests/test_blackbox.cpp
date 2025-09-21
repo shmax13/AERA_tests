@@ -200,6 +200,19 @@ namespace BlackBoxTests {
         }
     );
 
+    // TECHNICAL REPORT - ANNEX 2
+    INSTANTIATE_TEST_SUITE_P(
+        ANNEX_2,
+        BlackBoxTest,
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex2")),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
     // FREE TESTS
     INSTANTIATE_TEST_SUITE_P(
         FREE_TESTS,
