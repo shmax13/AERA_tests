@@ -1,0 +1,88 @@
+54(65) g1:(grp 1 0 0 0 1 0 1 0 0 1 0 0 1 1 1 1 0.4 1 0 0.6 1 0 1 0 1 1 0 1 0 0 [nil] 1) []
+   [0 0s:0ms:0us 0 forever stdin nil true 0]
+
+55(66) pgm0:(pgm |[] |[] |[] []
+   (icmd _mod []
+      this.vw.act
+      -0.1
+   )
+   (icmd _mod []
+      this.vw.sln
+      0.1
+   )
+1) |[]
+
+56(67) pgm1:(pgm |[] |[] |[] []
+   (icmd _mod []
+      this.vw.act
+      -0.7
+   )
+   (icmd _mod []
+      this.vw.sln
+      0.7
+   )
+1) |[]
+
+57(68) pgm2:(pgm |[] |[] |[] []
+   (icmd _mod []
+      this.vw.act
+      -1.5
+   )
+   (icmd _mod []
+      this.vw.sln
+      1.5
+   )
+1) |[]
+
+58(69) pgm3:(pgm |[] |[] |[] []
+   (icmd _mod []
+      this.vw.act
+      1.5
+   )
+   (icmd _mod []
+      this.vw.sln
+      -1.5
+   )
+1) |[]
+
+59(70) pgm5:(pgm |[] |[] |[] []
+   (icmd _mod []
+      this.vw.act
+      -0.1
+   )
+   (icmd _mod []
+      this.vw.sln
+      0.1
+   )
+   (icmd _mod []
+      this.vw.act
+      -0.1
+   )
+   (icmd _mod []
+      this.vw.sln
+      0.1
+   )
+   (icmd _mod []
+      this.vw.act
+      -0.4
+   )
+   (icmd _mod []
+      this.vw.sln
+      0.4
+   )
+1) |[]
+
+60(71) ipgm0:(ipgm pgm0 |[] false 100ms true true 1) []
+   [1 0s:0ms:0us 0.1 forever g1 nil 0.9]
+
+61(72) ipgm1:(ipgm pgm1 |[] false 200ms true true 1) []
+   [1 0s:0ms:0us 0.7 forever g1 nil 0.3]
+
+62(73) ipgm2:(ipgm pgm2 |[] false 300ms true true 1) []
+   [1 0s:0ms:0us 1 forever g1 nil 0]
+
+63(74) ipgm3:(ipgm pgm3 |[] false 400ms true true 1) []
+   [1 0s:0ms:0us 0 forever g1 nil 1]
+
+64(75) ipgm5:(ipgm pgm5 |[] false 700ms true true 1) []
+   [1 0s:0ms:0us 0.2 forever g1 nil 0.8]
