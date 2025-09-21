@@ -223,7 +223,6 @@
     <None Include="blackbox\technical-report\annex1\4.2\testFail-icmd.replicode" />
     <None Include="blackbox\technical-report\annex1\4.2\testFail-icpp_pgm.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-act-chg.replicode" />
-    <None Include="blackbox\technical-report\annex1\4.3\test-mk-act.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-grp-pair.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-high-act.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-high-sln.replicode" />
@@ -233,7 +232,6 @@
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-new.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-rdx.replicode" />
     <None Include="blackbox\technical-report\annex1\4.3\test-mk-sln-chg.replicode" />
-    <None Include="blackbox\technical-report\annex1\4.3\test-mk-val.replicode" />
     <None Include="blackbox\technical-report\annex1\4.4\testFail-self.replicode" />
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdin.replicode" />
     <None Include="blackbox\technical-report\annex1\4.5\testFail-stdout.replicode" />
@@ -248,6 +246,15 @@
     <None Include="blackbox\technical-report\annex2\3.2\test-set.replicode" />
     <None Include="blackbox\technical-report\annex2\3.2\test-stop.replicode" />
     <None Include="blackbox\technical-report\annex2\3.2\test-swp.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-act-chg.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-high-act.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-high-sln.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-low-act.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-low-res.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-low-sln.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-new.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-rdx.replicode" />
+    <None Include="blackbox\technical-report\annex2\3.3\test-mk-sln-chg.replicode" />
     <None Include="blackbox\technical-report\main\2_overview\programs.replicode" />
     <None Include="blackbox\user.classes.replicode" />
     <None Include="coverage_report\index.html" />
@@ -409,7 +416,6 @@
     <Text Include="blackbox\technical-report\annex1\4.2\testFail-icmd.txt" />
     <Text Include="blackbox\technical-report\annex1\4.2\testFail-icpp_pgm.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-act-chg.txt" />
-    <Text Include="blackbox\technical-report\annex1\4.3\test-mk-act.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-grp-pair.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-high-act.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-high-sln.txt" />
@@ -419,7 +425,6 @@
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-new.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-rdx.txt" />
     <Text Include="blackbox\technical-report\annex1\4.3\test-mk-sln-chg.txt" />
-    <Text Include="blackbox\technical-report\annex1\4.3\test-mk-val.txt" />
     <Text Include="blackbox\technical-report\annex1\4.4\testFail-self.txt" />
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdin.txt" />
     <Text Include="blackbox\technical-report\annex1\4.5\testFail-stdout.txt" />
@@ -434,6 +439,15 @@
     <Text Include="blackbox\technical-report\annex2\3.2\test-set.txt" />
     <Text Include="blackbox\technical-report\annex2\3.2\test-stop.txt" />
     <Text Include="blackbox\technical-report\annex2\3.2\test-swp.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-act-chg.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-high-act.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-high-sln.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-low-act.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-low-res.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-low-sln.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-new.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-rdx.txt" />
+    <Text Include="blackbox\technical-report\annex2\3.3\test-mk-sln-chg.txt" />
     <Text Include="blackbox\technical-report\main\2_overview\programs.txt" />
     <Text Include="notes.txt" />
   </ItemGroup>

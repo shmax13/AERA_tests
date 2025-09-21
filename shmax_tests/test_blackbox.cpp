@@ -139,27 +139,32 @@ namespace BlackBoxTests {
     };
 
     // Helper: recursively gather all .replicode files in a folder
-    std::vector<fs::path> GetReplicodeFiles(const fs::path& folder) {
+    std::vector<fs::path> GetReplicodeFiles(const fs::path& folder, bool useBlacklist) {
         std::vector<fs::path> files;
         if (!fs::exists(folder)) return files;
-        for (const auto& entry : fs::recursive_directory_iterator(folder))
+
+        for (const auto& entry : fs::recursive_directory_iterator(folder)) {
             if (entry.is_regular_file() && entry.path().extension() == ".replicode") {
                 std::string name = entry.path().parent_path().filename().string() + "_" +
                     entry.path().stem().string();
 
                 bool blacklisted = false;
-                for (const auto& bad : blacklist) {
-                    if (name.find(bad) != std::string::npos) {
-                        blacklisted = true;
-                        break;
+                if (useBlacklist) {
+                    for (const auto& bad : blacklist) {
+                        if (name.find(bad) != std::string::npos) {
+                            blacklisted = true;
+                            break;
+                        }
                     }
                 }
 
                 if (!blacklisted)
                     files.push_back(entry.path());
             }
+        }
         return files;
     }
+
 
     // EXISTING
     /*INSTANTIATE_TEST_SUITE_P(
@@ -178,7 +183,7 @@ namespace BlackBoxTests {
     INSTANTIATE_TEST_SUITE_P(
         MAIN,
         BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/main")),
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/main", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -191,7 +196,7 @@ namespace BlackBoxTests {
     INSTANTIATE_TEST_SUITE_P(
         ANNEX_1,
         BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex1")),
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex1", true)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -204,7 +209,7 @@ namespace BlackBoxTests {
     INSTANTIATE_TEST_SUITE_P(
         ANNEX_2,
         BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex2")),
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex2", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -217,7 +222,7 @@ namespace BlackBoxTests {
     INSTANTIATE_TEST_SUITE_P(
         FREE_TESTS,
         BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "free-tests")),
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "free-tests", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
