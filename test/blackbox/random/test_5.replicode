@@ -1,7 +1,0 @@
-<entity name="entity_1" model="model_1" group="group_3">
-<entity name="entity_2" model="model_2" group="group_1">
-<entity name="entity_3" model="model_1" group="group_3">
-<entity name="entity_4" model="model_3" group="group_1">
-<entity name="entity_5" model="model_3" group="group_1">
-<program name="program_1">
-<program name="program_2">

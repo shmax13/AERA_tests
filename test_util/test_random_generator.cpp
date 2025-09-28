@@ -4,92 +4,135 @@
 #include <string>
 #include <random>
 #include <filesystem>
+#include <chrono>
+#include <ctime>
+#include <iomanip>
 
 namespace fs = std::filesystem;
 
-// --- Structures ---
-struct Group { std::string name; };
-struct Entity { std::string name; };
-struct Model { std::string name; };
-struct Program { std::string name; };
-
-// --- Generate sequential names ---
-std::vector<Group> generate_groups(int count) {
-    std::vector<Group> v;
-    for (int i = 1; i <= count; ++i)
-        v.push_back(Group{ "group_" + std::to_string(i) });
-    return v;
+// name generation
+std::vector<std::string> generate_names(const std::string& prefix, int count) {
+    std::vector<std::string> names;
+    names.reserve(count);
+    for (int i = 0; i <= count; ++i) {
+        names.push_back(prefix + "_" + std::to_string(i));
+    }
+    return names;
 }
 
-std::vector<Entity> generate_entities(int count) {
-    std::vector<Entity> v;
-    for (int i = 1; i <= count; ++i)
-        v.push_back(Entity{ "entity_" + std::to_string(i) });
-    return v;
+// string manipulation
+void replace_all(std::string& str, const std::string& key, const std::string& value) {
+    size_t pos;
+    while ((pos = str.find(key)) != std::string::npos) {
+        str.replace(pos, key.size(), value);
+    }
 }
 
-std::vector<Model> generate_models(int count) {
-    std::vector<Model> v;
-    for (int i = 1; i <= count; ++i)
-        v.push_back(Model{ "model_" + std::to_string(i) });
-    return v;
+// random float generator 
+float rand_float(float min, float max) {
+    static thread_local std::mt19937 rng(std::random_device{}());
+    std::uniform_real_distribution<float> dist(min, max);
+    return dist(rng);
 }
 
-std::vector<Program> generate_programs(int count) {
-    std::vector<Program> v;
-    for (int i = 1; i <= count; ++i)
-        v.push_back(Program{ "program_" + std::to_string(i) });
-    return v;
+// random integer generator 
+int rand_int(int min, int max) {
+    static thread_local std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(min, max);
+    return dist(rng);
 }
 
-// --- Template filler ---
-std::string fill_template(const std::string& tpl,
-    const std::string& name,
-    const std::string& model,
-    const std::string& group) {
-    std::string result = tpl;
-    auto replace = [&](const std::string& key, const std::string& value) {
-        size_t pos;
-        while ((pos = result.find(key)) != std::string::npos)
-            result.replace(pos, key.size(), value);
-        };
-    replace("{name}", name);
-    replace("{model}", model);
-    replace("{group}", group);
-    return result;
+std::string create_grp(const std::string& groupName) {
+    std::string tpl = "grp_name:(std_grp upr sln_thr act_thr vis_thr ntf_grps) grp_view";
+
+    replace_all(tpl, "grp_name", groupName);
+    replace_all(tpl, "upr", "1");
+    replace_all(tpl, "sln_thr", std::to_string(rand_float(0, 1)));
+    replace_all(tpl, "act_thr", std::to_string(rand_float(0, 1)));
+    replace_all(tpl, "vis_thr", std::to_string(rand_float(0, 1)));
+    replace_all(tpl, "ntf_grps", "[nil]");
+    replace_all(tpl, "grp_view", "[[SYNC_ONCE now 0 forever root nil COV_OFF 0]] ");
+
+    return tpl;
 }
+
+std::string create_pgm(const std::string& pgmName) {
+    std::string tpl = R"(pgm_name:(pgm
+tpl_args
+inputs
+guards
+prods
+psln_thr) pgm_view)";
+
+    replace_all(tpl, "pgm_name", pgmName);
+    replace_all(tpl, "tpl_args", "|[]");
+    replace_all(tpl, "inputs", "|[]");
+    replace_all(tpl, "guards", "|[]");
+    replace_all(tpl, "prods", "|[]");
+    replace_all(tpl, "psln_thr", "1");
+    replace_all(tpl, "pgm_view", "|[]");
+
+    return tpl;
+}
+
+std::string create_ipgm(const std::string& pgmName) {
+    std::string tpl = "ipgm_name:(ipgm pgm_name values run_type time_scope volatile_flag notify_flag psln_thr) ipgm_view";
+
+    replace_all(tpl, "ipgm_name", "i" + pgmName);
+    replace_all(tpl, "pgm_name", pgmName);
+    replace_all(tpl, "values", "|[]");
+    replace_all(tpl, "run_type", "RUN_ALWAYS");
+    replace_all(tpl, "time_scope", "100ms");
+    replace_all(tpl, "volatile_flag", "VOLATILE");
+    replace_all(tpl, "notify_flag", "SILENT");
+    replace_all(tpl, "psln_thr", "1");
+    replace_all(tpl, "ipgm_view", "[[SYNC_ONCE now 0 1 stdin nil 1]]");
+
+    return tpl;
+}
+
 
 int main() {
     // --- Ensure folder exists ---
-    fs::path dir("../test/blackbox/random");
+    fs::path dir("../test/blackbox/random-tests");
     fs::create_directories(dir);
 
     // --- Generate data ---
-    auto groups = generate_groups(3);
-    auto models = generate_models(3);
-    auto entities = generate_entities(5);
-    auto programs = generate_programs(2);
-
-    std::string tpl = "<entity name=\"{name}\" model=\"{model}\" group=\"{group}\">";
-    std::mt19937 rng(std::random_device{}());
-    std::uniform_int_distribution<> gdist(0, groups.size() - 1);
-    std::uniform_int_distribution<> mdist(0, models.size() - 1);
+    auto groups = generate_names("grp", 2);
+    auto programs = generate_names("pgm", 2);
 
     // --- Write 10 files ---
     for (int file_idx = 1; file_idx <= 10; ++file_idx) {
-        std::ofstream file(dir / ("test_" + std::to_string(file_idx) + ".replicode"));
+        auto baseName = "test_" + std::to_string(file_idx);
 
-        for (const auto& e : entities) {
-            const auto& g = groups[gdist(rng)];
-            const auto& m = models[mdist(rng)];
-            file << fill_template(tpl, e.name, m.name, g.name) << "\n";
+        // .replicode file
+        std::ofstream repFile(dir / (baseName + ".replicode"));
+        
+        // header 
+        auto now = std::chrono::system_clock::now();
+        std::time_t t = std::chrono::system_clock::to_time_t(now);
+        std::tm localTime;
+        localtime_s(&localTime, &t);
+        repFile << "; Randomly generated in project test_util at "
+            << std::put_time(&localTime, "%Y-%m-%d %H:%M:%S")
+            << "\n\n";
+
+        // main content
+        for (const auto& g : groups) {
+            repFile << create_grp(g) << "\n";
         }
-
+        repFile << "\n";
         for (const auto& p : programs) {
-            file << "<program name=\"" << p.name << "\">\n";
+            repFile << create_pgm(p) << "\n";
+            repFile << create_ipgm(p) << "\n\n";
         }
+        repFile.close();
 
-        file.close();
-        std::cout << "Wrote " << dir / ("test_" + std::to_string(file_idx) + ".replicode") << "\n";
+        // empty .txt file
+        std::ofstream txtFile(dir / (baseName + ".txt"));
+        txtFile.close();
+
+        std::cout << "Wrote " << dir / (baseName + ".replicode")
+            << " and " << dir / (baseName + ".txt") << "\n";
     }
 }
