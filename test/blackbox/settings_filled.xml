@@ -4,8 +4,8 @@
   />
 	<Load
 	  usr_operator_path="./usr_operators.dll"
-	  usr_class_path="../shmax_tests/blackbox/user.classes.replicode"
-	  source_file_name="../shmax_tests/blackbox/{{SOURCE_FILE_NAME}}"
+	  usr_class_path="../test/blackbox/user.classes.replicode"
+	  source_file_name="../test/blackbox/free-tests/colors.replicode"
   />
 	<Init
 	  base_period="50000"

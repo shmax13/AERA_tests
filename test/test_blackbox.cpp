@@ -7,7 +7,7 @@ namespace fs = std::filesystem;
 
 const fs::path sln_path = fs::current_path().parent_path();
 const fs::path aera_exe_path = sln_path / "Debug" / "AERA.exe";
-const fs::path prj_path = sln_path / "shmax_tests";
+const fs::path prj_path = sln_path / "test";
 const fs::path blackbox_path = prj_path / "blackbox";
 const fs::path settings_template_path = blackbox_path / "settings_template.xml";
 const fs::path settings_filled_path = blackbox_path / "settings_filled.xml";
@@ -210,6 +210,19 @@ namespace BlackBoxTests {
         ANNEX_2,
         BlackBoxTest,
         ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex2", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // RANDOM TESTS
+    INSTANTIATE_TEST_SUITE_P(
+        RANDOM_TESTS,
+        BlackBoxTest,
+        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "random-tests", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
