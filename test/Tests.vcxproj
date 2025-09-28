@@ -25,7 +25,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <ProjectName>shmax_tests</ProjectName>
+    <ProjectName>test</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -172,6 +172,16 @@
     <None Include="blackbox\existing\replicode_v1.2\test_cmd.replicode" />
     <None Include="blackbox\existing\replicode_v1.2\user.classes.replicode" />
     <None Include="blackbox\free-tests\colors.replicode" />
+    <None Include="blackbox\random\test_1.replicode" />
+    <None Include="blackbox\random\test_10.replicode" />
+    <None Include="blackbox\random\test_2.replicode" />
+    <None Include="blackbox\random\test_3.replicode" />
+    <None Include="blackbox\random\test_4.replicode" />
+    <None Include="blackbox\random\test_5.replicode" />
+    <None Include="blackbox\random\test_6.replicode" />
+    <None Include="blackbox\random\test_7.replicode" />
+    <None Include="blackbox\random\test_8.replicode" />
+    <None Include="blackbox\random\test_9.replicode" />
     <None Include="blackbox\std.replicode" />
     <None Include="blackbox\technical-report\annex1\2.1\test-atoms.replicode" />
     <None Include="blackbox\technical-report\annex1\2.1\test-misc.replicode" />
