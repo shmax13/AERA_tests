@@ -6,7 +6,7 @@
 namespace fs = std::filesystem;
 
 const fs::path sln_path = fs::current_path().parent_path();
-const fs::path aera_exe_path = sln_path / "Release" / "AERA.exe";
+const fs::path aera_exe_path = sln_path / "Debug" / "AERA.exe";
 const fs::path prj_path = sln_path / "shmax_tests";
 const fs::path blackbox_path = prj_path / "blackbox";
 const fs::path settings_template_path = blackbox_path / "settings_template.xml";
