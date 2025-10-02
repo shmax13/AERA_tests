@@ -1267,6 +1267,9 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 2025-07-31
 * DONE. Find Deutsch quote on: If a thought is possible, must describe a physical system which has the thought
 
+2025-10-02
+* DONE. Merge pull request to fix the "stack overflow" bug found by Max. https://github.com/IIIM-IS/AERA/pull/296
+
 next meeting
 * abagraph-mercury
   * Introduce assumptions between solutions to narrow to one.
