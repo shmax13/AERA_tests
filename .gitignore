@@ -45,4 +45,5 @@
 
 # temp file for blackbox tests
 # TODO: refactor
-/shmax_tests/blackbox/settings_filled.xml
+/test/blackbox/settings_filled.xml
+/test/blackbox/random-tests/
