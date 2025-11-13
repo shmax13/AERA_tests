@@ -1270,6 +1270,9 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 2025-10-02
 * DONE. Merge pull request to fix the "stack overflow" bug found by Max. https://github.com/IIIM-IS/AERA/pull/296
 
+2025-11-13
+* DONE. Review/merge PR to update SDK to 10.0.19041.0 https://github.com/IIIM-IS/AERA/pull/297
+
 next meeting
 * abagraph-mercury
   * Introduce assumptions between solutions to narrow to one.
