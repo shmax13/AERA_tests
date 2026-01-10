@@ -215,9 +215,9 @@ public:
    * \param include_invalidated (optional) If true add all the objects, if false only
    * add object o if not o->is_invalidated(). If omitted, don't include invalidated.
    */
-  void add_objects(r_code::list<P<r_code::Code> > &objects, bool include_invalidated = false);
+  void add_objects(const r_code::list<P<r_code::Code> > &objects, bool include_invalidated = false);
 
-  void add_objects(r_code::list<P<r_code::Code> > &objects, std::vector<r_code::SysObject *> &imported_objects); // called by any r_exec code for decompiling on the fly.
+  void add_objects(const r_code::list<P<r_code::Code> > &objects, std::vector<r_code::SysObject *> &imported_objects); // called by any r_exec code for decompiling on the fly.
 
   template<class I> I *serialize() {
 
