@@ -860,6 +860,7 @@ public:
   // External device I/O ////////////////////////////////////////////////////////////////
   virtual r_comp::Image *get_objects(bool include_invalidated = false) = 0; // create an image; fill with all objects; call only when stopped.
   r_comp::Image *get_models(); // create an image; fill with all models; call only when stopped.
+  const r_code::list<P<r_code::Code>>* get_objects_() { return &objects_; }
 
   /**
    * Check if an object matches the value of a fact in the seed whose view is SYNC_AXIOM.
