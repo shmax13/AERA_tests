@@ -123,6 +123,22 @@ public:
    */
   void on_diagnostic_time_tick() override { on_time_tick(); }
 
+  std::string getIdentifier() {
+    return identifier_;
+  }
+
+  float getPositionY() {
+    return position_y_;
+  }
+
+  float getVelocityY() {
+    return velocity_y_;
+  }
+
+  float getForceY() {
+    return force_y_;
+  }
+
 protected:
   class _Thread : public Thread {
   };
@@ -168,6 +184,7 @@ protected:
   uint16 move_y_plus_opcode_;
   uint16 move_y_minus_opcode_;
   Timestamp lastCommandTime_;
+  std::string identifier_;
 
   r_code::Code* yEnt_[10];
   r_code::Code* discretePositionObj_;

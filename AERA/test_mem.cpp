@@ -169,9 +169,9 @@ template<class O, class S> Code* TestMem<O, S>::eject(Code *command) {
     uint16 args_set_index = command->code(CMD_ARGS).asIndex();
     if (command->code_size() >= 2 && command->code(args_set_index + 1).getDescriptor() == Atom::I_PTR &&
         command->code(command->code(args_set_index + 1).asIndex()).getDescriptor() == Atom::STRING) {
-      string identifier = Utils::GetString(&command->code(command->code(args_set_index + 1).asIndex()));
+      identifier_ = Utils::GetString(&command->code(command->code(args_set_index + 1).asIndex()));
 
-      if (identifier == "ball") {
+      if (identifier_ == "ball") {
         if (!(command->code_size() >= 3 && command->code(args_set_index + 2).getDescriptor() == Atom::R_PTR &&
               command->references_size() > command->code(args_set_index + 2).asIndex())) {
           cout << "WARNING: Cannot get the object for ready \"ball\"" << endl;
@@ -199,7 +199,7 @@ template<class O, class S> Code* TestMem<O, S>::eject(Code *command) {
         }
         return command;
       }
-      if (identifier == "cart-pole") {
+      if (identifier_ == "cart-pole") {
         if (!(command->code_size() >= 3 && command->code(args_set_index + 2).getDescriptor() == Atom::R_PTR &&
           command->references_size() > command->code(args_set_index + 2).asIndex())) {
           cout << "WARNING: Cannot get the object for ready \"ball\"" << endl;
@@ -241,7 +241,7 @@ template<class O, class S> Code* TestMem<O, S>::eject(Code *command) {
         return command;
       }
       else {
-        cout << "WARNING: Ignoring unrecognized ready command identifier: " << identifier << endl;
+        cout << "WARNING: Ignoring unrecognized ready command identifier: " << identifier_ << endl;
         return NULL;
       }
     }
