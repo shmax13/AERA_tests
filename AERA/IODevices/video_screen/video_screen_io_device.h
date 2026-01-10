@@ -54,7 +54,7 @@
 #ifndef video_screen_io_device_h
 #define video_screen_io_device_h
 
-#include "../r_exec/mem.h"
+#include "../../../r_exec/mem.h"
 #include "video_screen.h"
 
 namespace video_screen {

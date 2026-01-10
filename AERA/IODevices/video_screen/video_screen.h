@@ -54,7 +54,7 @@
 #ifndef video_screen_h
 #define video_screen_h
 
-#include "../r_code/object.h"
+#include "../../../r_code/object.h"
 
 namespace video_screen {
 

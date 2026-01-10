@@ -83,13 +83,13 @@
 //_/_/ 
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 
-#include "decompiler.h"
+#include "../r_comp/decompiler.h"
 #include "IODevices/TCP/tcp_io_device.h"
 #include "IODevices/video_screen/video_screen_io_device.h"
 #include "../usr_operators/usr_operators.h"
 #include "test_mem.h"
-#include "init.h"
-#include "image_impl.h"
+#include "../r_exec/init.h"
+#include "../r_code/image_impl.h"
 #include "settings.h"
 #include "main.h"
 

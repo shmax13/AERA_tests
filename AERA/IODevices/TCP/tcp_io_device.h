@@ -86,7 +86,7 @@
 #ifndef tcp_io_device_h
 #define tcp_io_device_h
 
-#include "../r_exec/mem.h"
+#include "../../../r_exec/mem.h"
 
 #ifndef ENABLE_PROTOBUF
 

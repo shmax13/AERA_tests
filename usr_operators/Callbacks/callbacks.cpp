@@ -86,8 +86,8 @@
 #include <sstream>
 #include "callbacks.h"
 
-#include "../r_exec/mem.h"
-#include "../r_comp/decompiler.h" //debug
+#include "../../r_exec/mem.h"
+#include "../../r_comp/decompiler.h" //debug
 
 using namespace std;
 using namespace std::chrono;

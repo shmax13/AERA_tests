@@ -85,8 +85,8 @@
 
 #include "operators.h"
 
-#include "../r_exec/init.h"
-#include "../r_exec/mem.h"
+#include "../../r_exec/init.h"
+#include "../../r_exec/mem.h"
 
 static uint16 Vec3Opcode;
 static uint16 Vec2Opcode;
