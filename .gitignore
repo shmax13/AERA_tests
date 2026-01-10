@@ -16,6 +16,7 @@
 /Debug/*
 */Debug/*
 */*/Debug/*
+*/*/DebugVisualizer/*
 */*/*/Debug/*
 
 # Visual Studio user files
@@ -39,3 +40,8 @@
 *.exe
 *.o
 *.d
+
+# Others
+*.bak
+*.obj
+
