@@ -5,6 +5,7 @@
 //_/_/ 
 //_/_/ Copyright (c) 2023-2025 Jeff Thompson
 //_/_/ Copyright (c) 2023-2025 Kristinn R. Thorisson
+//_/_/ Copyright (c) 2018-2025 Chloe Schaff
 //_/_/ Copyright (c) 2023-2025 Icelandic Institute for Intelligent Machines
 //_/_/ http://www.iiim.is
 //_/_/ 
@@ -86,7 +87,100 @@
 #define main_h
 
 #include "../submodules/CoreLibrary/CoreLibrary/types.h"
+#include "test_mem.h"
+#include "../r_exec/init.h"
+#include "../r_comp/decompiler.h"
+#include "settings.h"
 
 core::int32 start_AERA(const char* file_name, const char* decompiled_file_name);
+
+/**
+ * AERA_interface supports running from the AERA Visualizer.
+ */
+class AERA_interface {
+public:
+	// Create a new instance and set it up
+	AERA_interface(const char* settings_file_name, const char* decompiled_file_name);
+
+	// Step the diagnostic time state once
+	bool step() {
+		return diagnostic_time_state_->step();
+	}
+
+	// Run in diagnostic time for a certain amount of time
+	// Returns false when AERA has run to the end and true otherwise
+	bool runFor(std::chrono::milliseconds time_step);
+
+	// Run AERA all the way to settings->run_time_
+	void run();
+
+	// Dump everything AERA's working on to a file for analysis
+	void brainDump();
+
+	// Shuts everything down
+	void stop();
+
+	// Return an image of AERA's current models
+	r_comp::Image getModelsImage() {
+		r_comp::Image image = *mem_->get_models();
+		image.object_names_.symbols_ = r_exec::Seed.object_names_.symbols_;
+		return image;
+	}
+
+	// Return an image of AERA's current objects
+	r_comp::Image* getObjectsImage() {
+		r_comp::Image* image = mem_->get_objects(settings_->keep_invalidated_objects_);
+		image->object_names_.symbols_ = r_exec::Seed.object_names_.symbols_; // Set opcode names
+		return image;
+	}
+
+	// Return the names used in the seed program
+	r_comp::ObjectNames getSeedNames() {
+		return r_exec::Seed.object_names_;
+	}
+
+	// Return the metadata used to interpret the image
+	r_comp::Metadata getMetadata() {
+		return r_exec::Metadata;
+	}
+
+	// Return start time for Visualizer
+	core::Timestamp getStartTime() {
+		return starting_time_;
+	}
+
+	// Return start time for Visualizer
+	core::Timestamp getCurrentTime() {
+		return r_exec::Now();
+	}
+
+	// Return the settings file for use in the Visualizer
+	Settings* getSettings() {
+		return settings_;
+	}
+
+	// Return a link to mem_ for the Visualizer's TaskEnvironmentView
+	TestMem<r_exec::LObject, r_exec::MemStatic>* getMem() {
+		return (TestMem<r_exec::LObject, r_exec::MemStatic>*) mem_;
+	}
+
+
+private:
+	r_comp::Decompiler decompiler_;
+	r_exec::_Mem* mem_;
+	r_code::resized_vector<r_code::Code*> ram_objects_;
+	r_exec::DiagnosticTimeState* diagnostic_time_state_;
+	std::ofstream runtime_output_stream_;
+	uint32 stdin_oid_;
+	uint32 stdout_oid_;
+	uint32 self_oid_;
+
+	const char* settings_file_name_;
+	const char* decompiled_file_name_;
+
+	Settings* settings_;
+	core::Timestamp starting_time_;
+	std::chrono::milliseconds current_time_;
+};
 
 #endif
