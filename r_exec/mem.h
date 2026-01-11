@@ -902,7 +902,7 @@ public:
 /**
  * DiagnosticTimeState holds the state of stepping in diagnostic time.
  */
-class DiagnosticTimeState {
+class r_exec_dll DiagnosticTimeState {
 public:
   /**
    * Initialize a DiagnosticTimeState and call mem_->on_diagnostic_time_tick() once
