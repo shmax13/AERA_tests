@@ -29,8 +29,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "output_window", "output_win
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreLibrary", "submodules\CoreLibrary\CoreLibrary\CoreLibrary.vcxproj", "{4F80B928-6CC8-45E2-A709-3CE78D226990}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_util", "test_util\test_util.vcxproj", "{8D680DD4-1865-4F9B-A629-EC68014E63D4}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\Tests.vcxproj", "{DB224593-5A14-4BC2-915D-07CA3462B13A}"
 EndProject
 Global
@@ -110,18 +108,6 @@ Global
 		{4F80B928-6CC8-45E2-A709-3CE78D226990}.Release|Win32.Build.0 = Release|Win32
 		{4F80B928-6CC8-45E2-A709-3CE78D226990}.Release|x64.ActiveCfg = Release|x64
 		{4F80B928-6CC8-45E2-A709-3CE78D226990}.Release|x64.Build.0 = Release|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Debug|Win32.Build.0 = Debug|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Debug|x64.ActiveCfg = Debug|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Debug|x64.Build.0 = Debug|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.DebugVisualizer|Win32.ActiveCfg = Debug|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.DebugVisualizer|Win32.Build.0 = Debug|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.DebugVisualizer|x64.ActiveCfg = Debug|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.DebugVisualizer|x64.Build.0 = Debug|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Release|Win32.ActiveCfg = Release|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Release|Win32.Build.0 = Release|Win32
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Release|x64.ActiveCfg = Release|x64
-		{8D680DD4-1865-4F9B-A629-EC68014E63D4}.Release|x64.Build.0 = Release|x64
 		{DB224593-5A14-4BC2-915D-07CA3462B13A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{DB224593-5A14-4BC2-915D-07CA3462B13A}.Debug|Win32.Build.0 = Debug|Win32
 		{DB224593-5A14-4BC2-915D-07CA3462B13A}.Debug|x64.ActiveCfg = Debug|x64
