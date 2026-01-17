@@ -302,10 +302,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="tests\settings_template.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="tests\AERA_output.log" />
+    <Text Include="runtime_out.txt" />
     <Text Include="tests\existing\replicode_v1.1\helgi.txt" />
     <Text Include="tests\existing\replicode_v1.1\rgrp.user.classes.txt" />
     <Text Include="tests\existing\replicode_v1.1\std.txt" />
@@ -467,6 +464,9 @@
     <Text Include="tests\technical-report\annex2\3.3\test-mk-sln-chg.txt" />
     <Text Include="tests\technical-report\main\2_overview\programs.txt" />
     <Text Include="notes.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="settings_template.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

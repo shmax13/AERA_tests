@@ -47,3 +47,4 @@
 # TODO: refactor
 /test/blackbox/settings_filled.xml
 /test/blackbox/random-tests/
+/test/settings_filled.xml
