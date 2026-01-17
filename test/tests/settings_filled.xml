@@ -5,7 +5,7 @@
 	<Load
 	  usr_operator_path="./usr_operators.dll"
 	  usr_class_path="../test/tests/user.classes.replicode"
-	  source_file_name="../test/tests/free-tests/colors.replicode"
+	  source_file_name="../test/tests/intelligence-requirements/9-robustness/test.replicode"
   />
 	<Init
 	  base_period="50000"

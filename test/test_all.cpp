@@ -181,7 +181,7 @@ namespace AeraTests {
 
     // TECHNICAL REPORT - MAIN
     INSTANTIATE_TEST_SUITE_P(
-        MAIN,
+        REPORT_MAIN,
         AeraTest,
         ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/main", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
@@ -194,7 +194,7 @@ namespace AeraTests {
 
     // TECHNICAL REPORT - ANNEX 1
     INSTANTIATE_TEST_SUITE_P(
-        ANNEX_1,
+        REPORT_ANNEX_1,
         AeraTest,
         ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/annex1", true)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
@@ -207,7 +207,7 @@ namespace AeraTests {
 
     // TECHNICAL REPORT - ANNEX 2
     INSTANTIATE_TEST_SUITE_P(
-        ANNEX_2,
+        REPORT_ANNEX_2,
         AeraTest,
         ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/annex2", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
@@ -223,6 +223,123 @@ namespace AeraTests {
         FREE_TESTS,
         AeraTest,
         ::testing::ValuesIn(GetReplicodeFiles(test_path / "free-tests", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 1 - EMBODIMENT
+    INSTANTIATE_TEST_SUITE_P(
+        1_EMBODIMENT,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/1-embodiment", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 2 - CONSTRUCTIVISM
+    INSTANTIATE_TEST_SUITE_P(
+        2_CONSTRUCTIVISM,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/2-constructivism", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 3 - CUMULATIVE LEARNING
+    INSTANTIATE_TEST_SUITE_P(
+        3_CUMULATIVE_LEARNING,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/3-cumulative-learning", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 4 - KNOWLEDGE OF CAUSES
+    INSTANTIATE_TEST_SUITE_P(
+        4_KNOWLEDGE_OF_CAUSES,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/4-knowledge-of-causes", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 5 - NON-AXIOMATIC REASONING
+    INSTANTIATE_TEST_SUITE_P(
+        5_NON_AXIOMATIC_REASONING,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/5-non-axiomatic-reasoning", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 6 - GENERALITY
+    INSTANTIATE_TEST_SUITE_P(
+        6_GENERALITY,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/6-generality", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 7 - TRANSVERSAL FUNCTIONS
+    INSTANTIATE_TEST_SUITE_P(
+        7_TRANSVERSAL_FUNCTIONS,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/7-transversal-functions", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 8 - REFLECTION
+    INSTANTIATE_TEST_SUITE_P(
+        8_REFLECTION,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/8-reflection", false)),
+        [](const ::testing::TestParamInfo<fs::path>& info) {
+            std::string name = info.param.parent_path().filename().string() + "_" +
+                info.param.filename().stem().string();
+            for (auto& c : name) if (!isalnum(c)) c = '_';
+            return name;
+        }
+    );
+
+    // INTELLIGENCE REQUIREMENTS - 9 - ROBUSTNESS
+    INSTANTIATE_TEST_SUITE_P(
+        9_ROBUSTNESS,
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "intelligence-requirements/9-robustness", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
