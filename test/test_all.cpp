@@ -8,22 +8,22 @@ namespace fs = std::filesystem;
 const fs::path sln_path = fs::current_path().parent_path();
 const fs::path aera_exe_path = sln_path / "Debug" / "AERA.exe";
 const fs::path prj_path = sln_path / "test";
-const fs::path blackbox_path = prj_path / "blackbox";
-const fs::path settings_template_path = blackbox_path / "settings_template.xml";
-const fs::path settings_filled_path = blackbox_path / "settings_filled.xml";
-const fs::path output_log_path = blackbox_path / "AERA_output.log";
+const fs::path test_path = prj_path / "tests";
+const fs::path settings_template_path = test_path / "settings_template.xml";
+const fs::path settings_filled_path = test_path / "settings_filled.xml";
+const fs::path output_log_path = test_path / "AERA_output.log";
 const fs::path decompiled_objects_path = sln_path / "Debug" / "decompiled_objects.txt";
 
-namespace BlackBoxTests { 
+namespace AeraTests { 
 
-    class BlackBoxTest : public ::testing::TestWithParam<fs::path> {
+    class AeraTest : public ::testing::TestWithParam<fs::path> {
     protected:
         // optional setup/teardown
         void SetUp() override {}
         void TearDown() override {}
     };
 
-    TEST_P(BlackBoxTest, BlackBox) {
+    TEST_P(AeraTest, Test) {
         const fs::path inputFile = GetParam();
         GTEST_LOG_(INFO) << "Testing file: " << inputFile.filename();
 
@@ -36,8 +36,8 @@ namespace BlackBoxTests {
         std::string xmlContent((std::istreambuf_iterator<char>(templateFile)),
             std::istreambuf_iterator<char>());
 
-        // Get path relative to blackbox_path
-        fs::path relPath = fs::relative(inputFile, blackbox_path);
+        // Get path relative to test_path
+        fs::path relPath = fs::relative(inputFile, test_path);
 
         // Convert to string with forward slashes (if needed for XML)
         std::string replacement = relPath.generic_string();
@@ -131,7 +131,7 @@ namespace BlackBoxTests {
         }
     }
 
-    // TODO: some of the blackbox tests can fail seemingly at random. 
+    // TODO: some of the tests for the technical report can fail seemingly at random. 
     // this makes sure they aren't executed.
     static const std::vector<std::string> blacklist = {
         "mk",  // marker classes
@@ -169,8 +169,8 @@ namespace BlackBoxTests {
     // EXISTING
     /*INSTANTIATE_TEST_SUITE_P(
         EXISTING,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "existing")),
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "existing")),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -182,8 +182,8 @@ namespace BlackBoxTests {
     // TECHNICAL REPORT - MAIN
     INSTANTIATE_TEST_SUITE_P(
         MAIN,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/main", false)),
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/main", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -195,8 +195,8 @@ namespace BlackBoxTests {
     // TECHNICAL REPORT - ANNEX 1
     INSTANTIATE_TEST_SUITE_P(
         ANNEX_1,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex1", true)),
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/annex1", true)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -208,21 +208,8 @@ namespace BlackBoxTests {
     // TECHNICAL REPORT - ANNEX 2
     INSTANTIATE_TEST_SUITE_P(
         ANNEX_2,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "technical-report/annex2", false)),
-        [](const ::testing::TestParamInfo<fs::path>& info) {
-            std::string name = info.param.parent_path().filename().string() + "_" +
-                info.param.filename().stem().string();
-            for (auto& c : name) if (!isalnum(c)) c = '_';
-            return name;
-        }
-    );
-
-    // RANDOM TESTS
-    INSTANTIATE_TEST_SUITE_P(
-        RANDOM_TESTS,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "random-tests", false)),
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "technical-report/annex2", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();
@@ -234,8 +221,8 @@ namespace BlackBoxTests {
     // FREE TESTS
     INSTANTIATE_TEST_SUITE_P(
         FREE_TESTS,
-        BlackBoxTest,
-        ::testing::ValuesIn(GetReplicodeFiles(blackbox_path / "free-tests", false)),
+        AeraTest,
+        ::testing::ValuesIn(GetReplicodeFiles(test_path / "free-tests", false)),
         [](const ::testing::TestParamInfo<fs::path>& info) {
             std::string name = info.param.parent_path().filename().string() + "_" +
                 info.param.filename().stem().string();

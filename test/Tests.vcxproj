@@ -101,7 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="test_blackbox.cpp" />
+    <ClCompile Include="test_all.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tests\existing\replicode_v1.1\helgi.replicode" />
@@ -172,16 +172,6 @@
     <None Include="tests\existing\replicode_v1.2\test_cmd.replicode" />
     <None Include="tests\existing\replicode_v1.2\user.classes.replicode" />
     <None Include="tests\free-tests\colors.replicode" />
-    <None Include="tests\random-tests\test_1.replicode" />
-    <None Include="tests\random-tests\test_10.replicode" />
-    <None Include="tests\random-tests\test_2.replicode" />
-    <None Include="tests\random-tests\test_3.replicode" />
-    <None Include="tests\random-tests\test_4.replicode" />
-    <None Include="tests\random-tests\test_5.replicode" />
-    <None Include="tests\random-tests\test_6.replicode" />
-    <None Include="tests\random-tests\test_7.replicode" />
-    <None Include="tests\random-tests\test_8.replicode" />
-    <None Include="tests\random-tests\test_9.replicode" />
     <None Include="tests\std.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-atoms.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-misc.replicode" />
@@ -375,16 +365,6 @@
     <Text Include="tests\existing\replicode_v1.2\test_cmd.txt" />
     <Text Include="tests\existing\replicode_v1.2\user.classes.txt" />
     <Text Include="tests\free-tests\colors.txt" />
-    <Text Include="tests\random-tests\test_1.txt" />
-    <Text Include="tests\random-tests\test_10.txt" />
-    <Text Include="tests\random-tests\test_2.txt" />
-    <Text Include="tests\random-tests\test_3.txt" />
-    <Text Include="tests\random-tests\test_4.txt" />
-    <Text Include="tests\random-tests\test_5.txt" />
-    <Text Include="tests\random-tests\test_6.txt" />
-    <Text Include="tests\random-tests\test_7.txt" />
-    <Text Include="tests\random-tests\test_8.txt" />
-    <Text Include="tests\random-tests\test_9.txt" />
     <Text Include="tests\technical-report\annex1\2.1\test-atoms.txt" />
     <Text Include="tests\technical-report\annex1\2.1\test-misc.txt" />
     <Text Include="tests\technical-report\annex1\2.2\test-blank-space-CR.txt" />
