@@ -45,3 +45,6 @@
 *.bak
 *.obj
 
+# temp file for blackbox tests
+# TODO: refactor
+/test/settings_filled.xml
