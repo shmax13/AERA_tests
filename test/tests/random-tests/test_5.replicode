@@ -1,0 +1,30 @@
+; Randomly generated in project test_util at 2026-01-14 17:22:04
+
+grp_0:(std_grp 1 0.921079 0.830219 0.721968 [nil]) [[SYNC_ONCE now 0 forever root nil COV_OFF 0]] 
+grp_1:(std_grp 1 0.842475 0.957471 0.917660 [nil]) [[SYNC_ONCE now 0 forever root nil COV_OFF 0]] 
+grp_2:(std_grp 1 0.700763 0.611331 0.557058 [nil]) [[SYNC_ONCE now 0 forever root nil COV_OFF 0]] 
+
+pgm_0:(pgm
+|[]
+|[]
+|[]
+|[]
+1) |[]
+ipgm_0:(ipgm pgm_0 |[] RUN_ALWAYS 100ms VOLATILE SILENT 1) [[SYNC_ONCE now 0 1 stdin nil 1]]
+
+pgm_1:(pgm
+|[]
+|[]
+|[]
+|[]
+1) |[]
+ipgm_1:(ipgm pgm_1 |[] RUN_ALWAYS 100ms VOLATILE SILENT 1) [[SYNC_ONCE now 0 1 stdin nil 1]]
+
+pgm_2:(pgm
+|[]
+|[]
+|[]
+|[]
+1) |[]
+ipgm_2:(ipgm pgm_2 |[] RUN_ALWAYS 100ms VOLATILE SILENT 1) [[SYNC_ONCE now 0 1 stdin nil 1]]
+
