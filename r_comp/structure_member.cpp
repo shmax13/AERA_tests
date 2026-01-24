@@ -85,6 +85,7 @@
 #include "structure_member.h"
 #include "compiler.h"
 
+using namespace std;
 
 namespace r_comp {
 
@@ -92,8 +93,8 @@ StructureMember::StructureMember() {
 }
 
 StructureMember::StructureMember(_Read r,
-  std::string m,
-  std::string p,
+  string m,
+  string p,
   Iteration i) : read_(r),
   name_(m),
   class_(p),

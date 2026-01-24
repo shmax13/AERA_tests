@@ -96,7 +96,7 @@ static bool Output = true;
 static inline bool is_decimal(char c) { return c >= '0' && c <= '9'; }
 
 Compiler::Compiler(bool allow_variables_and_wildcards_outside_pattern_skeleton)
-: out_stream_(NULL), current_object_(NULL), error_(std::string("")),
+: out_stream_(NULL), current_object_(NULL), error_(string("")),
   allow_variables_and_wildcards_outside_pattern_skeleton_(allow_variables_and_wildcards_outside_pattern_skeleton)
 {
 }
@@ -119,7 +119,7 @@ void Compiler::restore_state(State s) {
   state_ = s;
 }
 
-void Compiler::set_error(const std::string &s) {
+void Compiler::set_error(const string &s) {
 
   if (!err_ && Output) {
 
@@ -130,13 +130,13 @@ void Compiler::set_error(const std::string &s) {
 
 void Compiler::set_arity_error(uint16 expected, uint16 got) {
 
-  set_error("error: got " + std::to_string(got) + " elements, expected " +
-    std::to_string(expected));
+  set_error("error: got " + to_string(got) + " elements, expected " +
+    to_string(expected));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-bool Compiler::compile(std::istream *stream, r_comp::Image *image, r_comp::Metadata *metadata, std::string &error, bool trace) {
+bool Compiler::compile(istream *stream, r_comp::Image *image, r_comp::Metadata *metadata, string &error, bool trace) {
 
   in_stream_ = stream;
   err_ = false;
@@ -180,7 +180,7 @@ bool Compiler::read_sys_object() {
 
   current_view_index_ = -1;
 
-  std::string l;
+  string l;
   while (indent(false));
   char c = (char)in_stream_->get();
   if (c != -1)
@@ -248,7 +248,7 @@ bool Compiler::read_sys_object() {
   // |[]
 
   while (indent(false));
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol("|[]", false)) {
 
     in_stream_->seekg(i);
@@ -336,9 +336,9 @@ bool Compiler::read(const StructureMember &m, bool &indented, bool enforce, uint
   return (this->*m.read())(indented, enforce, NULL, write_index, extent_index, write);
 }
 
-bool Compiler::getGlobalReferenceIndex(const std::string reference_name, const ReturnType t, ImageObject *object, uint16 &index, Class *&_class) {
+bool Compiler::getGlobalReferenceIndex(const string reference_name, const ReturnType t, ImageObject *object, uint16 &index, Class *&_class) {
 
-  unordered_map<std::string, Reference>::iterator it = global_references_.find(reference_name);
+  unordered_map<string, Reference>::iterator it = global_references_.find(reference_name);
   if (it != global_references_.end() && (t == ANY || (t != ANY && it->second.class_.type == t))) {
 
     _class = &it->second.class_;
@@ -355,16 +355,16 @@ bool Compiler::getGlobalReferenceIndex(const std::string reference_name, const R
   return false;
 }
 
-void Compiler::addLocalReference(const std::string reference_name, const uint16 index, const Class &p) {
+void Compiler::addLocalReference(const string reference_name, const uint16 index, const Class &p) {
 
   // cast detection.
   size_t pos = reference_name.find('#');
   if (pos != string::npos) {
 
-    std::string class_name = reference_name.substr(pos + 1);
-    std::string ref_name = reference_name.substr(0, pos);
+    string class_name = reference_name.substr(pos + 1);
+    string ref_name = reference_name.substr(0, pos);
 
-    unordered_map<std::string, Class>::iterator it = metadata_->classes_.find(class_name);
+    unordered_map<string, Class>::iterator it = metadata_->classes_.find(class_name);
     if (it != metadata_->classes_.end())
       local_references_[ref_name] = Reference(index, p, it->second);
     else
@@ -373,7 +373,7 @@ void Compiler::addLocalReference(const std::string reference_name, const uint16 
     local_references_[reference_name] = Reference(index, p, Class());
 }
 
-uint8 Compiler::add_hlp_reference(std::string reference_name) {
+uint8 Compiler::add_hlp_reference(string reference_name) {
 
   for (uint8 i = 0; i < hlp_references_.size(); ++i)
     if (reference_name == hlp_references_[i])
@@ -382,7 +382,7 @@ uint8 Compiler::add_hlp_reference(std::string reference_name) {
   return hlp_references_.size() - 1;
 }
 
-uint8 Compiler::get_hlp_reference(std::string reference_name) {
+uint8 Compiler::get_hlp_reference(string reference_name) {
 
   for (uint8 i = 0; i < hlp_references_.size(); ++i)
     if (reference_name == hlp_references_[i])
@@ -394,7 +394,7 @@ uint8 Compiler::get_hlp_reference(std::string reference_name) {
 
 bool Compiler::comment() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   bool started = false;
   bool continuation = false; // continuation mark detected
   bool period = false; // to detect 2 subsequent '.'
@@ -441,7 +441,7 @@ return_false:
 bool Compiler::indent(bool pushback) {
 
   comment();
-  std::string s;
+  string s;
   s += NEWLINE;
   for (uint16 j = 0; j < 3 * state_.indents; j++)
     s += ' ';
@@ -455,7 +455,7 @@ bool Compiler::right_indent(bool pushback) { // no look ahead when pushback==tru
 
     if (state_.right_indents_ahead)
       return true;
-    std::string s;
+    string s;
     s += NEWLINE;
     for (uint16 j = 0; j < 3 * (state_.indents + 1); j++)
       s += ' ';
@@ -467,7 +467,7 @@ bool Compiler::right_indent(bool pushback) { // no look ahead when pushback==tru
     state_.right_indents_ahead--;
     return true;
   }
-  std::string s;
+  string s;
   s += NEWLINE;
   for (uint16 j = 0; j < 3 * (state_.indents + 1); j++)
     s += ' ';
@@ -489,7 +489,7 @@ bool Compiler::left_indent(bool pushback) { // no look ahead when pushback==true
 
     if (state_.left_indents_ahead)
       return true;
-    std::string s;
+    string s;
     s += NEWLINE;
     for (uint16 j = 0; j < 3 * (state_.indents - 1); j++)
       s += ' ';
@@ -502,7 +502,7 @@ bool Compiler::left_indent(bool pushback) { // no look ahead when pushback==true
     state_.left_indents_ahead--;
     return true;
   }
-  std::string s;
+  string s;
   s += NEWLINE;
   if (!match_symbol(s.c_str(), false))
     return false;
@@ -541,9 +541,9 @@ bool Compiler::separator(bool pushback) {
   return false;
 }
 
-bool Compiler::symbol_expr(std::string &s) {
+bool Compiler::symbol_expr(string &s) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   uint16 count = 0;
   while (!in_stream_->eof()) {
 
@@ -581,9 +581,9 @@ bool Compiler::symbol_expr(std::string &s) {
   return false;
 }
 
-bool Compiler::symbol_expr_set(std::string &s) {
+bool Compiler::symbol_expr_set(string &s) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   uint16 count = 0;
   while (!in_stream_->eof()) {
 
@@ -630,7 +630,7 @@ bool Compiler::match_symbol_separator(const char *symbol, bool pushback) {
 
 bool Compiler::match_symbol(const char *symbol, bool pushback) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   for (uint32 j = 0; j < strlen(symbol); j++) {
 
     if (in_stream_->eof() || ((char)in_stream_->get()) != symbol[j]) {
@@ -645,9 +645,9 @@ bool Compiler::match_symbol(const char *symbol, bool pushback) {
   return true;
 }
 
-bool Compiler::member(std::string &s) {
+bool Compiler::member(string &s) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   s = "";
   uint16 count = 0;
   while (!in_stream_->eof()) {
@@ -687,7 +687,7 @@ bool Compiler::expression_begin(bool &indented) {
     indented = true;
     return true;
   }
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (indent(false)) {
 
     char c = (char)in_stream_->get();
@@ -708,7 +708,7 @@ bool Compiler::expression_end(bool indented) {
 
   if (indented)
     return left_indent(false);
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (indent(false)) {
 
     char c = (char)in_stream_->get();
@@ -727,7 +727,7 @@ bool Compiler::expression_end(bool indented) {
 
 bool Compiler::set_begin(bool &indented) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("[]", false)) {
 
     if (right_indent(false)) {
@@ -761,7 +761,7 @@ bool Compiler::set_end(bool indented) {
 
   if (indented)
     return left_indent(false);
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (indent(false)) {
 
     char c = (char)in_stream_->get();
@@ -782,7 +782,7 @@ bool Compiler::set_end(bool indented) {
 
 bool Compiler::nil() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("nil", false))
     return true;
   in_stream_->clear();
@@ -792,7 +792,7 @@ bool Compiler::nil() {
 
 bool Compiler::nil_nb() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|nb", false))
     return true;
   in_stream_->clear();
@@ -802,7 +802,7 @@ bool Compiler::nil_nb() {
 
 bool Compiler::nil_ts() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|ts", false))
     return true;
   in_stream_->clear();
@@ -812,7 +812,7 @@ bool Compiler::nil_ts() {
 
 bool Compiler::forever() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("forever", false))
     return true;
   in_stream_->clear();
@@ -822,7 +822,7 @@ bool Compiler::forever() {
 
 bool Compiler::nil_nid() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|nid", false))
     return true;
   in_stream_->clear();
@@ -832,7 +832,7 @@ bool Compiler::nil_nid() {
 
 bool Compiler::nil_did() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|did", false))
     return true;
   in_stream_->clear();
@@ -842,7 +842,7 @@ bool Compiler::nil_did() {
 
 bool Compiler::nil_fid() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|fid", false))
     return true;
   in_stream_->clear();
@@ -852,7 +852,7 @@ bool Compiler::nil_fid() {
 
 bool Compiler::nil_bl() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|bl", false))
     return true;
   in_stream_->clear();
@@ -862,7 +862,7 @@ bool Compiler::nil_bl() {
 
 bool Compiler::nil_st() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("|st", false))
     return true;
   in_stream_->clear();
@@ -870,9 +870,9 @@ bool Compiler::nil_st() {
   return false;
 }
 
-bool Compiler::label(std::string &l) {
+bool Compiler::label(string &l) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (symbol_expr(l) && l[0] != '-' && !is_decimal(l[0]) && (char)in_stream_->get() == ':')
     return true;
   in_stream_->clear();
@@ -880,13 +880,13 @@ bool Compiler::label(std::string &l) {
   return false;
 }
 
-bool Compiler::variable(std::string &l) {
+bool Compiler::variable(string &l) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (symbol_expr(l) && !is_decimal(l[0]) && (char)in_stream_->get() == ':') {
 
     in_stream_->seekg(i);
-    std::string _l = l + ':';
+    string _l = l + ':';
     if (match_symbol_separator(_l.c_str(), false))
       return true;
   }
@@ -897,7 +897,7 @@ bool Compiler::variable(std::string &l) {
 
 bool Compiler::this_() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("this", false))
     return true;
   in_stream_->clear();
@@ -907,11 +907,11 @@ bool Compiler::this_() {
 
 bool Compiler::local_reference(uint16 &index, const ReturnType t) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string r;
+  streampos i = in_stream_->tellg();
+  string r;
   if (symbol_expr_set(r)) {
 
-    unordered_map<std::string, Reference>::iterator it = local_references_.find(r);
+    unordered_map<string, Reference>::iterator it = local_references_.find(r);
     if (it != local_references_.end() && (t == ANY || it->second.class_.type == ANY || (t != ANY && it->second.class_.type == t))) {
 
       index = it->second.index_;
@@ -925,8 +925,8 @@ bool Compiler::local_reference(uint16 &index, const ReturnType t) {
 
 bool Compiler::global_reference(uint16 &index, const ReturnType t) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string r;
+  streampos i = in_stream_->tellg();
+  string r;
   if (symbol_expr_set(r)) {
 
     Class *unused;
@@ -940,8 +940,8 @@ bool Compiler::global_reference(uint16 &index, const ReturnType t) {
 
 bool Compiler::hlp_reference(uint16 &index) {
 
-  std::string r;
-  std::streampos i = in_stream_->tellg();
+  string r;
+  streampos i = in_stream_->tellg();
   if (label(r)) {
 
     in_stream_->clear();
@@ -965,14 +965,14 @@ bool Compiler::hlp_reference(uint16 &index) {
 
 bool Compiler::this_indirection(vector<int16> &v, const ReturnType t) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("this.", false)) {
 
     Class *p; // in general, p starts as the current_class_; exception: in pgm, this refers to the instantiated program.
     if (current_class_.str_opcode == "pgm")
       p = &metadata_->sys_classes_["ipgm"];
     Class *_p;
-    std::string m;
+    string m;
     uint16 index;
     ReturnType type;
     while (member(m)) {
@@ -1029,15 +1029,15 @@ bool Compiler::this_indirection(vector<int16> &v, const ReturnType t) {
 
 bool Compiler::local_indirection(vector<int16> &v, const ReturnType t, uint16 &cast_opcode) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string m;
-  std::string path = "";
+  streampos i = in_stream_->tellg();
+  string m;
+  string path = "";
   Class *p;
   if (member(m) && (char)in_stream_->get() == '.') { // first m is a reference to a label or a variable
 
     uint16 index;
     ReturnType type;
-    unordered_map<std::string, Reference>::iterator it = local_references_.find(m);
+    unordered_map<string, Reference>::iterator it = local_references_.find(m);
     if (it != local_references_.end()) {
 
       index = it->second.index_;
@@ -1109,8 +1109,8 @@ bool Compiler::local_indirection(vector<int16> &v, const ReturnType t, uint16 &c
 
 bool Compiler::global_indirection(vector<int16> &v, const ReturnType t) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string m;
+  streampos i = in_stream_->tellg();
+  string m;
   Class *p;
   if (member(m) && (char)in_stream_->get() == '.') { // first m is a reference
 
@@ -1179,7 +1179,7 @@ bool Compiler::global_indirection(vector<int16> &v, const ReturnType t) {
 
 bool Compiler::wildcard() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator(":", false))
     return true;
   in_stream_->clear();
@@ -1189,7 +1189,7 @@ bool Compiler::wildcard() {
 
 bool Compiler::tail_wildcard() {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("::", false)) {
 
     if (left_indent(true)) {
@@ -1211,7 +1211,7 @@ bool Compiler::tail_wildcard() {
 
 bool Compiler::number(float32 &n) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("0x", true)) {
 
     in_stream_->clear();
@@ -1238,7 +1238,7 @@ bool Compiler::number(float32 &n) {
 
 bool Compiler::hex(uint32 &h) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol("0x", false)) {
 
     in_stream_->clear();
@@ -1257,7 +1257,7 @@ bool Compiler::hex(uint32 &h) {
 
 bool Compiler::boolean(bool &b) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol_separator("true", false)) {
 
     b = true;
@@ -1275,7 +1275,7 @@ bool Compiler::boolean(bool &b) {
 
 bool Compiler::duration(int64 &result) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("0x", true)) {
 
     in_stream_->clear();
@@ -1310,7 +1310,7 @@ bool Compiler::duration(int64 &result) {
 
 bool Compiler::timestamp_s_ms_us(int64 &ts) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("0x", true)) {
     in_stream_->clear();
     in_stream_->seekg(i);
@@ -1363,9 +1363,9 @@ bool Compiler::timestamp_s_ms_us(int64 &ts) {
   return true;
 }
 
-bool Compiler::str(std::string &s) {
+bool Compiler::str(string &s) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   uint16 count = 0;
   bool started = false;
   while (!in_stream_->eof()) {
@@ -1399,8 +1399,8 @@ bool Compiler::object(Class &p) {
 
   if (sys_object(p))
     return true;
-  std::streampos i = in_stream_->tellg();
-  std::string s;
+  streampos i = in_stream_->tellg();
+  string s;
   if (!symbol_expr(s)) {
 
     in_stream_->seekg(i);
@@ -1411,7 +1411,7 @@ bool Compiler::object(Class &p) {
       return false;
     }
   }
-  unordered_map<std::string, Class>::const_iterator it = metadata_->classes_.find(s);
+  unordered_map<string, Class>::const_iterator it = metadata_->classes_.find(s);
   if (it == metadata_->classes_.end()) {
 
     in_stream_->seekg(i);
@@ -1425,7 +1425,7 @@ bool Compiler::object(const Class &p) {
 
   if (sys_object(p))
     return true;
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol_separator(p.str_opcode.c_str(), false)) {
 
     in_stream_->seekg(i);
@@ -1436,8 +1436,8 @@ bool Compiler::object(const Class &p) {
 
 bool Compiler::sys_object(Class &p) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string s;
+  streampos i = in_stream_->tellg();
+  string s;
   if (!symbol_expr(s)) {
 
     in_stream_->seekg(i);
@@ -1448,7 +1448,7 @@ bool Compiler::sys_object(Class &p) {
       return false;
     }
   }
-  unordered_map<std::string, Class>::const_iterator it = metadata_->sys_classes_.find(s);
+  unordered_map<string, Class>::const_iterator it = metadata_->sys_classes_.find(s);
   if (it == metadata_->sys_classes_.end()) {
 
     in_stream_->seekg(i);
@@ -1460,7 +1460,7 @@ bool Compiler::sys_object(Class &p) {
 
 bool Compiler::sys_object(const Class &p) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol_separator(p.str_opcode.c_str(), false)) {
 
     in_stream_->seekg(i);
@@ -1471,14 +1471,14 @@ bool Compiler::sys_object(const Class &p) {
 
 bool Compiler::marker(Class &p) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol("mk.", false)) {
 
     in_stream_->seekg(i);
     return false;
   }
-  std::streampos j = in_stream_->tellg();
-  std::string s;
+  streampos j = in_stream_->tellg();
+  string s;
   if (!symbol_expr(s)) {
 
     in_stream_->seekg(j);
@@ -1489,7 +1489,7 @@ bool Compiler::marker(Class &p) {
       return false;
     }
   }
-  unordered_map<std::string, Class>::const_iterator it = metadata_->sys_classes_.find("mk." + s);
+  unordered_map<string, Class>::const_iterator it = metadata_->sys_classes_.find("mk." + s);
   if (it == metadata_->sys_classes_.end()) {
 
     in_stream_->seekg(i);
@@ -1501,14 +1501,14 @@ bool Compiler::marker(Class &p) {
 
 bool Compiler::op(Class &p, const ReturnType t) { // return true if type matches t or ANY
 
-  std::streampos i = in_stream_->tellg();
-  std::string s;
+  streampos i = in_stream_->tellg();
+  string s;
   if (!symbol_expr(s)) {
 
     in_stream_->seekg(i);
     return false;
   }
-  unordered_map<std::string, Class>::const_iterator it = metadata_->classes_.find(s);
+  unordered_map<string, Class>::const_iterator it = metadata_->classes_.find(s);
   if (it == metadata_->classes_.end() || (t != ANY && it->second.type != ANY && it->second.type != t)) {
 
     in_stream_->seekg(i);
@@ -1520,7 +1520,7 @@ bool Compiler::op(Class &p, const ReturnType t) { // return true if type matches
 
 bool Compiler::op(const Class &p) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (!match_symbol_separator(p.str_opcode.c_str(), false)) {
 
     in_stream_->seekg(i);
@@ -1531,14 +1531,14 @@ bool Compiler::op(const Class &p) {
 
 bool Compiler::function(Class &p) {
 
-  std::streampos i = in_stream_->tellg();
-  std::string s;
+  streampos i = in_stream_->tellg();
+  string s;
   if (!symbol_expr(s)) {
 
     in_stream_->seekg(i);
     return false;
   }
-  unordered_map<std::string, Class>::const_iterator it = metadata_->classes_.find(s);
+  unordered_map<string, Class>::const_iterator it = metadata_->classes_.find(s);
   if (it == metadata_->classes_.end()) {
 
     in_stream_->seekg(i);
@@ -1611,7 +1611,7 @@ bool Compiler::expression_tail(bool indented, const Class &p, uint16 write_index
   if (write && state_.pattern_lvl) // fill up with wildcards that will be overwritten up to ::.
     for (uint16 j = write_index; j < write_index + p.atom_.getAtomCount(); ++j)
       current_object_->code_[j] = Atom::Wildcard();
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   while (!in_stream_->eof()) {
 
     if (expression_end(indented)) {
@@ -1668,8 +1668,8 @@ bool Compiler::expression_tail(bool indented, const Class &p, uint16 write_index
 bool Compiler::expression(bool &indented, const ReturnType t, uint16 write_index, uint16 &extent_index, bool write) {
 
   bool lbl = false;
-  std::streampos i = in_stream_->tellg();
-  std::string l;
+  streampos i = in_stream_->tellg();
+  string l;
   if (label(l))
     lbl = true;
   if (!expression_begin(indented)) {
@@ -1712,8 +1712,8 @@ bool Compiler::expression(bool &indented, const ReturnType t, uint16 write_index
 bool Compiler::expression(bool &indented, const Class &p, uint16 write_index, uint16 &extent_index, bool write) {
 
   bool lbl = false;
-  std::streampos i = in_stream_->tellg();
-  std::string l;
+  streampos i = in_stream_->tellg();
+  string l;
   if (label(l))
     lbl = true;
   if (!expression_begin(indented)) {
@@ -1754,9 +1754,9 @@ bool Compiler::expression(bool &indented, const Class &p, uint16 write_index, ui
 
 bool Compiler::set(bool &indented, uint16 write_index, uint16 &extent_index, bool write) { // [ ] is illegal; use |[] instead, or [nil].
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   bool lbl = false;
-  std::string l;
+  string l;
   if (label(l))
     lbl = true;
   if (!set_begin(indented)) {
@@ -1819,9 +1819,9 @@ bool Compiler::set(bool &indented, uint16 write_index, uint16 &extent_index, boo
 
 bool Compiler::set(bool &indented, const Class &p, uint16 write_index, uint16 &extent_index, bool write) { // for class defs like member-name:[member-list] or !class (name[] member-list).
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   bool lbl = false;
-  std::string l;
+  string l;
   if (label(l))
     lbl = true;
   if (!set_begin(indented)) {
@@ -2167,7 +2167,7 @@ bool Compiler::read_string(bool &indented, bool enforce, const Class *p, uint16 
   if (read_tail_wildcard(write_index, extent_index, write))
     return true;
 
-  std::string st;
+  string st;
   if (str(st)) {
 
     if (write) {
@@ -2218,7 +2218,7 @@ bool Compiler::read_node(bool &indented, bool enforce, const Class *p, uint16 wr
   if (read_tail_wildcard(write_index, extent_index, write))
     return true;
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   uint32 h;
   if (hex(h) && Atom(h).getDescriptor() == Atom::NODE) {
 
@@ -2252,7 +2252,7 @@ bool Compiler::read_device(bool &indented, bool enforce, const Class *p, uint16 
   if (read_tail_wildcard(write_index, extent_index, write))
     return true;
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   uint32 h;
   if (hex(h) && Atom(h).getDescriptor() == Atom::DEVICE) {
 
@@ -2336,7 +2336,7 @@ bool Compiler::read_expression(bool &indented, bool enforce, const Class *p, uin
     return true;
   if (enforce) {
 
-    std::string s = " error: expected an expression";
+    string s = " error: expected an expression";
     if (p) {
 
       s += " of type: ";
@@ -2378,8 +2378,8 @@ bool Compiler::read_set(bool &indented, bool enforce, const Class *p, uint16 wri
 
 bool Compiler::read_class(bool &indented, bool enforce, const Class *p, uint16 write_index, uint16 &extent_index, bool write) { // p always NULL.
 
-  std::streampos i = in_stream_->tellg();
-  std::string l;
+  streampos i = in_stream_->tellg();
+  string l;
   if (label(l)) {
 
     Class _p;
@@ -2411,7 +2411,7 @@ bool Compiler::read_nil(uint16 write_index, uint16 &extent_index, bool write) {
 
 bool Compiler::read_nil_set(uint16 write_index, uint16 &extent_index, bool write) {
 
-  std::streampos i = in_stream_->tellg();
+  streampos i = in_stream_->tellg();
   if (match_symbol("|[]", false) ||
       // Treat [] as an empty set if it is not at the end of a line.
       (match_symbol("[]", false) && in_stream_->peek() >= 32)) {
@@ -2524,7 +2524,7 @@ bool Compiler::read_nil_st(uint16 write_index, uint16 &extent_index, bool write)
 
 bool Compiler::read_variable(uint16 write_index, uint16 &extent_index, bool write, const Class p) {
 
-  std::string v;
+  string v;
   if (variable(v)) {
 
     if (state_.pattern_lvl || allow_variables_and_wildcards_outside_pattern_skeleton_) {
@@ -2697,15 +2697,15 @@ bool Compiler::read_tail_wildcard(uint16 write_index, uint16 &extent_index, bool
   return false;
 }
 
-std::string Compiler::getObjectName(const uint16 index) const {
+string Compiler::getObjectName(const uint16 index) const {
 
-  unordered_map<std::string, Reference>::const_iterator r;
+  unordered_map<string, Reference>::const_iterator r;
   for (r = global_references_.begin(); r != global_references_.end(); ++r) {
 
     if (r->second.index_ == index)
       return r->first;
   }
-  std::string s;
+  string s;
   return s;
 }
 }

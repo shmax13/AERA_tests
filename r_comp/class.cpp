@@ -110,7 +110,7 @@ Class::Class(ReturnType t) : type(t), str_opcode("undefined") {
 }
 
 Class::Class(Atom atom,
-  std::string str_opcode,
+  string str_opcode,
   vector<StructureMember> r,
   ReturnType t) : atom_(atom),
   str_opcode(str_opcode),
@@ -129,7 +129,7 @@ bool Class::is_fact(Metadata *metadata) const {
   return (metadata->classes_.find("fact")->second.atom_ == atom_) || (metadata->classes_.find("|fact")->second.atom_ == atom_);
 }
 
-bool Class::get_member_index(Metadata *metadata, std::string &name, uint16 &index, Class *&p) const {
+bool Class::get_member_index(Metadata *metadata, string &name, uint16 &index, Class *&p) const {
 
   for (uint16 i = 0; i < things_to_read.size(); ++i)
     if (things_to_read[i].name_ == name) {
@@ -144,7 +144,7 @@ bool Class::get_member_index(Metadata *metadata, std::string &name, uint16 &inde
   return false;
 }
 
-std::string Class::get_member_name(uint32 index) {
+string Class::get_member_name(uint32 index) {
 
   return things_to_read[has_offset() ? index - 1 : index].name_;
 }
@@ -154,7 +154,7 @@ ReturnType Class::get_member_type(const uint16 index) {
   return things_to_read[has_offset() ? index - 1 : index].get_return_type();
 }
 
-Class *Class::get_member_class(Metadata *metadata, const std::string &name) {
+Class *Class::get_member_class(Metadata *metadata, const string &name) {
 
   for (uint16 i = 0; i < things_to_read.size(); ++i)
     if (things_to_read[i].name_ == name)

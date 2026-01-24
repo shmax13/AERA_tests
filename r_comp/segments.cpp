@@ -103,9 +103,9 @@ Reference::Reference(const uint16 i, const Class &c, const Class &cc) : index_(i
 Metadata::Metadata() {
 }
 
-Class *Metadata::get_class(std::string &class_name) {
+Class *Metadata::get_class(string &class_name) {
 
-  unordered_map<std::string, Class>::iterator it = classes_.find(class_name);
+  unordered_map<string, Class>::iterator it = classes_.find(class_name);
   if (it != classes_.end())
     return &it->second;
   return NULL;
@@ -128,7 +128,7 @@ void Metadata::write(word32 *data) {
   }
 
   data[offset++] = classes_.size();
-  unordered_map<std::string, Class>::iterator it = classes_.begin();
+  unordered_map<string, Class>::iterator it = classes_.begin();
   for (; it != classes_.end(); ++it) {
 
     r_code::Write(data + offset, it->first);
@@ -185,7 +185,7 @@ void Metadata::read(word32 *data, uint32 size) {
   uint16 classes_count = data[offset++];
   for (i = 0; i < classes_count; ++i) {
 
-    std::string s;
+    string s;
     r_code::Read(data + offset, s);
     offset += r_code::GetSize(s);
     classes_[s] = classes_by_opcodes_[data[offset++]];
@@ -194,7 +194,7 @@ void Metadata::read(word32 *data, uint32 size) {
   uint16 sys_classes_count = data[offset++];
   for (i = 0; i < sys_classes_count; ++i) {
 
-    std::string s;
+    string s;
     r_code::Read(data + offset, s);
     offset += r_code::GetSize(s);
     sys_classes_[s] = classes_by_opcodes_[data[offset++]];
@@ -203,7 +203,7 @@ void Metadata::read(word32 *data, uint32 size) {
   uint16 class_names_count = data[offset++];
   for (i = 0; i < class_names_count; ++i) {
 
-    std::string s;
+    string s;
     r_code::Read(data + offset, s);
     class_names_.push_back(s);
     offset += r_code::GetSize(s);
@@ -212,7 +212,7 @@ void Metadata::read(word32 *data, uint32 size) {
   uint16 operator_names_count = data[offset++];
   for (i = 0; i < operator_names_count; ++i) {
 
-    std::string s;
+    string s;
     r_code::Read(data + offset, s);
     operator_names_.push_back(s);
     offset += r_code::GetSize(s);
@@ -221,7 +221,7 @@ void Metadata::read(word32 *data, uint32 size) {
   uint16 function_names_count = data[offset++];
   for (i = 0; i < function_names_count; ++i) {
 
-    std::string s;
+    string s;
     r_code::Read(data + offset, s);
     function_names_.push_back(s);
     offset += r_code::GetSize(s);
@@ -288,7 +288,7 @@ uint32 Metadata::get_class_array_size() {
 uint32 Metadata::get_classes_size() {
 
   uint32 size = 1; // size of the hash table
-  unordered_map<std::string, Class>::iterator it = classes_.begin();
+  unordered_map<string, Class>::iterator it = classes_.begin();
   for (; it != classes_.end(); ++it)
     size += r_code::GetSize(it->first) + 1; // +1: index to the class in the class array
   return size;
@@ -297,7 +297,7 @@ uint32 Metadata::get_classes_size() {
 uint32 Metadata::get_sys_classes_size() {
 
   uint32 size = 1; // size of the hash table
-  unordered_map<std::string, Class>::iterator it = sys_classes_.begin();
+  unordered_map<string, Class>::iterator it = sys_classes_.begin();
   for (; it != sys_classes_.end(); ++it)
     size += r_code::GetSize(it->first) + 1; // +1: index to the class in the class array
   return size;
@@ -408,7 +408,7 @@ void ObjectNames::write(word32 *data) {
 
   uint32 index = 1;
 
-  unordered_map<uint32, std::string>::const_iterator n;
+  unordered_map<uint32, string>::const_iterator n;
   for (n = symbols_.begin(); n != symbols_.end(); ++n) {
 
     data[index] = n->first;
@@ -431,7 +431,7 @@ void ObjectNames::read(word32 *data) {
 
     uint32 oid = data[index];
     uint32 symbol_length = data[index + 1]; // number of words needed to store all the characters.
-    std::string symbol((char *)(data + index + 2));
+    string symbol((char *)(data + index + 2));
     symbols_[oid] = symbol;
 
     index += symbol_length + 2;
@@ -442,7 +442,7 @@ uint32 ObjectNames::get_size() {
 
   uint32 size = 1; // size of symbols_.
 
-  unordered_map<uint32, std::string>::const_iterator n;
+  unordered_map<uint32, string>::const_iterator n;
   for (n = symbols_.begin(); n != symbols_.end(); ++n) {
 
     size += 2; // oid and symbol's length.
@@ -457,7 +457,7 @@ uint32 ObjectNames::get_size() {
   return size;
 }
 
-uint32 ObjectNames::findSymbol(const std::string& name) {
+uint32 ObjectNames::findSymbol(const string& name) {
   for (auto entry = symbols_.begin(); entry != symbols_.end(); ++entry) {
     if (entry->second == name)
       return entry->first;
@@ -474,7 +474,7 @@ Image::Image() : map_offset_(0), timestamp_(seconds(0)) {
 Image::~Image() {
 }
 
-void Image::add_sys_object(SysObject *object, std::string name) {
+void Image::add_sys_object(SysObject *object, string name) {
 
   add_sys_object(object);
   if (!name.empty())

@@ -94,7 +94,7 @@ using namespace r_code;
 namespace r_comp {
 
 // Get a string for the value such as "a", "b" ... "z", "aa", "ab" ....
-static std::string make_suffix(uint32 value) {
+static string make_suffix(uint32 value) {
   string result;
   do {
     // Get the lowest digit as base 26 and prepend a char from 'a' to 'z'.
@@ -119,12 +119,12 @@ Decompiler::~Decompiler() {
     delete out_stream_;
 }
 
-std::string Decompiler::get_variable_name(uint16 index, bool postfix) {
+string Decompiler::get_variable_name(uint16 index, bool postfix) {
 
-  unordered_map<uint16, std::string>::iterator it = variable_names_.find(index);
+  unordered_map<uint16, string>::iterator it = variable_names_.find(index);
   if (it == variable_names_.end()) {
 
-    std::string s = "v" + std::to_string(last_variable_id_++);
+    string s = "v" + to_string(last_variable_id_++);
     variable_names_[index] = s;
     if (postfix)
       s += ':';
@@ -136,18 +136,18 @@ std::string Decompiler::get_variable_name(uint16 index, bool postfix) {
   return it->second;
 }
 
-std::string Decompiler::get_hlp_variable_name(uint16 index) {
+string Decompiler::get_hlp_variable_name(uint16 index) {
 
-  std::string s = "v" + std::to_string(index);
+  string s = "v" + to_string(index);
   if (hlp_postfix_)
     s += ':';
   return s;
 }
 
-std::string Decompiler::get_object_name(uint16 index) {
+string Decompiler::get_object_name(uint16 index) {
 
-  std::string s;
-  unordered_map<uint16, std::string>::iterator it = object_names_.find(index);
+  string s;
+  unordered_map<uint16, string>::iterator it = object_names_.find(index);
   if (it == object_names_.end()) {
 
     s = "unknown-object";
@@ -168,9 +168,9 @@ void Decompiler::init(r_comp::Metadata *metadata) {
   for (uint16 i = 0; i < metadata->classes_by_opcodes_.size(); ++i) {
 
     Class *c = metadata->get_class(i);
-    std::string class_name = c->str_opcode;
+    string class_name = c->str_opcode;
     size_t p = class_name.find("mk.");
-    if (p != std::string::npos)
+    if (p != string::npos)
       renderers_[i] = &Decompiler::write_marker;
     else if (class_name == "pred")
       renderers_[i] = &Decompiler::write_marker;
@@ -195,7 +195,7 @@ void Decompiler::init(r_comp::Metadata *metadata) {
   }
 }
 
-uint32 Decompiler::decompile(r_comp::Image *image, std::ostringstream *stream, Timestamp time_reference, bool ignore_named_objects) {
+uint32 Decompiler::decompile(r_comp::Image *image, ostringstream *stream, Timestamp time_reference, bool ignore_named_objects) {
 
   ignore_named_objects_ = ignore_named_objects;
 
@@ -207,7 +207,7 @@ uint32 Decompiler::decompile(r_comp::Image *image, std::ostringstream *stream, T
   return object_count;
 }
 
-uint32 Decompiler::decompile(r_comp::Image *image, std::ostringstream *stream, Timestamp time_reference, vector<SysObject *> &imported_objects,
+uint32 Decompiler::decompile(r_comp::Image *image, ostringstream *stream, Timestamp time_reference, vector<SysObject *> &imported_objects,
   bool include_oid, bool include_label, bool include_views) {
 
   partial_decompilation_ = true;
@@ -222,7 +222,7 @@ uint32 Decompiler::decompile(r_comp::Image *image, std::ostringstream *stream, T
   return object_count;
 }
 
-uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint16, std::string>* object_names) {
+uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint16, string>* object_names) {
 
   if (object_names) {
     // Pre-populate object_names_ and object_indices_.
@@ -233,11 +233,11 @@ uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint
   }
 
   unordered_map<const Class *, uint16> object_ID_per_class;
-  unordered_map<std::string, Class>::const_iterator it;
+  unordered_map<string, Class>::const_iterator it;
   for (it = metadata_->sys_classes_.begin(); it != metadata_->sys_classes_.end(); ++it)
     object_ID_per_class[&(it->second)] = 0;
 
-  std::string s;
+  string s;
 
   image_ = image;
 
@@ -246,7 +246,7 @@ uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint
   for (uint16 i = 0; i < image->code_segment_.objects_.size(); ++i) {
 
     SysObject *sys_object = (SysObject *)image->code_segment_.objects_[i];
-    unordered_map<uint32, std::string>::const_iterator n = image->object_names_.symbols_.find(sys_object->oid_);
+    unordered_map<uint32, string>::const_iterator n = image->object_names_.symbols_.find(sys_object->oid_);
     if (n != image->object_names_.symbols_.end()) {
 
       s = n->second;
@@ -267,7 +267,7 @@ uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint
   for (uint16 i = 0; i < image->code_segment_.objects_.size(); ++i) {
     SysObject *sys_object = (SysObject *)image->code_segment_.objects_[i];
 
-    unordered_map<uint32, std::string>::const_iterator n = image->object_names_.symbols_.find(sys_object->oid_);
+    unordered_map<uint32, string>::const_iterator n = image->object_names_.symbols_.find(sys_object->oid_);
     if (n != image->object_names_.symbols_.end())
       // Already set the user-defined name in the first pass.
       continue;
@@ -285,19 +285,19 @@ uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint
 
     if (sys_object->oid_ != UNDEFINED_OID)
       // Use the object's OID.
-      s = className + "_" + std::to_string(sys_object->oid_);
+      s = className + "_" + to_string(sys_object->oid_);
     else {
       // Create a name with a unique ID.
       uint16 last_object_ID = object_ID_per_class[c];
       object_ID_per_class[c] = last_object_ID + 1;
-      s = className + std::to_string(last_object_ID);
+      s = className + to_string(last_object_ID);
     }
 
     if (object_indices_.find(s) != object_indices_.end()) {
       // The created name matches an existing name. Keep trying an added
       // suffix until it is unique.
       for (uint32 value = 1; true; ++value) {
-        std::string new_s = s + make_suffix(value);
+        string new_s = s + make_suffix(value);
         if (object_indices_.find(new_s) == object_indices_.end()) {
           s = new_s;
           break;
@@ -315,7 +315,7 @@ uint32 Decompiler::decompile_references(r_comp::Image *image, unordered_map<uint
 }
 
 void Decompiler::decompile_object(
-  uint16 object_index, std::ostringstream *stream, Timestamp time_reference, bool include_oid,
+  uint16 object_index, ostringstream *stream, Timestamp time_reference, bool include_oid,
   bool include_label, bool include_views) {
 
   if (!out_stream_)
@@ -376,7 +376,7 @@ void Decompiler::decompile_object(
   }
 
   if (include_label) {
-    std::string s = object_names_[object_index];
+    string s = object_names_[object_index];
     s += ":";
     *out_stream_ << s;
   }
@@ -404,7 +404,7 @@ void Decompiler::decompile_object(
   write_indent(0);
 }
 
-void Decompiler::decompile_object(const std::string object_name, std::ostringstream *stream, Timestamp time_reference) {
+void Decompiler::decompile_object(const string object_name, ostringstream *stream, Timestamp time_reference) {
 
   decompile_object(object_indices_[object_name], stream, time_reference);
 }
@@ -830,7 +830,7 @@ void Decompiler::write_any(uint16 read_index, bool &after_tail_wildcard, uint16 
       out_stream_->push(':', read_index);
     else {
 
-      std::string s = get_hlp_variable_name(a.asIndex());
+      string s = get_hlp_variable_name(a.asIndex());
       out_stream_->push(s, read_index);
     }
     break;
@@ -850,7 +850,7 @@ void Decompiler::write_any(uint16 read_index, bool &after_tail_wildcard, uint16 
     }
     if (index < read_index) { // reference to a label or variable, including CODE_VL_PTR.
 
-      std::string s = get_variable_name(index, atom.getDescriptor() != Atom::WILDCARD); // post-fix labels with ':' (no need for variables since they are inserted just before wildcards).
+      string s = get_variable_name(index, atom.getDescriptor() != Atom::WILDCARD); // post-fix labels with ':' (no need for variables since they are inserted just before wildcards).
       out_stream_->push(s, read_index);
       break;
     }
@@ -880,7 +880,7 @@ void Decompiler::write_any(uint16 read_index, bool &after_tail_wildcard, uint16 
         out_stream_->push("|st", read_index);
       else {
 
-        std::string s = Utils::GetString(&current_object_->code_[index]);
+        string s = Utils::GetString(&current_object_->code_[index]);
         *out_stream_ << '\"' << s << '\"';
       }
       break;
@@ -931,7 +931,7 @@ void Decompiler::write_any(uint16 read_index, bool &after_tail_wildcard, uint16 
       Class embedding_class = metadata_->classes_by_opcodes_[opcode]; // class defining the members.
       for (uint16 i = 2; i <= member_count; ++i) { // get the class of the pointed structure and retrieve the member name from i.
 
-        std::string member_name;
+        string member_name;
         atom = current_object_->code_[index + i]; // atom is an iptr appearing after the leading atom in the cptr.
         switch (atom.getDescriptor()) {
         case Atom::VIEW:

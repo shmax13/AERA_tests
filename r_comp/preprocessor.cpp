@@ -95,11 +95,11 @@ using namespace r_code;
 
 namespace r_comp {
 
-unordered_map<std::string, RepliMacro *> RepliStruct::RepliMacros_;
-unordered_map<std::string, int32> RepliStruct::Counters_;
+unordered_map<string, RepliMacro *> RepliStruct::RepliMacros_;
+unordered_map<string, int32> RepliStruct::Counters_;
 std::list<RepliCondition *> RepliStruct::Conditions_;
 uint32 RepliStruct::GlobalLine_ = 1;
-vector<std::string> RepliStruct::LoadedFilePaths_;
+vector<string> RepliStruct::LoadedFilePaths_;
 
 RepliStruct::RepliStruct(RepliStruct::Type type) {
   type_ = type;
@@ -113,8 +113,7 @@ RepliStruct::~RepliStruct() {
 
 void RepliStruct::reset() {
 
-  std::list<RepliStruct*>::const_iterator arg;
-  for (arg = args_.begin(); arg != args_.end();) {
+  for (auto arg = args_.begin(); arg != args_.end();) {
 
     switch ((*arg)->type_) {
     case RepliStruct::Atom:
@@ -129,7 +128,7 @@ void RepliStruct::reset() {
   }
 }
 
-uint32 RepliStruct::getIndent(std::istream *stream) {
+uint32 RepliStruct::getIndent(istream *stream) {
 
   uint32 count = 0;
   while (!stream->eof()) {
@@ -137,23 +136,23 @@ uint32 RepliStruct::getIndent(std::istream *stream) {
     case 10:
       GlobalLine_++;
     case 13:
-      stream->seekg(-1, std::ios_base::cur);
+      stream->seekg(-1, ios_base::cur);
       return count / 3;
     case ' ':
       count++;
       break;
     default:
-      stream->seekg(-1, std::ios_base::cur);
+      stream->seekg(-1, ios_base::cur);
       return count / 3;
     }
   }
   return count / 3;
 }
 
-int32 RepliStruct::parse(std::istream *stream, const std::string& file_path, uint32 &cur_indent, uint32 &prev_indent, int32 param_expect) {
+int32 RepliStruct::parse(istream *stream, const string& file_path, uint32 &cur_indent, uint32 &prev_indent, int32 param_expect) {
 
   char c = 0, lastc = 0, lastcc, tc;
-  std::string str, label;
+  string str, label;
   RepliStruct* sub_struct;
 
   int32 param_count = 0;
@@ -535,9 +534,9 @@ int32 RepliStruct::parse(std::istream *stream, const std::string& file_path, uin
 }
 
 
-bool RepliStruct::parseDirective(std::istream *stream, const std::string& file_path, uint32 &cur_indent, uint32 &prev_indent) {
+bool RepliStruct::parseDirective(istream *stream, const string& file_path, uint32 &cur_indent, uint32 &prev_indent) {
 
-  std::string str = "!";
+  string str = "!";
   // RepliStruct* subStruct;
   char c;
 
@@ -613,12 +612,12 @@ int32 RepliStruct::process() {
   RepliStruct *structure, *new_struct, *temp_struct;
   RepliMacro* macro;
   RepliCondition* cond;
-  std::string load_error;
+  string load_error;
 
   // expand Counters_ in all structures
   if (Counters_.find(cmd_) != Counters_.end()) {
     // expand the counter
-    cmd_ = std::to_string(Counters_[cmd_]++);
+    cmd_ = to_string(Counters_[cmd_]++);
     changes++;
   }
   // expand Macros in all structures
@@ -641,7 +640,7 @@ int32 RepliStruct::process() {
   if (args_.size() == 0)
     return changes;
 
-  for (std::list<RepliStruct*>::iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter) {
+  for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter) {
     structure = (*iter);
 
     // printf("Processing %s with %d args...\n", structure->cmd.c_str(), structure->args.size());
@@ -665,7 +664,7 @@ int32 RepliStruct::process() {
     }
 
     // Check Conditions_ to see if we are active at the moment
-    for (std::list<RepliCondition*>::const_iterator iCon(Conditions_.begin()), iConEnd(Conditions_.end()); iCon != iConEnd; ++iCon) {
+    for (auto iCon(Conditions_.begin()), iConEnd(Conditions_.end()); iCon != iConEnd; ++iCon) {
       // if just one active condition is not active we will ignore the current line
       // until we get an !else or !endif
       if (!((*iCon)->isActive(RepliMacros_, Counters_)))
@@ -757,7 +756,7 @@ int32 RepliStruct::process() {
       }
 
       // check for sub structures containing macros
-      for (std::list<RepliStruct*>::iterator iter2(structure->args_.begin()), iter2End(structure->args_.end()); iter2 != iter2End; ++iter2) {
+      for (auto iter2(structure->args_.begin()), iter2End(structure->args_.end()); iter2 != iter2End; ++iter2) {
         if ((count = (*iter2)->process()) > 0)
           changes += count;
         else if (count < 0)
@@ -768,7 +767,7 @@ int32 RepliStruct::process() {
     // expand Counters_ in all structures
     if (Counters_.find(structure->cmd_) != Counters_.end()) {
       // expand the counter
-      structure->cmd_ = std::to_string(Counters_[structure->cmd_]++);
+      structure->cmd_ = to_string(Counters_[structure->cmd_]++);
       changes++;
     }
 
@@ -780,7 +779,7 @@ int32 RepliStruct::process() {
   return changes;
 }
 
-RepliStruct *RepliStruct::loadReplicodeFile(const std::string &filename) {
+RepliStruct *RepliStruct::loadReplicodeFile(const string &filename) {
 
   RepliStruct* new_root = new RepliStruct(Root);
   if (isFileLoaded(filename)) {
@@ -791,7 +790,7 @@ RepliStruct *RepliStruct::loadReplicodeFile(const std::string &filename) {
   // Mark this file as loaded.
   LoadedFilePaths_.push_back(filename);
 
-  std::ifstream load_stream(filename.c_str(), std::ios::binary | ios::in);
+  ifstream load_stream(filename.c_str(), ios::binary | ios::in);
   if (load_stream.bad() || load_stream.fail() || load_stream.eof()) {
     new_root->error_ += "Load: File '" + filename + "' cannot be read! ";
     load_stream.close();
@@ -808,7 +807,7 @@ RepliStruct *RepliStruct::loadReplicodeFile(const std::string &filename) {
   return new_root;
 }
 
-bool RepliStruct::isFileLoaded(const std::string& file_path) {
+bool RepliStruct::isFileLoaded(const string& file_path) {
   for (auto loaded_file_path = LoadedFilePaths_.begin();
     loaded_file_path != LoadedFilePaths_.end();
     ++loaded_file_path) {
@@ -819,14 +818,14 @@ bool RepliStruct::isFileLoaded(const std::string& file_path) {
   return false;
 }
 
-std::string RepliStruct::print() const {
+string RepliStruct::print() const {
 
 #if 1 // Just use a stringstream.
   ostringstream out;
   out << *this;
   return out.str();
 #else
-  std::string str;
+  string str;
   switch (type_) {
   case Atom:
     return cmd_;
@@ -835,7 +834,7 @@ std::string RepliStruct::print() const {
   case Directive:
   case Condition:
     str = cmd_;
-    for (std::list<RepliStruct*>::const_iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
+    for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
       str += " " + (*iter)->print();
     if (type_ == Structure)
       return label_ + "(" + str + ")" + tail_;
@@ -844,14 +843,14 @@ std::string RepliStruct::print() const {
     else
       return str;
   case Set:
-    for (std::list<RepliStruct*>::const_iterator iter(args_.begin()), last(args_.end()), iterEnd(last--); iter != iterEnd; ++iter) {
+    for (auto iter(args_.begin()), last(args_.end()), iterEnd(last--); iter != iterEnd; ++iter) {
       str += (*iter)->print();
       if (iter != last)
         str += " ";
     }
     return label_ + "[" + str + "]" + tail_;
   case Root:
-    for (std::list<RepliStruct*>::const_iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
+    for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
       str += (*iter)->print() + "\n";
     return str;
   default:
@@ -861,12 +860,12 @@ std::string RepliStruct::print() const {
 #endif
 }
 
-std::ostream &operator<<(std::ostream &os, RepliStruct *structure) {
+ostream &operator<<(ostream &os, RepliStruct *structure) {
 
   return operator<<(os, *structure);
 }
 
-std::ostream &operator<<(std::ostream &os, const RepliStruct &structure) {
+ostream &operator<<(ostream &os, const RepliStruct &structure) {
 
   switch (structure.type_) {
   case RepliStruct::Atom:
@@ -881,7 +880,7 @@ std::ostream &operator<<(std::ostream &os, const RepliStruct &structure) {
     else if (structure.type_ == RepliStruct::Development)
       os << structure.label_ << "{";
     os << structure.cmd_;
-    for (std::list<RepliStruct*>::const_iterator iter(structure.args_.begin()), iterEnd(structure.args_.end()); iter != iterEnd; ++iter)
+    for (auto iter(structure.args_.begin()), iterEnd(structure.args_.end()); iter != iterEnd; ++iter)
       os << " " << (*iter);
     if (structure.type_ == RepliStruct::Structure)
       os << ")" << structure.tail_;
@@ -891,7 +890,7 @@ std::ostream &operator<<(std::ostream &os, const RepliStruct &structure) {
   case RepliStruct::Set:
     os << structure.label_ << "[";
     if (structure.args_.size() > 0) {
-      for (std::list<RepliStruct*>::const_iterator iter(structure.args_.begin()), last(structure.args_.end()), iterEnd(last--); iter != iterEnd; ++iter) {
+      for (auto iter(structure.args_.begin()), last(structure.args_.end()), iterEnd(last--); iter != iterEnd; ++iter) {
         os << (*iter);
         if (iter != last)
           os << " ";
@@ -900,7 +899,7 @@ std::ostream &operator<<(std::ostream &os, const RepliStruct &structure) {
     os << "]" << structure.tail_;
     break;
   case RepliStruct::Root:
-    for (std::list<RepliStruct*>::const_iterator iter(structure.args_.begin()), iterEnd(structure.args_.end()); iter != iterEnd; ++iter)
+    for (auto iter(structure.args_.begin()), iterEnd(structure.args_.end()); iter != iterEnd; ++iter)
       os << (*iter) << std::endl;
     break;
   default:
@@ -918,16 +917,16 @@ RepliStruct *RepliStruct::clone() const {
   new_struct->parent_ = parent_;
   new_struct->error_ = error_;
   new_struct->line_ = line_;
-  for (std::list<RepliStruct*>::const_iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
+  for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
     new_struct->args_.push_back((*iter)->clone());
   return new_struct;
 }
 
-std::string RepliStruct::printError() const {
+string RepliStruct::printError() const {
 
-  std::stringstream str_error;
+  stringstream str_error;
   if (error_.size() > 0) {
-    std::string com = cmd_;
+    string com = cmd_;
     RepliStruct* structure = parent_;
     while ((cmd_.size() == 0) && (structure != NULL)) {
       com = structure->cmd_;
@@ -939,14 +938,14 @@ std::string RepliStruct::printError() const {
       str_error << "Error in structure '" << com << "'";
     if (line_ > 0)
       str_error << " line " << line_;
-    str_error << ": " << error_ << std::endl;
+    str_error << ": " << error_ << endl;
   }
-  for (std::list<RepliStruct*>::const_iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
+  for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter)
     str_error << (*iter)->printError();
   return str_error.str();
 }
 
-RepliMacro::RepliMacro(const std::string &name, RepliStruct *src, RepliStruct *dest) {
+RepliMacro::RepliMacro(const string &name, RepliStruct *src, RepliStruct *dest) {
 
   name_ = name;
   src_ = src;
@@ -987,7 +986,7 @@ RepliStruct *RepliMacro::expandMacro(RepliStruct *old_struct) {
   }
 
   if ((src_->args_.size() > 0) && (src_->args_.size() != old_struct->args_.size())) {
-    error_ += "Macro '" + name_ + "' requires " + std::to_string(src_->args_.size()) + " arguments, cannot expand structure with " + std::to_string(old_struct->args_.size()) + " arguments. ";
+    error_ += "Macro '" + name_ + "' requires " + to_string(src_->args_.size()) + " arguments, cannot expand structure with " + to_string(old_struct->args_.size()) + " arguments. ";
     return NULL;
   }
 
@@ -1007,8 +1006,8 @@ RepliStruct *RepliMacro::expandMacro(RepliStruct *old_struct) {
 
   RepliStruct *find_struct;
 
-  std::list<RepliStruct*>::const_iterator i_old(old_struct->args_.begin());
-  for (std::list<RepliStruct*>::const_iterator i_src(src_->args_.begin()), i_src_end(src_->args_.end()); i_src != i_src_end; ++i_src, ++i_old) {
+  auto i_old(old_struct->args_.begin());
+  for (auto i_src(src_->args_.begin()), i_src_end(src_->args_.end()); i_src != i_src_end; ++i_src, ++i_old) {
     // printf("looking for '%s'\n", (*iSrc)->cmd.c_str());
     // find the Atom inside newStruct with the name of iSrc->cmd
     find_struct = new_struct->findAtom((*i_src)->cmd_);
@@ -1021,10 +1020,10 @@ RepliStruct *RepliMacro::expandMacro(RepliStruct *old_struct) {
   return new_struct;
 }
 
-RepliStruct *RepliStruct::findAtom(const std::string &name) {
+RepliStruct *RepliStruct::findAtom(const string &name) {
 
   RepliStruct* structure;
-  for (std::list<RepliStruct*>::iterator iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter) {
+  for (auto iter(args_.begin()), iterEnd(args_.end()); iter != iterEnd; ++iter) {
     switch ((*iter)->type_) {
     case Atom:
       if ((*iter)->cmd_.compare(name) == 0)
@@ -1046,7 +1045,7 @@ RepliStruct *RepliStruct::findAtom(const std::string &name) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-RepliCondition::RepliCondition(const std::string &name, bool reversed) {
+RepliCondition::RepliCondition(const string &name, bool reversed) {
 
   name_ = name;
   reversed_ = reversed;
@@ -1060,7 +1059,7 @@ void RepliCondition::reverse() {
   reversed_ = !reversed_;
 }
 
-bool RepliCondition::isActive(unordered_map<std::string, RepliMacro *> &repli_macros, unordered_map<std::string, int32> &counters) {
+bool RepliCondition::isActive(unordered_map<string, RepliMacro *> &repli_macros, unordered_map<string, int32> &counters) {
 
   bool found_it = (repli_macros.find(name_) != repli_macros.end());
 
@@ -1085,10 +1084,10 @@ Preprocessor::~Preprocessor() {
   delete root_;
 }
 
-bool Preprocessor::process(std::istream *stream,
-  const std::string& file_path,
-  std::ostringstream *out_stream,
-  std::string &error,
+bool Preprocessor::process(istream *stream,
+  const string& file_path,
+  ostringstream *out_stream,
+  string &error,
   Metadata *metadata) {
 
   // Mark this file as loaded. We don't check if it is already loaded because
@@ -1137,10 +1136,10 @@ bool Preprocessor::process(std::istream *stream,
 
 bool Preprocessor::isTemplateClass(RepliStruct *s) {
 
-  for (std::list<RepliStruct *>::iterator j(s->args_.begin()); j != s->args_.end(); ++j) {
+  for (auto j(s->args_.begin()); j != s->args_.end(); ++j) {
 
-    std::string name;
-    std::string type;
+    string name;
+    string type;
     switch ((*j)->type_) {
     case RepliStruct::Atom:
       if ((*j)->cmd_ == ":~")
@@ -1159,9 +1158,9 @@ bool Preprocessor::isTemplateClass(RepliStruct *s) {
   return false;
 }
 
-bool Preprocessor::isSet(std::string class_name) {
+bool Preprocessor::isSet(string class_name) {
 
-  for (std::list<RepliStruct *>::iterator i(root_->args_.begin()); i != root_->args_.end(); ++i) {
+  for (auto i(root_->args_.begin()); i != root_->args_.end(); ++i) {
 
     if ((*i)->type_ != RepliStruct::Directive || (*i)->cmd_ != "!class")
       continue;
@@ -1174,19 +1173,19 @@ bool Preprocessor::isSet(std::string class_name) {
   return false;
 }
 
-void Preprocessor::instantiateClass(RepliStruct *tpl_class, std::list<RepliStruct *> &tpl_args, std::string &instantiated_class_name) {
+void Preprocessor::instantiateClass(RepliStruct *tpl_class, std::list<RepliStruct *> &tpl_args, string &instantiated_class_name) {
 
   static uint32 LastClassID = 0;
   // remove the trailing [].
-  std::string sset = "[]";
+  string sset = "[]";
   instantiated_class_name = tpl_class->cmd_;
   instantiated_class_name = instantiated_class_name.substr(0, instantiated_class_name.length() - sset.length());
   // append an ID to the tpl class name.
-  instantiated_class_name += std::to_string(LastClassID++);
+  instantiated_class_name += to_string(LastClassID++);
 
   vector<StructureMember> members;
   std::list<RepliStruct *> _tpl_args;
-  for (std::list<RepliStruct *>::reverse_iterator i = tpl_args.rbegin(); i != tpl_args.rend(); ++i)
+  for (auto i = tpl_args.rbegin(); i != tpl_args.rend(); ++i)
     _tpl_args.push_back(*i);
   getMembers(tpl_class, members, _tpl_args, true);
 
@@ -1198,8 +1197,8 @@ void Preprocessor::instantiateClass(RepliStruct *tpl_class, std::list<RepliStruc
 void Preprocessor::getMember(vector<StructureMember> &members, RepliStruct *m, std::list<RepliStruct *> &tpl_args, bool instantiate) {
 
   size_t p;
-  std::string name;
-  std::string type;
+  string name;
+  string type;
   switch (m->type_) {
   case RepliStruct::Set:
     name = m->label_.substr(0, m->label_.length() - 1);
@@ -1248,7 +1247,7 @@ void Preprocessor::getMember(vector<StructureMember> &members, RepliStruct *m, s
       tpl_args.pop_back();
       switch (_m->type_) {
       case RepliStruct::Structure: { // the tpl arg is an instantiated tpl set class.
-        std::string instantiated_class_name;
+        string instantiated_class_name;
         instantiateClass(template_classes_.find(_m->cmd_)->second, _m->args_, instantiated_class_name);
         members.push_back(StructureMember(&Compiler::read_set, _m->label_.substr(0, _m->label_.length() - 1), instantiated_class_name, StructureMember::I_CLASS));
         break;
@@ -1265,12 +1264,12 @@ void Preprocessor::getMember(vector<StructureMember> &members, RepliStruct *m, s
     RepliStruct *template_class = template_classes_.find(m->cmd_)->second;
     if (instantiate) {
 
-      std::string instantiated_class_name;
+      string instantiated_class_name;
       instantiateClass(template_class, m->args_, instantiated_class_name);
       members.push_back(StructureMember(&Compiler::read_set, m->label_.substr(0, m->label_.length() - 1), instantiated_class_name, StructureMember::I_CLASS));
     } else {
 
-      for (std::list<RepliStruct *>::reverse_iterator i = m->args_.rbegin(); i != m->args_.rend(); ++i) // append the passed args to the ones held by m.
+      for (auto i = m->args_.rbegin(); i != m->args_.rend(); ++i) // append the passed args to the ones held by m.
         tpl_args.push_back(*i);
       getMembers(template_class, members, tpl_args, false);
     }
@@ -1285,7 +1284,7 @@ void Preprocessor::getMember(vector<StructureMember> &members, RepliStruct *m, s
 
 void Preprocessor::getMembers(RepliStruct *s, vector<StructureMember> &members, std::list<RepliStruct *> &tpl_args, bool instantiate) {
 
-  for (std::list<RepliStruct *>::iterator j(s->args_.begin()); j != s->args_.end(); ++j)
+  for (auto j(s->args_.begin()); j != s->args_.end(); ++j)
     getMember(members, *j, tpl_args, instantiate);
 }
 
@@ -1321,13 +1320,13 @@ void Preprocessor::initialize(Metadata *metadata) {
   uint16 operator_opcode = 0;
 
   vector<StructureMember> r_xpr;
-  metadata->classes_[std::string(Class::Expression)] = Class(Atom::Object(class_opcode_, 0), Class::Expression, r_xpr); // to read unspecified expressions in classes and sets.
+  metadata->classes_[string(Class::Expression)] = Class(Atom::Object(class_opcode_, 0), Class::Expression, r_xpr); // to read unspecified expressions in classes and sets.
   ++class_opcode_;
   vector<StructureMember> r_type;
-  metadata->classes_[std::string(Class::Type)] = Class(Atom::Object(class_opcode_, 0), Class::Type, r_type); // to read object types in expressions and sets.
+  metadata->classes_[string(Class::Type)] = Class(Atom::Object(class_opcode_, 0), Class::Type, r_type); // to read object types in expressions and sets.
   ++class_opcode_;
 
-  for (std::list<RepliStruct *>::iterator i(root_->args_.begin()); i != root_->args_.end(); ++i) {
+  for (auto i(root_->args_.begin()); i != root_->args_.end(); ++i) {
 
     if ((*i)->type_ != RepliStruct::Directive)
       continue;
@@ -1336,10 +1335,10 @@ void Preprocessor::initialize(Metadata *metadata) {
     vector<StructureMember> members;
     if ((*i)->cmd_ == "!class") {
 
-      std::string sset = "[]";
-      std::string class_name = s->cmd_;
+      string sset = "[]";
+      string class_name = s->cmd_;
       size_t p = class_name.find(sset);
-      ClassType class_type = (p == std::string::npos ? T_CLASS : T_SET);
+      ClassType class_type = (p == string::npos ? T_CLASS : T_SET);
       if (class_type == T_SET) // remove the trailing [] since the RepliStructs for instantiated classes do so.
         class_name = class_name.substr(0, class_name.length() - sset.length());
 
@@ -1370,7 +1369,7 @@ void Preprocessor::initialize(Metadata *metadata) {
 
       if (class_type == T_CLASS) { // find out if the class is a sys class, i.e. is an instantiation of _obj, _grp or _fact.
 
-        std::string base_class = s->args_.front()->cmd_;
+        string base_class = s->args_.front()->cmd_;
         if (base_class == "_obj" || base_class == "_grp" || base_class == "_fact")
           class_type = T_SYS_CLASS;
       }
@@ -1396,7 +1395,7 @@ void Preprocessor::initialize(Metadata *metadata) {
       getMembers(s, members, tpl_args, false);
       ReturnType return_type = getReturnType(s);
 
-      std::string operator_name = s->cmd_;
+      string operator_name = s->cmd_;
       metadata->operator_names_.push_back(operator_name);
       metadata->classes_[operator_name] = Class(Atom::Operator(operator_opcode, s->args_.size()), operator_name, members, return_type);
       ++operator_opcode;
@@ -1405,7 +1404,7 @@ void Preprocessor::initialize(Metadata *metadata) {
       vector<StructureMember> r_set;
       r_set.push_back(StructureMember(&Compiler::read_set, ""));
 
-      std::string function_name = s->cmd_;
+      string function_name = s->cmd_;
       metadata->function_names_.push_back(function_name);
       metadata->classes_[function_name] = Class(Atom::DeviceFunction(function_opcode), function_name, r_set);
       ++function_opcode;
