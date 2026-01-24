@@ -359,6 +359,10 @@ int32 start_AERA(const char* file_name, const char* decompiled_file_name) {
       else
         mem = new video_screen::VideoScreenIoDevice<r_exec::LObject, r_exec::MemVolatile>();
     }
+    else {
+      std::cout << "Unrecognized io_device \"" << settings.io_device_ << "\"" << std::endl;
+      return 2;
+    }
 
     if (runtime_output_stream.is_open())
       // Use the debug stream from settings.xml.
@@ -568,6 +572,10 @@ AERA_interface::AERA_interface(const char* file_name, const char* decompiled_fil
         mem_ = new video_screen::VideoScreenIoDevice<r_exec::LObject, r_exec::MemStatic>();
       else
         mem_ = new video_screen::VideoScreenIoDevice<r_exec::LObject, r_exec::MemVolatile>();
+    }
+    else {
+      std::cout << "Unrecognized io_device \"" << settings_->io_device_ << "\"" << std::endl;
+      throw 2;
     }
 
     if (runtime_output_stream_.is_open())
