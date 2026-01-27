@@ -154,7 +154,8 @@ public:
   uint32 decompile(r_comp::Image *image,
     std::ostringstream *stream,
     Timestamp time_reference,
-    bool ignore_named_objects); // decompiles the whole image; returns the number of objects.
+    bool ignore_named_objects,
+    std::unordered_map<uint16, std::string>* object_names = NULL); // decompiles the whole image; returns the number of objects.
   uint32 decompile(r_comp::Image *image,
     std::ostringstream *stream,
     Timestamp time_reference,

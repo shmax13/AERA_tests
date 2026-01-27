@@ -195,11 +195,12 @@ void Decompiler::init(r_comp::Metadata *metadata) {
   }
 }
 
-uint32 Decompiler::decompile(r_comp::Image *image, ostringstream *stream, Timestamp time_reference, bool ignore_named_objects) {
+uint32 Decompiler::decompile(r_comp::Image *image, ostringstream *stream, Timestamp time_reference, bool ignore_named_objects,
+  unordered_map<uint16, string>* object_names) {
 
   ignore_named_objects_ = ignore_named_objects;
 
-  uint32 object_count = decompile_references(image);
+  uint32 object_count = decompile_references(image, object_names);
 
   for (uint16 i = 0; i < image->code_segment_.objects_.size(); ++i)
     decompile_object(i, stream, time_reference);
