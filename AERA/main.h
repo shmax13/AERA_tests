@@ -86,6 +86,7 @@
 #ifndef main_h
 #define main_h
 
+#include <map>
 #include "../submodules/CoreLibrary/CoreLibrary/types.h"
 #include "test_mem.h"
 #include "../r_exec/init.h"
@@ -114,8 +115,11 @@ public:
 	// Run AERA all the way to settings->run_time_
 	void run();
 
-	// Dump everything AERA's working on to a file for analysis
-	void brainDump();
+	/**
+	 * Dump everything AERA's working on to a file for analysis.
+	 * \param objectLabel (optional) A map of a Code* object to a label. The object is matched by detail_oid.
+	 */
+	void brainDump(const std::map<r_code::Code*, std::string>* objectLabel = NULL);
 
 	// Shuts everything down
 	void stop();

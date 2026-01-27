@@ -215,7 +215,8 @@ void test_many_injections(r_exec::_Mem *mem, milliseconds sampling_period, uint3
   }
 }
 
-void decompile(Decompiler &decompiler, r_comp::Image *image, Timestamp time_reference, bool ignore_named_objects) {
+void decompile(Decompiler &decompiler, r_comp::Image *image, Timestamp time_reference, bool ignore_named_objects,
+  unordered_map<uint16, string>* object_names = NULL) {
 
 #ifdef DECOMPILE_ONE_BY_ONE
   uint32 object_count = decompiler.decompile_references(image);
@@ -238,7 +239,7 @@ void decompile(Decompiler &decompiler, r_comp::Image *image, Timestamp time_refe
   }
 #else
   std::ostringstream decompiled_code;
-  uint32 object_count = decompiler.decompile(image, &decompiled_code, time_reference, ignore_named_objects);
+  uint32 object_count = decompiler.decompile(image, &decompiled_code, time_reference, ignore_named_objects, object_names);
   //uint32 object_count=image->code_segment_.objects.size();
   std::cout << "\n\n> DECOMPILATION. TimeReference " << Utils::ToString_s_ms_us(time_reference, Timestamp(seconds(0))) << "\n\n" <<
     decompiled_code.str() << std::endl;
@@ -651,7 +652,7 @@ void AERA_interface::run() {
 }
 
 
-void AERA_interface::brainDump() {
+void AERA_interface::brainDump(const map<r_code::Code*,string>* objectLabel) {
   r_comp::Image* image;
 #if 0 // Diagnostic time is single-threaded, so don't need critical sections.
   mem_->enterCS();
@@ -664,6 +665,21 @@ void AERA_interface::brainDump() {
     //probe.check();
     image->object_names_.symbols_ = r_exec::Seed.object_names_.symbols_;
 
+    // Fill the objectNames map from objectLabel and use it in decompile_references.
+    unordered_map<uint16, string> objectNames;
+#ifdef WITH_DETAIL_OID // We can only match by detail OID.
+    if (objectLabel) {
+      for (auto i = 0; i < image->code_segment_.objects_.size(); ++i) {
+        // Search objectLabel for the detail OID.
+        for (auto o = objectLabel->begin(); o != objectLabel->end(); ++o) {
+          if (o->first->get_detail_oid() == image->code_segment_.objects_[i]->detail_oid_) {
+            objectNames[i] = o->second;
+            break;
+          }
+        }
+      }
+    }
+#endif
 
     if (settings_->write_objects_)
       write_to_file(image, settings_->objects_path_, settings_->test_objects_ ? &decompiler_ : NULL, starting_time_);
@@ -676,13 +692,13 @@ void AERA_interface::brainDump() {
         outfile.open(settings_->decompilation_file_path_.c_str(), std::ios_base::trunc);
         std::streambuf* coutbuf = std::cout.rdbuf(outfile.rdbuf());
 
-        decompile(decompiler_, image, starting_time_, settings_->ignore_named_objects_);
+        decompile(decompiler_, image, starting_time_, settings_->ignore_named_objects_, &objectNames);
 
         std::cout.rdbuf(coutbuf);
         outfile.close();
       }
       else
-        decompile(decompiler_, image, starting_time_, settings_->ignore_named_objects_);
+        decompile(decompiler_, image, starting_time_, settings_->ignore_named_objects_, &objectNames);
 
       delete image;
     }
@@ -724,9 +740,6 @@ void AERA_interface::brainDump() {
 void AERA_interface::stop() {
   std::cout << "\n> shutting rMem down...\n";
   mem_->stop();
-
-  // Dump objects to a decompiled_objects file
-  brainDump();
 
   // Delete objects if requested
   if (settings_->get_objects_) {
