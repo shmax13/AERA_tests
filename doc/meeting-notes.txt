@@ -1275,7 +1275,14 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 
 2026-01-15
 * DONE. Update copyright year.
-* DONE. Update Chloe's Visualizer to the latest AERA.
+* DONE. Update Chloe's Visualizer to the latest AERA https://github.com/nonbinarysolo/AERA_Visualizer/pull/1
+
+2026-01-22
+* DONE. Update Chloe's Visualizer to the latest Visualizer dev https://github.com/nonbinarysolo/AERA_Visualizer/pull/2
+
+2026-01-30
+* DONE: Update AERA decompiler to take a label map
+* DONE: Update Chloe's Visualizer to use current labels for decompiled output https://github.com/nonbinarysolo/AERA_Visualizer/pull/3
 
 next meeting
 * Open issues from Leonard
