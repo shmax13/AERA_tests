@@ -177,7 +177,7 @@ namespace AeraTests {
             for (auto& c : name) if (!isalnum(c)) c = '_';
             return name;
         }
-    );*/
+    )
 
     // TECHNICAL REPORT - MAIN
     INSTANTIATE_TEST_SUITE_P(
@@ -229,7 +229,7 @@ namespace AeraTests {
             for (auto& c : name) if (!isalnum(c)) c = '_';
             return name;
         }
-    );
+    );*/
 
     // INTELLIGENCE REQUIREMENTS - 1 - EMBODIMENT
     INSTANTIATE_TEST_SUITE_P(

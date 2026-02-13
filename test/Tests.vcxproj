@@ -172,7 +172,17 @@
     <None Include="tests\existing\replicode_v1.2\test_cmd.replicode" />
     <None Include="tests\existing\replicode_v1.2\user.classes.replicode" />
     <None Include="tests\free-tests\colors.replicode" />
-    <None Include="tests\intelligence-requirements\1-embodiment\test.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-inj.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-ldc.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-mod.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-new-class.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-prb.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-set.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.replicode" />
     <None Include="tests\intelligence-requirements\2-constructivism\test.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\test.replicode" />
     <None Include="tests\intelligence-requirements\4-knowledge-of-causes\test.replicode" />
@@ -302,7 +312,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="runtime_out.txt" />
     <Text Include="tests\existing\replicode_v1.1\helgi.txt" />
     <Text Include="tests\existing\replicode_v1.1\rgrp.user.classes.txt" />
     <Text Include="tests\existing\replicode_v1.1\std.txt" />
@@ -371,7 +380,17 @@
     <Text Include="tests\existing\replicode_v1.2\test_cmd.txt" />
     <Text Include="tests\existing\replicode_v1.2\user.classes.txt" />
     <Text Include="tests\free-tests\colors.txt" />
-    <Text Include="tests\intelligence-requirements\1-embodiment\test.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-inj.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-ldc.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-mod.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-new-class.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-prb.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-set.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.txt" />
     <Text Include="tests\intelligence-requirements\2-constructivism\test.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\test.txt" />
     <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\test.txt" />
@@ -463,7 +482,7 @@
     <Text Include="tests\technical-report\annex2\3.3\test-mk-rdx.txt" />
     <Text Include="tests\technical-report\annex2\3.3\test-mk-sln-chg.txt" />
     <Text Include="tests\technical-report\main\2_overview\programs.txt" />
-    <Text Include="notes.txt" />
+    <Text Include="report.md" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="settings_template.xml" />
