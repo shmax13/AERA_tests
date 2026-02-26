@@ -413,6 +413,8 @@ static void update_timestamps(Timestamp time_reference, Atom* code, uint16 index
     update_timestamps(time_reference, code, atom.asIndex());
     break;
   case Atom::C_PTR:
+      // A C_PTR doesn't have a timestamp. Plus it uses I_PTR with a different meaning. Skip.
+      break;
   case Atom::SET:
   case Atom::OBJECT:
   case Atom::S_SET:
