@@ -1,5 +1,3 @@
-; Doc - Annex 2 - 3.2 - rMem's - Functions
-
 ; L O A D   C O D E
 ; !dfn (_ldc :st)
 ; !def (ldc args) (icmd _ldc args)
