@@ -1,5 +1,3 @@
-; Doc - Annex 2 - 3.2 - rMem's - Functions
-
 ; E J E
 ; !dfn (_eje : : :nid)
 ; !def (eje args) (icmd _eje args)
