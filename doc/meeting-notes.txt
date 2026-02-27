@@ -1284,6 +1284,14 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 * DONE: Update AERA decompiler to take a label map
 * DONE: Update Chloe's Visualizer to use current labels for decompiled output https://github.com/nonbinarysolo/AERA_Visualizer/pull/3
 
+2026-02-12
+* DONE: Fix crash in Chloe's Visualizer on opening existing runtime output https://github.com/nonbinarysolo/AERA_Visualizer/pull/5
+
+2026-02-27
+* DONE. Chloe's Visualizer: Fix opening runtime output. Fix crash on close. https://github.com/nonbinarysolo/AERA_Visualizer/pull/6
+* DONE. Make AERA_Webots PR to change green_box to green_sphere_with_base https://github.com/IIIM-IS/AERA_Webots/pull/18
+* DONE. Document AERA "Hand Grab Sphere" Example Details
+
 next meeting
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
