@@ -15,6 +15,11 @@
 !class (enabled (_obj {obj:}))
 
 ; device functions.
+!dfn (stall)
+!dfn (open_plug :)
+!dfn (close_plug :)
+!dfn (open_valve :)
+!dfn (close_valve :)
 
 !dfn (ready :); arg0: a string identifying the external environment to start, arg1: an object.
 !dfn (speak :); arg0: a word, arg1: deadline.
