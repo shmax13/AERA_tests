@@ -8,7 +8,7 @@
 !def EMPTY 0
 !def FULL 100
 !def PERFECT 50
-!def WATER_LEVEL_DELTA 13
+!def WATER_LEVEL_DELTA 10
 !def CLOSED 0
 !def OPEN 1
 !def JUST_CLOSED 2
@@ -20,12 +20,9 @@
 ; setup entities, ontologies and markers
 ; ============================
 bathtub:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
-valve:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 
 b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 b_is_a_bathtub:(mk.val b essence bathtub 1) |[]
-v:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
-v_is_a_valve:(mk.val v essence valve 1) |[]
 
 water_level:(ont 1) [[SYNC_ONCE now 0 forever root nil]];
 opening:(ont 1) [[SYNC_ONCE now 0 forever root nil]];
@@ -34,14 +31,13 @@ bathtub_is_empty:(mk.val bathtub water_level EMPTY 1) [[SYNC_ONCE now 1 forever 
 bathtub_is_full:(mk.val bathtub water_level FULL 1) [[SYNC_ONCE now 1 forever primary nil]]
 bathtub_is_perfectly_full: (mk.val bathtub water_level PERFECT 1) [[SYNC_ONCE now 1 forever primary nil]]
 
-valve_is_closed:(mk.val valve opening CLOSED 1) [[SYNC_ONCE now 1 forever primary nil]]
-valve_is_open:(mk.val valve opening OPEN 1) [[SYNC_ONCE now 1 forever primary nil]]
+bathtub_valve_is_closed:(mk.val bathtub opening CLOSED 1) [[SYNC_ONCE now 1 forever primary nil]]
+bathtub_valve_is_open:(mk.val bathtub opening OPEN 1) [[SYNC_ONCE now 1 forever primary nil]]
 
 ; ============================
 ; setup facts - our heartbeats!
 ; ============================
 f_b_bathtub:(fact b_is_a_bathtub 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
-f_v_valve:(fact v_is_a_valve 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
 
 
 ; ============================
@@ -86,6 +82,11 @@ pgm_inject_mk_vals_from_emulator:(pgm [] []
       (fact new_water_level After Before 1 1)
       [SYNC_PERIODIC After 1 1 stdin nil]
    )
+   (inj [new_valve_state:(mk.val b opening valveState 1) []])
+   (inj []
+      (fact new_valve_state After Before 1 1)
+      [SYNC_PERIODIC After 1 1 stdin nil]
+   )
 1) |[]
 (ipgm pgm_inject_mk_vals_from_emulator [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
@@ -121,116 +122,63 @@ pgm_inject_drive:(pgm [] []
    [SYNC_ONCE now 0 forever primary nil 1]
 
 ; ============================
-; PROGRAMS
-; ============================
-; overflow checker
-pgm_overflow:(pgm 
-|[]
-[]
-    (ptn (fact (mk.val b water_level FULL :) After: Before: ::) [])
-|[]
-[]
-   (prb [1 "print" "bathtub overflow!" []])
-   (stop [])
-1) |[]
-ipgm_overflow:(ipgm pgm_overflow |[] RUN_ONCE 0ms VOLATILE NOTIFY 1) [[SYNC_ONCE now 0 1 stdin nil 1]]
-
-; ============================
 ; NEXT EMULATION STEPS
 ; ============================
 
-; VALVE CLOSED
-pgm0:(pgm [] []
-   (ptn (fact (mk.val e1 emulator_state [waterLevel: CLOSED] :) After: Before: ::) [])
-   ;(ptn (|fact (mk.val e1 emulator_state [: JUST_OPENED] :) : : ::) [])
-   ;(ptn (|fact (mk.val e1 emulator_state [: JUST_CLOSED] :) : : ::) [])
-|[]
-[]
-   ; All state variables keep the same value.
-   (inj [Next_state:(mk.val e1 emulator_state [waterLevel CLOSED] 1) []])
-   (inj []
-      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
-      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
-   )
-   (prb [1 "print" "next emulator state - VALVE CLOSED" []])
-1) |[]
-(ipgm pgm0 [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
-   [SYNC_ONCE now 0 forever emulator nil 1]
-
-
-; VALVE OPEN
-pgm1:(pgm [] []
+; Before DRIVE_START, just re-inject the same values.
+pgm_before_drive:(pgm [] []
    (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
 []
-   (= valveState OPEN)
+   (< After (+ this.vw.ijt DRIVE_START))
 []
    ; All state variables keep the same value.
-   (inj [Next_state:(mk.val e1 emulator_state [(+ waterLevel WATER_LEVEL_DELTA) valveState] 1) []])
+   (inj [Next_state:(mk.val e1 emulator_state [waterLevel valveState] 1) []])
    (inj []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
    )
-   (prb [1 "print" "next emulator state - VALVE OPEN" []])
+   (prb [1 "print" "next emulator state - before drive" []])
 1) |[]
-(ipgm pgm1 [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+(ipgm pgm_before_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
-; VALVE JUST OPENED
-pgm2:(pgm [] []
-   (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
-[]
-   (= valveState JUST_OPENED)
-[]
-   ; All state variables keep the same value.
-   (inj [Next_state:(mk.val e1 emulator_state [(+ waterLevel WATER_LEVEL_DELTA) OPEN] 1) []])
-   (inj []
-      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
-      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
-   )
-   (prb [1 "print" "next emulator state - VALVE JUST OPENED" []])
-1) |[]
-(ipgm pgm2 [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
-   [SYNC_ONCE now 0 forever emulator nil 1]
 
-; VALVE JUST CLOSED
-pgm3:(pgm [] []
-   (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
-[]
-   (= valveState JUST_CLOSED)
-[]
-   ; All state variables keep the same value.
-   (inj [Next_state:(mk.val e1 emulator_state [waterLevel CLOSED] 1) []])
-   (inj []
-      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
-      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
-   )
-   (prb [1 "print" "next emulator state - VALVE JUST CLOSED" []])
-1) |[]
-(ipgm pgm3 [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
-   [SYNC_ONCE now 0 forever emulator nil 1]
+
+
 
 
 ; ============================
-; DUMMIES TO CHECK EMULATION
+; MODELS
 ; ============================
-; open valve at 500ms
-dummy0:(pgm 
+; Bathtub B has valve status V.
+S0:(cst [] []
+   (fact (mk.val B: essence bathtub :) T0: T1: : :)
+   (fact (mk.val B: opening V: :) T0: T1: : :)
 |[]
+|[]
+[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; When I open B's valve, then B will have water_level WL1.
+M0:(mdl [B: WL0: (ti T0: T1:)] []
+   (fact (cmd open_valve [B: WLD:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
+   (fact (mk.val B: water_level WL1: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
 []
-   (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
+   WL1:(+ WL0 WLD)
+   T1_RHS:(+ T0 100ms)
+   T3:(+ T1 100ms)
 []
-   (= After (+ this.vw.ijt DUMMY_1))
-[]
-   (inj [Command:(cmd open_valve [] 1) []])
-   (inj []
-      (fact Command (+ After 20ms) Before 1 1)
-      [SYNC_ONCE After 1 1 stdin nil]
-   )
-   (inj [Next_state:(mk.val e1 emulator_state [(+ waterLevel WATER_LEVEL_DELTA) JUST_OPENED] 1) []])
-   (inj []
-      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
-      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
-   )
-   (prb [1 "print" "dummy 0 activated - opening valve!" []])
-1) |[]
-idummy0:(ipgm dummy0 |[] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) [[SYNC_ONCE now 0 forever emulator nil 1]]
+   (<> WL0 WL1); Don't make a subgoal that doesn't change anything.
+   WLD:(- WL1 WL0)
+   T2:(- T1_RHS 80ms); Change 50ms delay to 20ms.
+   T1_cmd:(- T3 100ms)
+   T0:(- T1_RHS 100ms)
+   T1:(- T3 100ms)
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; If we observe state S0 (bathtub B has waterlevel WL0), then if M0 predicts something (waterlevel WL1) it will be right.
+M1:(mdl [] []
+   (fact (icst S0 [] [B: WL0:] : :) T0: T1: : :)
+   (fact (imdl M0 [B: WL0: (ti T0: T1:)] [WLD: WL1: T1_RHS: T3:] : :) T0: T1: : :); T2: is not exposed from M0. T1_RHS is also exposed.
+|[]
+|[]
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
