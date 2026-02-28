@@ -14,6 +14,9 @@
 !def DRIVE_START 300ms
 !def DUMMY_1 500ms
 
+!def WL_INIT EMPTY
+!def VS_INIT CLOSED
+
 ; ============================
 ; setup entities, ontologies and markers
 ; ============================
@@ -62,7 +65,7 @@ pgm_inject_in_emulator_group:(pgm [] []
 
 ; Initial conditions.
 start:(pgm [] [] [] []
-   (inj [State:(mk.val e1 emulator_state [EMPTY CLOSED] 1) []]) ; waterlevel, valve
+   (inj [State:(mk.val e1 emulator_state [WL_INIT VS_INIT] 1) []]) ; waterlevel, valve
    (inj []
       (fact State After:(now) (+ After sampling_period) 1 1)
       [SYNC_PERIODIC now 1 1 emulator nil]
@@ -196,57 +199,81 @@ pgm_cmd_open_valve_relax:(pgm [] []
 
 
 ; ============================
-; MODELS
+; CST'S
 ; ============================
-; Bathtub B has valve status V.
+; Bathtub B has valve status CLOSED.
 S0:(cst [] []
    (fact (mk.val B: essence bathtub :) T0: T1: : :)
-   (fact (mk.val B: valve_status V0: :) T0: T1: : :)
+   (fact (mk.val B: valve_status CLOSED :) T0: T1: : :)
    (fact (mk.val B: water_level WL0: :) T0: T1: : :)
 |[]
 |[]
 [stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; When B's valve is closed and I open it, then B will have water_level + 10
+; Bathtub B has valve status OPEN.
+S1:(cst [] []
+   (fact (mk.val B: essence bathtub :) T0: T1: : :)
+   (fact (mk.val B: valve_status OPEN :) T0: T1: : :)
+   (fact (mk.val B: water_level WL0: :) T0: T1: : :)
+|[]
+|[]
+[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; ============================
+; MODELS
+; ============================
+; When B's valve is closed and I open it, then B will have an open valve
 M0:(mdl [B: V0: WL0: (ti T0: T1:)] []
    (fact (cmd open_valve [B:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
-   (fact (mk.val B: water_level WL1: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
+   (fact (icst S1 [] [B: WL1:]: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
 []
    (= V0 CLOSED)
-   WL1:(+ WL0 WATER_LEVEL_DELTA)
    T1_RHS:(+ T0 100ms)
    T3:(+ T1 100ms)
 []
-   (<> WL0 WL1); Don't make a subgoal that doesn't change anything.
-   WL0:(- WL1 WATER_LEVEL_DELTA)
    T2:(- T1_RHS 80ms); Change 50ms delay to 20ms.
    T1_cmd:(- T3 100ms)
    T0:(- T1_RHS 100ms)
    T1:(- T3 100ms)
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; When B's valve is open and I do nothing, then B will have water_level + 10
-M1:(mdl [B: V0: WL0: (ti T0: T1:)] []
-   (fact (cmd relax [B:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
-   (fact (mk.val B: water_level WL1: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
-[]
-   (= V0 OPEN)
-   WL1:(+ WL0 WATER_LEVEL_DELTA)
-   T1_RHS:(+ T0 100ms)
-   T3:(+ T1 100ms)
-[]
-   (<> WL0 WL1); Don't make a subgoal that doesn't change anything.
-   WL0:(- WL1 WATER_LEVEL_DELTA)
-   T2:(- T1_RHS 80ms); Change 50ms delay to 20ms.
-   T1_cmd:(- T3 100ms)
-   T0:(- T1_RHS 100ms)
-   T1:(- T3 100ms)
-[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-; If we observe state S0 (bathtub B has waterlevel WL0), then if M0 predicts something (waterlevel WL1) it will be right.
-M_META:(mdl [] []
-   (fact (icst S0 [] [B: V0: WL0:] : :) T0: T1: : :)
+; If we observe state S0, then if M1 predicts something (open) it will be right.
+M0_META:(mdl [] []
+   (fact (icst S0 [] [B: WL0:] : :) T0: T1: : :)
    (fact (imdl M0 [B: V0: WL0: (ti T0: T1:)] [WL1: T1_RHS: T3:] : :) T0: T1: : :); T2: is not exposed from M0. T1_RHS is also exposed.
 |[]
 |[]
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+
+; if there is a bathtub with an open valve, then it will fill +10 next iteration
+M_FLOW:(mdl [] []
+   (fact (icst S1 [] [B: WL0:] : :) T0_LHS: T1_LHS: : :)
+   (fact (icst S1 [] [B: WL1:]: :) T0_RHS: T1_RHS: : :); Change T1 to T1_RHS.
+[]
+   (<= WL1 FULL)
+   WL1:(+ WL0 WATER_LEVEL_DELTA)
+
+   T0_RHS:(+ T0_LHS 100ms)
+   T1_RHS:(+ T1_LHS 100ms)
+[]
+   (>= WL0 EMPTY)
+   WL0:(- WL1 WATER_LEVEL_DELTA)
+   T0_LHS:(- T0_RHS 100ms)
+   T1_LHS:(- T1_RHS 100ms)
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+
+; if we have a cst with perfect water level, then we've achieved our goal/drive
+M_FINAL:(mdl [] []
+   (fact (icst S1 [] [B: WL0:] : :) T0_LHS: T1_LHS: : :)
+   (fact (mk.val B: water_level WL1: :) T0_RHS: T1_RHS: : :); Change T1 to T1_RHS.
+[]
+   WL1:(+ WL0 WATER_LEVEL_DELTA)
+   T0_RHS:(+ T0_LHS 100ms)
+   T1_RHS:(+ T1_LHS 100ms)
+[]
+   WL0:(- WL1 WATER_LEVEL_DELTA)
+   T0_LHS:(- T0_RHS 100ms)
+   T1_LHS:(- T1_RHS 100ms)
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
