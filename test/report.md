@@ -27,3 +27,10 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 #### 1.2.2 Tests for external commands
 - perform a measurement, using commands
 - achieve a simple goal, using commands
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
+| cmd-goal | tests the use of commands to achieve a simple goal | |
+| cmd-measurement | tests the use of commands to perform a simple measurement | |
+

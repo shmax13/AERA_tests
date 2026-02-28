@@ -1,0 +1,5 @@
+54(65) pgm0:(pgm |[] |[] |[] [(cmd grab ["ball"] 1)] 1) |[]
+
+55(66) pgm1:(pgm |[] |[] |[] [(cmd release ["ball"] 1)] 1) |[]
+
+56(67) pgm2:(pgm |[] |[] |[] [(cmd lift_hand ["hand" 13] 1)] 1) |[]
