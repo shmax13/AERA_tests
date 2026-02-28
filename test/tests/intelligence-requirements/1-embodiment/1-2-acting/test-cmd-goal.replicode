@@ -11,8 +11,6 @@
 !def WATER_LEVEL_DELTA 10
 !def CLOSED 0
 !def OPEN 1
-!def JUST_CLOSED 2
-!def JUST_OPENED 3
 !def DRIVE_START 300ms
 !def DUMMY_1 500ms
 
@@ -142,9 +140,59 @@ pgm_before_drive:(pgm [] []
 (ipgm pgm_before_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
+; next emulation steps, if the closed valve was just opened.
+pgm_cmd_open_valve:(pgm [] []
+   (ptn (fact G:(goal (fact (cmd open_valve [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
+   (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
+[]
+   (= valveState CLOSED)
+   (= (is_sim G) false)
+   (< Cmd_after Before)
+   (> Cmd_before After)
+[]
+   ; Inject the fact that the command was executed.
+   (inj [Command:(cmd open_valve [b] 1) []])
+   (inj []
+      (fact Command (+ After 20ms) Before 1 1)
+      [SYNC_ONCE After 1 1 stdin nil]
+   )
+   ; increase water_level
+   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WATER_LEVEL_DELTA) OPEN] 1) []])
+   (inj []
+      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
+      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
+   )
+   (prb [1 "print" "pgm_cmd_open_valve. new state:" [Next_state]])
+1) |[]
+(ipgm pgm_cmd_open_valve [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever emulator nil 1]
 
-
-
+; next emulation steps, if the agent decides to relax.
+pgm_cmd_open_valve_relax:(pgm [] []
+   (ptn (fact G:(goal (fact (cmd relax [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
+   (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
+[]
+   (= valveState OPEN)
+   (= (is_sim G) false)
+   (< Cmd_after Before)
+   (> Cmd_before After)
+[]
+   ; Inject the fact that the command was executed.
+   (inj [Command:(cmd relax [b] 1) []])
+   (inj []
+      (fact Command (+ After 20ms) Before 1 1)
+      [SYNC_ONCE After 1 1 stdin nil]
+   )
+   ; increase water_level
+   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WATER_LEVEL_DELTA) OPEN] 1) []])
+   (inj []
+      (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
+      [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
+   )
+   (prb [1 "print" "pgm_cmd_open_valve_relax. new state:" [Next_state]])
+1) |[]
+(ipgm pgm_cmd_open_valve_relax [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever emulator nil 1]
 
 
 ; ============================
@@ -153,17 +201,36 @@ pgm_before_drive:(pgm [] []
 ; Bathtub B has valve status V.
 S0:(cst [] []
    (fact (mk.val B: essence bathtub :) T0: T1: : :)
-   (fact (mk.val B: valve_status V: :) T0: T1: : :)
+   (fact (mk.val B: valve_status V0: :) T0: T1: : :)
    (fact (mk.val B: water_level WL0: :) T0: T1: : :)
 |[]
 |[]
 [stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; When I open B's valve, then B will have water_level + 10
-M0:(mdl [B: V: WL0: (ti T0: T1:)] []
+; When B's valve is closed and I open it, then B will have water_level + 10
+M0:(mdl [B: V0: WL0: (ti T0: T1:)] []
    (fact (cmd open_valve [B:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
    (fact (mk.val B: water_level WL1: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
 []
+   (= V0 CLOSED)
+   WL1:(+ WL0 WATER_LEVEL_DELTA)
+   T1_RHS:(+ T0 100ms)
+   T3:(+ T1 100ms)
+[]
+   (<> WL0 WL1); Don't make a subgoal that doesn't change anything.
+   WL0:(- WL1 WATER_LEVEL_DELTA)
+   T2:(- T1_RHS 80ms); Change 50ms delay to 20ms.
+   T1_cmd:(- T3 100ms)
+   T0:(- T1_RHS 100ms)
+   T1:(- T3 100ms)
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; When B's valve is open and I do nothing, then B will have water_level + 10
+M1:(mdl [B: V0: WL0: (ti T0: T1:)] []
+   (fact (cmd relax [B:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
+   (fact (mk.val B: water_level WL1: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
+[]
+   (= V0 OPEN)
    WL1:(+ WL0 WATER_LEVEL_DELTA)
    T1_RHS:(+ T0 100ms)
    T3:(+ T1 100ms)
@@ -177,9 +244,9 @@ M0:(mdl [B: V: WL0: (ti T0: T1:)] []
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 ; If we observe state S0 (bathtub B has waterlevel WL0), then if M0 predicts something (waterlevel WL1) it will be right.
-M1:(mdl [] []
-   (fact (icst S0 [] [B: V: WL0:] : :) T0: T1: : :)
-   (fact (imdl M0 [B: V: WL0: (ti T0: T1:)] [WL1: T1_RHS: T3:] : :) T0: T1: : :); T2: is not exposed from M0. T1_RHS is also exposed.
+M_META:(mdl [] []
+   (fact (icst S0 [] [B: V0: WL0:] : :) T0: T1: : :)
+   (fact (imdl M0 [B: V0: WL0: (ti T0: T1:)] [WL1: T1_RHS: T3:] : :) T0: T1: : :); T2: is not exposed from M0. T1_RHS is also exposed.
 |[]
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]

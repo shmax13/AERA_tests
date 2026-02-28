@@ -15,9 +15,7 @@
 !class (enabled (_obj {obj:}))
 
 ; device functions.
-!dfn (stall)
-!dfn (open_plug :)
-!dfn (close_plug :)
+!dfn (relax :)
 !dfn (open_valve :)
 !dfn (close_valve :)
 
