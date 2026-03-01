@@ -7,7 +7,7 @@
 ; ============================
 !def EMPTY 0
 !def FULL 100
-!def PERFECT 40
+!def PERFECT 50
 !def WATER_LEVEL_DELTA 10
 !def CLOSED 0
 !def OPEN 1
@@ -15,6 +15,8 @@
 
 !def V_INIT CLOSED
 !def WL_INIT EMPTY
+
+!def TIME_LIMIT 700ms
 
 ; ============================
 ; setup entities, ontologies and markers
@@ -203,20 +205,31 @@ M_OPEN_VALVE_PRECOND:(mdl [] []
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; if there is a bathtub with an open valve, then it will fill +10 next iteration
-M_FLOW:(mdl [] []
-   (fact (icst S0 [] [B: OPEN WL0:] : :) T0_LHS: T1_LHS: : :)
-   (fact (mk.val B: water_level WL1: :) T0_RHS: T1_RHS: : :); Change T1 to T1_RHS.
+
+; When I relax in the presence of an OPEN bathtub, then it will fill +10 next iteration
+M_RELAX:(mdl [B: WL0: (ti T0: T1:)] []
+   (fact (cmd relax [B:] :) T0_cmd: T1_cmd: : :)
+   (fact (mk.val B: water_level WL1: :) T0_rhs: T1_rhs: : :)
 []
    (< WL0 FULL)
    WL1:(+ WL0 WATER_LEVEL_DELTA)
-   T0_RHS:(+ T0_LHS 100ms)
-   T1_RHS:(+ T1_LHS 100ms)
+   T0_rhs:(+ T0 100ms)
+   T1_rhs:(+ T1 100ms)
 []
    (> WL1 EMPTY)
    WL0:(- WL1 WATER_LEVEL_DELTA)
-   T0_LHS:(- T0_RHS 100ms)
-   T1_LHS:(- T1_RHS 100ms)
+   T0_cmd:(- T0_rhs 80ms)
+   T1_cmd:(- T1_rhs 100ms)
+   T0:(- T0_rhs 100ms)
+   T1:(- T1_rhs 100ms)
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; If we observe S0 with OPEN, then if M0 predicts RELAX, it will be right.
+M_RELAX_PRECOND:(mdl [] []
+   (fact (icst S0 [] [B: OPEN WL0:] : :) T0: T1: : :)
+   (fact (imdl M_RELAX [B: WL0: (ti T0: T1:)] [WL1: T0_rhs: T1_rhs:] : :) T0: T1: : :)
+|[]
+|[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 ; ============================
@@ -237,7 +250,7 @@ pgm_inject_drive:(pgm [] []
 []
    (>= After (+ this.vw.ijt DRIVE_START))
 []
-   (inj [f_run:(fact run After (+ Before 500ms) 1 1) []])
+   (inj [f_run:(fact run After (+ Before TIME_LIMIT) 1 1) []])
    (inj [G:(goal f_run self nil 1) []])
    (inj []
       ; Delay a little to allow predictions for this sampling period before injecting the drive.
