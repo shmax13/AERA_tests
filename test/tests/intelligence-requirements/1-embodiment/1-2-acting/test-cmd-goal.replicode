@@ -7,15 +7,14 @@
 ; ============================
 !def EMPTY 0
 !def FULL 100
-!def PERFECT 50
+!def PERFECT 40
 !def WATER_LEVEL_DELTA 10
 !def CLOSED 0
 !def OPEN 1
 !def DRIVE_START 300ms
-!def DUMMY_1 500ms
 
+!def V_INIT CLOSED
 !def WL_INIT EMPTY
-!def VS_INIT CLOSED
 
 ; ============================
 ; setup entities, ontologies and markers
@@ -65,7 +64,7 @@ pgm_inject_in_emulator_group:(pgm [] []
 
 ; Initial conditions.
 start:(pgm [] [] [] []
-   (inj [State:(mk.val e1 emulator_state [WL_INIT VS_INIT] 1) []]) ; waterlevel, valve
+   (inj [State:(mk.val e1 emulator_state [WL_INIT V_INIT] 1) []]) ; waterlevel, valve
    (inj []
       (fact State After:(now) (+ After sampling_period) 1 1)
       [SYNC_PERIODIC now 1 1 emulator nil]
@@ -93,36 +92,6 @@ pgm_inject_mk_vals_from_emulator:(pgm [] []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
 ; ============================
-; drive (goal) stuff
-; ============================
-
-m_drive:(mdl [] []
-   ; The goal target timings are the same as the drive timings.
-   (fact (mk.val b water_level PERFECT 1) T0: T1: 1 1)
-   (fact run T0: T1: ::)
-|[]
-|[]
-[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-pgm_inject_drive:(pgm [] []
-   ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
-   (ptn (fact (mk.val b essence bathtub :) After: Before: ::) [])
-[]
-   (>= After (+ this.vw.ijt DRIVE_START))
-[]
-   (inj [f_run:(fact run After (+ Before 500ms) 1 1) []])
-   (inj [G:(goal f_run self nil 1) []])
-   (inj []
-      ; Delay a little to allow predictions for this sampling period before injecting the drive.
-      (fact G T0:(+ After 10ms) T0 1 1)
-      [SYNC_ONCE T0 1 forever primary nil]
-   )
-   (prb [1 "print" "injected drive" []])
-1) |[]
-(ipgm pgm_inject_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
-   [SYNC_ONCE now 0 forever primary nil 1]
-
-; ============================
 ; NEXT EMULATION STEPS
 ; ============================
 
@@ -142,6 +111,7 @@ pgm_before_drive:(pgm [] []
 1) |[]
 (ipgm pgm_before_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
+
 
 ; next emulation steps, if the closed valve was just opened.
 pgm_cmd_open_valve:(pgm [] []
@@ -169,6 +139,7 @@ pgm_cmd_open_valve:(pgm [] []
 1) |[]
 (ipgm pgm_cmd_open_valve [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
+
 
 ; next emulation steps, if the agent decides to relax.
 pgm_cmd_open_valve_relax:(pgm [] []
@@ -199,81 +170,81 @@ pgm_cmd_open_valve_relax:(pgm [] []
 
 
 ; ============================
-; CST'S
-; ============================
-; Bathtub B has valve status CLOSED.
-S0:(cst [] []
-   (fact (mk.val B: essence bathtub :) T0: T1: : :)
-   (fact (mk.val B: valve_status CLOSED :) T0: T1: : :)
-   (fact (mk.val B: water_level WL0: :) T0: T1: : :)
-|[]
-|[]
-[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-; Bathtub B has valve status OPEN.
-S1:(cst [] []
-   (fact (mk.val B: essence bathtub :) T0: T1: : :)
-   (fact (mk.val B: valve_status OPEN :) T0: T1: : :)
-   (fact (mk.val B: water_level WL0: :) T0: T1: : :)
-|[]
-|[]
-[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-; ============================
 ; MODELS
 ; ============================
-; When B's valve is closed and I open it, then B will have an open valve
-M0:(mdl [B: V0: WL0: (ti T0: T1:)] []
-   (fact (cmd open_valve [B:] :) T2: T1_cmd: : :); Change T1 to T1_cmd.
-   (fact (icst S1 [] [B: WL1:]: :) T1_RHS: T3: : :); Change T1 to T1_RHS.
+; Bathtub B has valve status V at ti TO-T1.
+S0:(cst [] []
+   (fact (mk.val B: essence bathtub :) T0: T1: : :)
+   (fact (mk.val B: valve_status V: :) T0: T1: : :)
+   (fact (mk.val B: water_level WL: :) T0: T1: : :)
+|[]
+|[]
+[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; When I open a bathtub's CLOSED valve, then that valve will be OPEN
+M_OPEN_VALVE:(mdl [B: (ti T0: T1:)] []
+   (fact (cmd open_valve [B:] :) T0_cmd: T1_cmd: : :)
+   (fact (mk.val B: valve_status OPEN :) T0_rhs: T1_rhs: : :)
 []
-   (= V0 CLOSED)
-   T1_RHS:(+ T0 100ms)
-   T3:(+ T1 100ms)
+   T0_rhs:(+ T0 100ms)
+   T1_rhs:(+ T1 100ms)
 []
-   T2:(- T1_RHS 80ms); Change 50ms delay to 20ms.
-   T1_cmd:(- T3 100ms)
-   T0:(- T1_RHS 100ms)
-   T1:(- T3 100ms)
+   T0_cmd:(- T0_rhs 80ms)
+   T1_cmd:(- T1_rhs 100ms)
+   T0:(- T0_rhs 100ms)
+   T1:(- T1_rhs 100ms)
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; If we observe state S0, then if M1 predicts something (open) it will be right.
-M0_META:(mdl [] []
-   (fact (icst S0 [] [B: WL0:] : :) T0: T1: : :)
-   (fact (imdl M0 [B: V0: WL0: (ti T0: T1:)] [WL1: T1_RHS: T3:] : :) T0: T1: : :); T2: is not exposed from M0. T1_RHS is also exposed.
+; If we observe S0 with CLOSED, then if M0 predicts OPEN, it will be right.
+M_OPEN_VALVE_PRECOND:(mdl [] []
+   (fact (icst S0 [] [B: CLOSED WL0:] : :) T0: T1: : :)
+   (fact (imdl M_OPEN_VALVE [B: (ti T0: T1:)] [T0_rhs: T1_rhs:] : :) T0: T1: : :)
 |[]
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
 
 ; if there is a bathtub with an open valve, then it will fill +10 next iteration
 M_FLOW:(mdl [] []
-   (fact (icst S1 [] [B: WL0:] : :) T0_LHS: T1_LHS: : :)
-   (fact (icst S1 [] [B: WL1:]: :) T0_RHS: T1_RHS: : :); Change T1 to T1_RHS.
-[]
-   (<= WL1 FULL)
-   WL1:(+ WL0 WATER_LEVEL_DELTA)
-
-   T0_RHS:(+ T0_LHS 100ms)
-   T1_RHS:(+ T1_LHS 100ms)
-[]
-   (>= WL0 EMPTY)
-   WL0:(- WL1 WATER_LEVEL_DELTA)
-   T0_LHS:(- T0_RHS 100ms)
-   T1_LHS:(- T1_RHS 100ms)
-[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-
-; if we have a cst with perfect water level, then we've achieved our goal/drive
-M_FINAL:(mdl [] []
-   (fact (icst S1 [] [B: WL0:] : :) T0_LHS: T1_LHS: : :)
+   (fact (icst S0 [] [B: OPEN WL0:] : :) T0_LHS: T1_LHS: : :)
    (fact (mk.val B: water_level WL1: :) T0_RHS: T1_RHS: : :); Change T1 to T1_RHS.
 []
+   (< WL0 FULL)
    WL1:(+ WL0 WATER_LEVEL_DELTA)
    T0_RHS:(+ T0_LHS 100ms)
    T1_RHS:(+ T1_LHS 100ms)
 []
+   (> WL1 EMPTY)
    WL0:(- WL1 WATER_LEVEL_DELTA)
    T0_LHS:(- T0_RHS 100ms)
    T1_LHS:(- T1_RHS 100ms)
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; ============================
+; drive (goal) stuff
+; ============================
+
+m_drive:(mdl [] []
+   ; The goal target timings are the same as the drive timings.
+   (fact (mk.val b water_level PERFECT 1) T0: T1: 1 1)
+   (fact run T0: T1: ::)
+|[]
+|[]
+[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+pgm_inject_drive:(pgm [] []
+   ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
+   (ptn (fact (mk.val b essence bathtub :) After: Before: ::) [])
+[]
+   (>= After (+ this.vw.ijt DRIVE_START))
+[]
+   (inj [f_run:(fact run After (+ Before 500ms) 1 1) []])
+   (inj [G:(goal f_run self nil 1) []])
+   (inj []
+      ; Delay a little to allow predictions for this sampling period before injecting the drive.
+      (fact G T0:(+ After 10ms) T0 1 1)
+      [SYNC_ONCE T0 1 forever primary nil]
+   )
+   (prb [1 "print" "injected drive" []])
+1) |[]
+(ipgm pgm_inject_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever primary nil 1]
