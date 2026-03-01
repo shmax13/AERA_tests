@@ -1,58 +1,57 @@
-; EXTERNAL COMMANDS - GOALS
-
-; Actions: close/open valve
-
-; ============================
-; constants
-; ============================
-!def EMPTY 0
-!def FULL 100
-!def PERFECT 50
-!def WATER_LEVEL_DELTA 10
-!def CLOSED 0
-!def OPEN 1
-!def DRIVE_START 300ms
-
-!def V_INIT CLOSED
-!def WL_INIT EMPTY
-
-!def TIME_LIMIT 700ms
+; The goal of this task is to fill a bathtub to a certain water level.
+; Available Actions: open_valve / wait
 
 ; ============================
-; setup entities, ontologies and markers
+; CONSTANTS
+; ============================
+!def WL_EMPTY 0             ; empty bathtub
+!def WL_FULL 100            ; full bathtub
+!def WL_PERFECT 50          ; the water level we want to achieve
+!def WL_DELTA 10            ; by how much the water level increases each sampling period
+
+!def V_CLOSED 0             ; valve closed
+!def V_OPEN 1               ; valve open
+
+!def DRIVE_START 300ms      ; when to start injecting the drive
+!def TIME_LIMIT 700ms       ; how long the agent has to achieve the goal. minimum time for task success is 600ms.
+
+!def V_INIT V_CLOSED        ; initial value - valve
+!def WL_INIT WL_EMPTY       ; initial value - water level
+
+
+; ============================
+; ENTITIES & ONTOLOGIES
 ; ============================
 bathtub:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
-
-b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
-b_is_a_bathtub:(mk.val b essence bathtub 1) |[]
-
 water_level:(ont 1) [[SYNC_ONCE now 0 forever root nil]];
 valve_status:(ont 1) [[SYNC_ONCE now 0 forever root nil]];
 
-bathtub_is_empty:(mk.val bathtub water_level EMPTY 1) [[SYNC_ONCE now 1 forever primary nil]]
-bathtub_is_full:(mk.val bathtub water_level FULL 1) [[SYNC_ONCE now 1 forever primary nil]]
-bathtub_is_perfectly_full: (mk.val bathtub water_level PERFECT 1) [[SYNC_ONCE now 1 forever primary nil]]
-
-bathtub_valve_is_closed:(mk.val bathtub valve_status CLOSED 1) [[SYNC_ONCE now 1 forever primary nil]]
-bathtub_valve_is_open:(mk.val bathtub valve_status OPEN 1) [[SYNC_ONCE now 1 forever primary nil]]
-
 ; ============================
-; setup facts - our heartbeats!
+; HEARTBEAT
 ; ============================
+
+; This is used below in pgm_inject_drive, to continuously inject our goal
+
+b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
+b_is_a_bathtub:(mk.val b essence bathtub 1) |[]
 f_b_bathtub:(fact b_is_a_bathtub 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
 
 
 ; ============================
-; emulate our problem!
+; EMULATING THE TASK
 ; ============================
-; (mk.val e1 emulator_state [waterLevel valveState])
+
+; As AERA is not interacting with the physical world in this test, we have to emulate it ourselves.
+; The e1 (emulator) entity keeps track of the state of the real world.
+; This works similarly in hand-grab-sphere.
+; Usage: (mk.val e1 emulator_state [waterLevel valveState])
+
 e1:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 emulator_state:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 ; Inject the emulator state into the emulator group.
 emulator:(std_grp 2 0 0 0 []) [[SYNC_ONCE now 0 forever root nil COV_OFF 0]]
 
 ; This program runs in the primary group to re-inject any (fact (goal (fact (cmd ::)))) into emulator.
-; do we need this?
 pgm_inject_in_emulator_group:(pgm [] []
    (ptn f_G:(fact G:(goal (fact (cmd ::) ::) ::) ::) [])
 []
@@ -97,6 +96,10 @@ pgm_inject_mk_vals_from_emulator:(pgm [] []
 ; NEXT EMULATION STEPS
 ; ============================
 
+; This is also part of emulating the real world. While AERA predicts what will happen through models,
+; here we actually inject facts into the system after specific commands as if we would observe 
+; reality reacting to our actions
+
 ; Before DRIVE_START, just re-inject the same values.
 pgm_before_drive:(pgm [] []
    (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
@@ -115,12 +118,12 @@ pgm_before_drive:(pgm [] []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
 
-; next emulation steps, if the closed valve was just opened.
+; next emulation steps if the agent performed the action OPEN VALVE.
 pgm_cmd_open_valve:(pgm [] []
    (ptn (fact G:(goal (fact (cmd open_valve [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
    (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
 []
-   (= valveState CLOSED)
+   (= valveState V_CLOSED)
    (= (is_sim G) false)
    (< Cmd_after Before)
    (> Cmd_before After)
@@ -132,48 +135,49 @@ pgm_cmd_open_valve:(pgm [] []
       [SYNC_ONCE After 1 1 stdin nil]
    )
    ; increase water_level
-   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WATER_LEVEL_DELTA) OPEN] 1) []])
+   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WL_DELTA) V_OPEN] 1) []])
    (inj []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
    )
-   (prb [1 "print" "pgm_cmd_open_valve. new state:" [Next_state]])
+   (prb [1 "print" "pgm OPEN VALVE. new state:" [Next_state]])
 1) |[]
 (ipgm pgm_cmd_open_valve [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
 
-; next emulation steps, if the agent decides to relax.
-pgm_cmd_open_valve_relax:(pgm [] []
-   (ptn (fact G:(goal (fact (cmd relax [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
+; next emulation steps if the agent performed the action WAIT.
+pgm_cmd_wait:(pgm [] []
+   (ptn (fact G:(goal (fact (cmd wait [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
    (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
 []
-   (= valveState OPEN)
+   (= valveState V_OPEN)
    (= (is_sim G) false)
    (< Cmd_after Before)
    (> Cmd_before After)
 []
    ; Inject the fact that the command was executed.
-   (inj [Command:(cmd relax [b] 1) []])
+   (inj [Command:(cmd wait [b] 1) []])
    (inj []
       (fact Command (+ After 20ms) Before 1 1)
       [SYNC_ONCE After 1 1 stdin nil]
    )
    ; increase water_level
-   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WATER_LEVEL_DELTA) OPEN] 1) []])
+   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WL_DELTA) V_OPEN] 1) []])
    (inj []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
    )
-   (prb [1 "print" "pgm_cmd_open_valve_relax. new state:" [Next_state]])
+   (prb [1 "print" "pgm WAIT. new state:" [Next_state]])
 1) |[]
-(ipgm pgm_cmd_open_valve_relax [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+(ipgm pgm_cmd_wait [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
 
 ; ============================
 ; MODELS
 ; ============================
+
 ; Bathtub B has valve status V at ti TO-T1.
 S0:(cst [] []
    (fact (mk.val B: essence bathtub :) T0: T1: : :)
@@ -183,10 +187,10 @@ S0:(cst [] []
 |[]
 [stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; When I open a bathtub's CLOSED valve, then that valve will be OPEN
+; When I open a bathtub's V_CLOSED valve, then that valve will be OPEN
 M_OPEN_VALVE:(mdl [B: (ti T0: T1:)] []
    (fact (cmd open_valve [B:] :) T0_cmd: T1_cmd: : :)
-   (fact (mk.val B: valve_status OPEN :) T0_rhs: T1_rhs: : :)
+   (fact (mk.val B: valve_status V_OPEN :) T0_rhs: T1_rhs: : :)
 []
    T0_rhs:(+ T0 100ms)
    T1_rhs:(+ T1 100ms)
@@ -199,46 +203,46 @@ M_OPEN_VALVE:(mdl [B: (ti T0: T1:)] []
 
 ; If we observe S0 with CLOSED, then if M0 predicts OPEN, it will be right.
 M_OPEN_VALVE_PRECOND:(mdl [] []
-   (fact (icst S0 [] [B: CLOSED WL0:] : :) T0: T1: : :)
+   (fact (icst S0 [] [B: V_CLOSED WL0:] : :) T0: T1: : :)
    (fact (imdl M_OPEN_VALVE [B: (ti T0: T1:)] [T0_rhs: T1_rhs:] : :) T0: T1: : :)
 |[]
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 
-; When I relax in the presence of an OPEN bathtub, then it will fill +10 next iteration
-M_RELAX:(mdl [B: WL0: (ti T0: T1:)] []
-   (fact (cmd relax [B:] :) T0_cmd: T1_cmd: : :)
+; When I wait in the presence of an OPEN bathtub, then it will fill +10 next iteration
+M_WAIT:(mdl [B: WL0: (ti T0: T1:)] []
+   (fact (cmd wait [B:] :) T0_cmd: T1_cmd: : :)
    (fact (mk.val B: water_level WL1: :) T0_rhs: T1_rhs: : :)
 []
-   (< WL0 FULL)
-   WL1:(+ WL0 WATER_LEVEL_DELTA)
+   (< WL0 WL_FULL)
+   WL1:(+ WL0 WL_DELTA)
    T0_rhs:(+ T0 100ms)
    T1_rhs:(+ T1 100ms)
 []
-   (> WL1 EMPTY)
-   WL0:(- WL1 WATER_LEVEL_DELTA)
+   (> WL1 WL_EMPTY)
+   WL0:(- WL1 WL_DELTA)
    T0_cmd:(- T0_rhs 80ms)
    T1_cmd:(- T1_rhs 100ms)
    T0:(- T0_rhs 100ms)
    T1:(- T1_rhs 100ms)
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; If we observe S0 with OPEN, then if M0 predicts RELAX, it will be right.
-M_RELAX_PRECOND:(mdl [] []
-   (fact (icst S0 [] [B: OPEN WL0:] : :) T0: T1: : :)
-   (fact (imdl M_RELAX [B: WL0: (ti T0: T1:)] [WL1: T0_rhs: T1_rhs:] : :) T0: T1: : :)
+; If we observe S0 with OPEN, then if M0 predicts WAIT, it will be right.
+M_WAIT_PRECOND:(mdl [] []
+   (fact (icst S0 [] [B: V_OPEN WL0:] : :) T0: T1: : :)
+   (fact (imdl M_WAIT [B: WL0: (ti T0: T1:)] [WL1: T0_rhs: T1_rhs:] : :) T0: T1: : :)
 |[]
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 ; ============================
-; drive (goal) stuff
+; DRIVE (aka GOAL)
 ; ============================
 
 m_drive:(mdl [] []
    ; The goal target timings are the same as the drive timings.
-   (fact (mk.val b water_level PERFECT 1) T0: T1: 1 1)
+   (fact (mk.val b water_level WL_PERFECT 1) T0: T1: 1 1)
    (fact run T0: T1: ::)
 |[]
 |[]
