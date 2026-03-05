@@ -173,8 +173,8 @@
     <None Include="tests\existing\replicode_v1.2\user.classes.replicode" />
     <None Include="tests\free-tests\colors.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.replicode" />
-    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd-goal.replicode" />
-    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd-measurement.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-cmd.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-measurement.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.replicode" />
@@ -384,8 +384,8 @@
     <Text Include="tests\existing\replicode_v1.2\user.classes.txt" />
     <Text Include="tests\free-tests\colors.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.txt" />
-    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd-goal.txt" />
-    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd-measurement.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-cmd.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-measurement.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.txt" />

@@ -36,7 +36,6 @@ b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 b_is_a_bathtub:(mk.val b essence bathtub 1) |[]
 f_b_bathtub:(fact b_is_a_bathtub 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
 
-
 ; ============================
 ; EMULATING THE TASK
 ; ============================
@@ -65,7 +64,7 @@ pgm_inject_in_emulator_group:(pgm [] []
 
 ; Initial conditions.
 start:(pgm [] [] [] []
-   (inj [State:(mk.val e1 emulator_state [WL_INIT V_INIT] 1) []]) ; waterlevel, valve
+   (inj [State:(mk.val e1 emulator_state [WL_INIT V_INIT] 1) []])
    (inj []
       (fact State After:(now) (+ After sampling_period) 1 1)
       [SYNC_PERIODIC now 1 1 emulator nil]
@@ -135,7 +134,7 @@ pgm_cmd_open_valve:(pgm [] []
       [SYNC_ONCE After 1 1 stdin nil]
    )
    ; increase water_level
-   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WL_DELTA) V_OPEN] 1) []])
+   (inj [Next_state:(mk.val e1 emulator_state [waterLevel V_OPEN] 1) []])
    (inj []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]

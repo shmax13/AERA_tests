@@ -7,9 +7,9 @@
 <!--TODO: change source-file-name back to a default test once debugging is complete-->
   <Load
     usr_operator_path="./usr_operators.dll"
-    usr_class_path="../AERA/replicode_v1.2/user.classes.replicode"
-    source_file_name="../test/blackbox/technical-report/annex1/4.3/test-mk-low-sln.replicode"
-  />
+    usr_class_path="../test/tests/user.classes.replicode"
+	source_file_name="../test/tests/intelligence-requirements/1-embodiment/1-2-acting/test-bathtub-cmd.replicode"
+	/>
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
   <Init
@@ -38,7 +38,7 @@
     />
     <Objects
       get_objects="yes"
-      keep_invalidated_objects="no"
+      keep_invalidated_objects="yes"
       decompile_objects="yes"
       decompile_to_file="yes"
       decompilation_file_path="decompiled_objects.txt"
