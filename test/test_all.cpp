@@ -91,7 +91,9 @@ namespace AeraTests {
         std::vector<std::string> expectedLines;
         std::string line;
         while (std::getline(expectedFile, line)) {
-            if (!line.empty()) expectedLines.push_back(line);
+            if (!line.empty() && line[0] != ';') { // remove empty lines and comments from expected lines
+                expectedLines.push_back(line);
+            }
         }
 
         if (expectDecompilation) {
