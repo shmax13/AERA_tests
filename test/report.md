@@ -4,7 +4,7 @@
 
 ### 1.1 Sensing
 Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment). 
-Goals and Predictions are both pointers to facts.
+Basic syntax tests here include tests for Goals and Predictions, which are both pointers to facts.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -12,7 +12,7 @@ Goals and Predictions are both pointers to facts.
 | anti-fact | tests basic anti fact syntax | |
 | goal | tests basic anti fact syntax | |
 | prediction | tests basic anti fact syntax | |
-| bathtub-sensing | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
+| ball-external | tests if inputs coming from the (mocked) environment are handled correctly |  |
 
 ### 1.2 Acting
 AERA acts upon the physical world by calling commands on devices. There are two types of devices: internal (the executive, e.g.: inj, eje, mod, set, ...) and external (using custom commands).
@@ -36,4 +36,4 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
-| bathtub-acting | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
+| bathtub | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
