@@ -36,6 +36,7 @@ b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 b_is_a_bathtub:(mk.val b essence bathtub 1) |[]
 f_b_bathtub:(fact b_is_a_bathtub 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
 
+
 ; ============================
 ; EMULATING THE TASK
 ; ============================

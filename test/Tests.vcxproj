@@ -173,11 +173,11 @@
     <None Include="tests\existing\replicode_v1.2\user.classes.replicode" />
     <None Include="tests\free-tests\colors.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-antifacts.replicode" />
-    <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-bathtub-sensing.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-ball-external.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-facts.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-goals.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-predictions.replicode" />
-    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-acting.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub.replicode" />
     <None Include="tests\free-tests\test-bathtub-two-valves.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.replicode" />
@@ -390,11 +390,11 @@
     <Text Include="tests\existing\replicode_v1.2\user.classes.txt" />
     <Text Include="tests\free-tests\colors.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-antifacts.txt" />
-    <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-bathtub-sensing.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-ball-external.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-facts.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-goals.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-predictions.txt" />
-    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-acting.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub.txt" />
     <Text Include="tests\free-tests\test-bathtub-two-valves.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.txt" />
