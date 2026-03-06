@@ -5,7 +5,11 @@
 ### 1.1 Sensing
 Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment).
 
-TODO
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| fact | tests basic fact syntax | |
+| anti-fact | tests basic anti fact syntax | |
+| bathtub-sensing | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
 
 ### 1.2 Acting
 AERA acts upon the physical world by calling commands on devices. There are two types of devices: internal (the executive, e.g.: inj, eje, mod, set, ...) and external (using custom commands).
@@ -29,6 +33,4 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
-| bathtub-cmd | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
-| bathtub-measurement | tests the use of commands to perform a simple measurement | TODO! |
-
+| bathtub-acting | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
