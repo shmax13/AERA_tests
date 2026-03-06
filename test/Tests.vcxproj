@@ -175,6 +175,7 @@
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-cmd.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-measurement.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-two-valves.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.replicode" />
@@ -386,6 +387,7 @@
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-cmd.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-measurement.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-two-valves.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-del-class.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-eje.txt" />
