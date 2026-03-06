@@ -3,12 +3,15 @@
 ## 1. Embodiment
 
 ### 1.1 Sensing
-Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment).
+Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment). 
+Goals and Predictions are both pointers to facts.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | fact | tests basic fact syntax | |
 | anti-fact | tests basic anti fact syntax | |
+| goal | tests basic anti fact syntax | |
+| prediction | tests basic anti fact syntax | |
 | bathtub-sensing | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
 
 ### 1.2 Acting

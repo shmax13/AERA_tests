@@ -175,6 +175,8 @@
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-antifacts.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-bathtub-sensing.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-facts.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-goals.replicode" />
+    <None Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-predictions.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-acting.replicode" />
     <None Include="tests\free-tests\test-bathtub-two-valves.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.replicode" />
@@ -247,6 +249,7 @@
     <None Include="tests\technical-report\annex1\4.2\testFail-icmd.replicode" />
     <None Include="tests\technical-report\annex1\4.2\testFail-icpp_pgm.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-act-chg.replicode" />
+    <None Include="tests\technical-report\annex1\4.3\test-mk-act.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-grp-pair.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-high-act.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-high-sln.replicode" />
@@ -256,6 +259,7 @@
     <None Include="tests\technical-report\annex1\4.3\test-mk-new.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-rdx.replicode" />
     <None Include="tests\technical-report\annex1\4.3\test-mk-sln-chg.replicode" />
+    <None Include="tests\technical-report\annex1\4.3\test-mk-val.replicode" />
     <None Include="tests\technical-report\annex1\4.4\testFail-self.replicode" />
     <None Include="tests\technical-report\annex1\4.5\testFail-stdin.replicode" />
     <None Include="tests\technical-report\annex1\4.5\testFail-stdout.replicode" />
@@ -388,6 +392,8 @@
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-antifacts.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-bathtub-sensing.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-facts.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-goals.txt" />
+    <Text Include="tests\intelligence-requirements\1-embodiment\1-1-sensing\test-predictions.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-bathtub-acting.txt" />
     <Text Include="tests\free-tests\test-bathtub-two-valves.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-cmd.txt" />
@@ -459,6 +465,7 @@
     <Text Include="tests\technical-report\annex1\4.2\testFail-icmd.txt" />
     <Text Include="tests\technical-report\annex1\4.2\testFail-icpp_pgm.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-act-chg.txt" />
+    <Text Include="tests\technical-report\annex1\4.3\test-mk-act.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-grp-pair.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-high-act.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-high-sln.txt" />
@@ -468,6 +475,7 @@
     <Text Include="tests\technical-report\annex1\4.3\test-mk-new.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-rdx.txt" />
     <Text Include="tests\technical-report\annex1\4.3\test-mk-sln-chg.txt" />
+    <Text Include="tests\technical-report\annex1\4.3\test-mk-val.txt" />
     <Text Include="tests\technical-report\annex1\4.4\testFail-self.txt" />
     <Text Include="tests\technical-report\annex1\4.5\testFail-stdin.txt" />
     <Text Include="tests\technical-report\annex1\4.5\testFail-stdout.txt" />
