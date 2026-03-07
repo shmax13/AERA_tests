@@ -57,7 +57,7 @@ pgm4:(pgm
    (mod [this.vw.act -0.1])
    (mod [this.vw.sln 0.1])
    (mod [this.vw.act -0.4])
-   (mod [this.vw.sln 0.4])	; both act and sln should be mediated to a change of (0.1+0.1+0.4)/3 = 0.2
+   (mod [this.vw.sln 0.4]) ; both act and sln should be mediated to a change of (0.1+0.1+0.4)/3 = 0.2
 1) |[]
 
 ; resilience

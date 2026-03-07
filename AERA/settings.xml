@@ -8,7 +8,7 @@
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../test/tests/user.classes.replicode"
-	source_file_name="../test/tests/intelligence-requirements/1-embodiment/1-1-sensing/test-ball-external.replicode"
+	source_file_name="../test/tests/intelligence-requirements/3-cumulative-learning/3-1-multitask-learning/test-bathtub-hgs-multitask.replicode"
 	/>
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->

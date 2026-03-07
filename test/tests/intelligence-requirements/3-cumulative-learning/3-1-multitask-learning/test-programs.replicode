@@ -1,7 +1,5 @@
-; Doc - Annex 1 - 4.2.2 - Object Classes - Programs
-
+; PROGRAMS
 ; !class (pgm (_obj {tpl:[::ptn] inputs:[] guards:[::xpr] prods:}))
-
 
 ; EMPTY PROGRAM
 pgm0:(pgm 
@@ -77,8 +75,8 @@ pgm7:(pgm
 |[]
 []
    (prb [1 "print" "hello world" |[]])
-   (prb [1 "print" "hello carly" |[]])
-   (prb [1 "print" "hello rae" |[]])
+   (prb [1 "print" "hello mars" |[]])
+   (prb [1 "print" "hello venus" |[]])
 1) |[]
 
 
@@ -95,8 +93,8 @@ pgm8:(pgm
    (<> 1 2)
 []
    (prb [1 "print" "hello world" |[]])
-   (prb [1 "print" "hello carly" |[]])
-   (prb [1 "print" "hello rae" |[]])
+   (prb [1 "print" "hello mars" |[]])
+   (prb [1 "print" "hello venus" |[]])
 1) |[]
 
 
