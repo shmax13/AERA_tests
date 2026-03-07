@@ -1,8 +1,5 @@
-; Doc - Annex 1 - 4.2.2 - Object Classes - Models
-
-; !class (mdl (_obj {tpl_args:[] objs:[] fwd_guards:[] bwd_guards:[] out_grps:[::grp]
-; str:nb cnt:nb sr:nb dsr:nb}))
-
+; MODELS
+; !class (mdl (_obj {tpl_args:[] objs:[] fwd_guards:[] bwd_guards:[] out_grps:[::grp] str:nb cnt:nb sr:nb dsr:nb}))
 
 ; EMPTY MODEL
 ; model is a pair of patterns, so we have to specify at least these...
@@ -40,7 +37,7 @@ mdl2:(mdl
    (<> param pos_y)
    (<> 1 2)
 []
-   ;primary
+   ; primary  ; cannot have the view group here
    secondary
    stdin
    stdout
@@ -50,6 +47,3 @@ mdl2:(mdl
 -1   ; dsr – derivative of the success rate, i.e. the success rate as it was at the former to last evidence.
 1   ; psln_thr
 ) [[SYNC_ONCE now 0 forever primary nil 1]]
-
-; TODO: weird behavior, mdl2's view group can't be stdin, and 'primary' needs to be commented out 
-; of output groups above...

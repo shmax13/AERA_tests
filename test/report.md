@@ -50,10 +50,10 @@ AERA achieves this through reactive programs and models, which are triggered whe
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| programs | tests basic program syntax | |
-| models | tests basic model syntax | |
+| programs | tests basic program syntax | No Remarks :white_check_mark: |
+| models | tests basic model syntax | No Remarks :white_check_mark: |
 | mediation-mod | tests the mediation of `mod` commands | No Remarks :white_check_mark: |
-| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but there is a caveat.|
+| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but there is a caveat (see test for details)|
 
 
 ### 3.2 Online Learning

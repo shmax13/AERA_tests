@@ -191,6 +191,7 @@
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.replicode" />
     <None Include="tests\intelligence-requirements\2-constructivism\test.replicode" />
+    <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-multitask.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-mod.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-models.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-programs.replicode" />
@@ -411,6 +412,7 @@
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.txt" />
     <Text Include="tests\intelligence-requirements\2-constructivism\test.txt" />
+    <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-multitask.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-mod.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-models.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-programs.txt" />
