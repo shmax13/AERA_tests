@@ -615,13 +615,13 @@ m_drive:(mdl [] []
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-m_drive_hgs:(mdl [] []
-   ; The goal target timings are the same as the drive timings.
-   (fact (mk.val s position pS1 1) T0: T1: 1 1)
-   (fact run T0: T1: ::)
-|[]
-|[]
-[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+;m_drive_hgs:(mdl [] []
+;   ; The goal target timings are the same as the drive timings.
+;   (fact (mk.val s position pS1 1) T0: T1: 1 1)
+;   (fact run T0: T1: ::)
+;|[]
+;|[]
+;[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 pgm_inject_drive:(pgm [] []
    ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
