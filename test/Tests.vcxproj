@@ -196,6 +196,7 @@
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-models.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-programs.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-set.replicode" />
+    <None Include="tests\intelligence-requirements\3-cumulative-learning\3-2-online-learning\test-bathtub-online.replicode" />
     <None Include="tests\intelligence-requirements\4-knowledge-of-causes\test.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
@@ -417,6 +418,7 @@
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-models.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-programs.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-set.txt" />
+    <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-2-online-learning\test-bathtub-online.txt" />
     <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\test.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\test.txt" />

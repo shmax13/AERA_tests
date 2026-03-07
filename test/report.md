@@ -60,6 +60,11 @@ AERA achieves this through reactive programs and models, which are triggered whe
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.
 AERA can use new knowledge whenever it comes along.
 
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-online |  | No Remarks :white_check_mark: |
+
+
 ### 3.3 Lifelong Learning
 The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.
 AERA can use new knowledge (or react to changes in saliency/activation) even while/after achieving a more complex goal like hand-grab-sphere.
