@@ -57,7 +57,7 @@ pgm4:(pgm
    (mod [this.vw.act -0.1])
    (mod [this.vw.sln 0.1])
    (mod [this.vw.act -0.4])
-   (mod [this.vw.sln 0.4])
+   (mod [this.vw.sln 0.4])	; both act and sln should be mediated to a change of (0.1+0.1+0.4)/3 = 0.2
 1) |[]
 
 ; resilience
@@ -66,7 +66,7 @@ pgm5:(pgm
 |[] 
 |[]
 []
-   (mod [this.vw.res -10])
+   (mod [this.vw.res -10]); after 1s, this should be negative -> no view
 1) |[]
 
 pgm6:(pgm 
@@ -74,7 +74,7 @@ pgm6:(pgm
 |[] 
 |[]
 []
-   (mod [this.vw.res 0])
+   (mod [this.vw.res 0]); after 1s (19 uprs), this should be 1
 1) |[]
 
 pgm7:(pgm 
@@ -83,7 +83,7 @@ pgm7:(pgm
 |[]
 []
    (mod [this.vw.res 0])
-   (mod [this.vw.res 20]) ; --> 0 and 20 -> should be 10
+   (mod [this.vw.res 20]) ; --> 0 and 20 -> should be a mod res 10 call -> should be 11
 1) |[]
 
 

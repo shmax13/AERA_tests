@@ -52,7 +52,7 @@ pgm4:(pgm
 |[] 
 |[]
 []
-   (set [this.vw.res 10]) ; 10 -> x times upr -> upr = 50 -> 500ms left to live. 
+   (set [this.vw.res 10]) ; 10 -> x times upr -> upr = 50ms -> 500ms left to live. 
 1) |[]
 
 pgm5:(pgm 
@@ -60,11 +60,16 @@ pgm5:(pgm
 |[] 
 |[]
 []
-   (set [this.vw.res 10]) ; 10 -> x times upr -> upr = 50 -> 500ms left to live. 
+   (set [this.vw.res 10]) ; 10 -> x times upr -> upr = 50ms -> 500ms left to live. 
 1) |[]
 
 
-; (R1) The documentation states that -1 represents an infinite resilience, but this was changed to the keyword "forever".
+; (R1) Setting and averaging works, but there is a caveat: Illegal values (<0/>1) are rounded up/down to 0/1 and included in mediation. 
+; Therefore, for the test above, the mediation of act and sln is: 
+; 0.1 + 0.7 + 0(rounded up) + 1(rounded down) / 4 = 0.45 
+
+; As for setting resilience, we set both programs to live for 500 more ms. Therefore, once AERA exits after 1000ms, pgm4 no longer has a view,
+; whereas pgm5 will have a view for 100 more ms, and a resilience value of 2 (2*upr).
 ipgm0:(ipgm pgm0 |[] RUN_ONCE 100ms VOLATILE NOTIFY 1) [[SYNC_PERIODIC now 0 forever g1 nil 1]]
 ipgm1:(ipgm pgm1 |[] RUN_ONCE 200ms VOLATILE NOTIFY 1) [[SYNC_PERIODIC now 0 forever g1 nil 1]]
 ipgm2:(ipgm pgm2 |[] RUN_ONCE 300ms VOLATILE NOTIFY 1) [[SYNC_PERIODIC now 0 forever g1 nil 1]]
