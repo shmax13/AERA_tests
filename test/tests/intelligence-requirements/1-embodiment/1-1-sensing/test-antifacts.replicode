@@ -2,6 +2,8 @@
 ; !class (|fact (_fact nil))
 ; !class (_fact (_obj {obj: after:ts before:ts cfd:nb :~}))
 
+; (R1) after: and before: use timestamps, not microseconds.
+
 ; first, some setup:
 ball:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 x:(ent 1) [[SYNC_ONCE now 1 forever root nil]]

@@ -2,6 +2,7 @@
 ; !class (fact (_fact nil))
 ; !class (_fact (_obj {obj: after:ts before:ts cfd:nb :~}))
 
+; (R1) after: and before: use timestamps, not microseconds.
 
 ; setup
 ball:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
@@ -11,7 +12,7 @@ b_is_a_ball:(mk.val b essence ball 1) |[]
 ; creating a fact
 f1:(fact 
 b_is_a_ball     ; obj - a reference to an object
-0s:0ms:0us      ; after - timestamp
+0s:0ms:0us      ; after - timestamp 
 GIGASEC         ; before - timestamp
 1               ; cfd - confidence
 1) 

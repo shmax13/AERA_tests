@@ -1,8 +1,10 @@
 ; first check the two commands ejected TO the I/O device
+; ready
 cmd0:(cmd ready ["ball" b] 1) |[]
 fact_71:(fact cmd0 0s:120ms:0us 0s:200ms:0us 1 1) |[]
 mk_rdx_72:(mk.rdx istart [] [(cmd ready ["ball" b] 1) fact_71]
 
+; set_velocity_y
 cmd4:(cmd set_velocity_y [b 0.0006] 1) |[]
 fact_218:(fact cmd4 0s:560ms:0us 0s:600ms:0us 1 1) |[]
 mk_rdx_221:(mk.rdx fact_220 [fact_218 mk_rdx_177] [fact_219] 1) |[]

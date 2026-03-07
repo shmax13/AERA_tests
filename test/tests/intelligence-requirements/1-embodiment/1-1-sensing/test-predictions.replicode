@@ -1,6 +1,8 @@
 ; PREDICTIONS
 ; !class (pred (_obj {obj: sims:[::sim]}))
 
+; (R1) The structure of the prediction class has changed, to now include sims:.
+
 ; first, some setup:
 ball:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]

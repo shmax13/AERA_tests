@@ -1,6 +1,8 @@
 ; GOALS
 ; !class (goal (_obj {obj: actr:ent sim:}))
 
+; (R1) The structure of the goal class has changed, to now include sim:.
+
 ; first, some setup:
 ball:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
 b:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
