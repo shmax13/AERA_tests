@@ -23,7 +23,7 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | inj | tests the icmd _inj | (R1) In decompiled_objects, the name of the injected object does not match what is provided.<br>(R2) If the object is injected to group "stdin", the object has no view in the decompilation file. |
 | eje | tests the icmd _eje | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | mod | tests the icmd _mod | No Remarks :white_check_mark: |
-| set | tests the icmd _set | (R1) Setting and averaging works, but there is a caveat.<br>(R2) The documentation states that -1 represents an infinite resilience, but this was changed to the keyword "forever". |
+| set | tests the icmd _set | (R1) The documentation states that -1 represents an infinite resilience, but this was changed to the keyword "forever". |
 | new-class | tests the icmd _new_class | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | del-class | tests the icmd _del_class | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | ldc | tests the icmd _ldc | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
@@ -37,3 +37,41 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | :--- | :--- | :--- |
 | cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
 | bathtub | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
+
+## 2. Constructivism
+
+TODO
+
+## 3. Cumulative Learning
+
+### 3.1 Multitask Learning
+The ability to learn more than one task, either at once or in sequence.
+AERA achieves this through reactive programs and models, which are triggered whenever there is a left-side match and related saliency/activation values are high enough.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| programs | tests basic program syntax | |
+| models | tests basic model syntax | |
+| mediation-mod | tests the mediation of `mod` commands | No Remarks :white_check_mark: |
+| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but there is a caveat.|
+
+
+### 3.2 Online Learning
+The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.
+AERA can use new knowledge whenever it comes along.
+
+### 3.3 Lifelong Learning
+The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.
+AERA can use new knowledge (or react to changes in saliency/activation) even while/after achieving a more complex goal like hand-grab-sphere.
+
+### 3.4 Robust Knowledge Acquisition
+The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).
+AERA achieves this through control values (saliency, activation, resilience) that control which models are more reliable than others.
+
+### 3.5 Transfer Learning
+The ability to build new knowledge on top of old in a way that the old knowledge facilitates learning the new. While interference/forgetting should not occur, knowledge should still be defeasible.
+In AERA, models exist separately from tasks, so any learned model can be used for any task. 
+
+### 3.6 Few-shot Learning
+The ability to learn something from very few examples or very little data.
+AERA achieves this as a side effect from cause-effect learning, one piece of evidence is enough to take a model into consideration.
