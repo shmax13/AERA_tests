@@ -4,15 +4,15 @@
 
 ### 1.1 Sensing
 Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment). 
-Basic syntax tests here include tests for Goals and Predictions, which are both pointers to facts.
+This section includes tests for Goals and Predictions, which are both pointers to facts.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| fact | tests basic fact syntax | |
-| anti-fact | tests basic anti fact syntax | |
-| goal | tests basic anti fact syntax | |
-| prediction | tests basic anti fact syntax | |
-| ball-external | tests if inputs coming from the (mocked) environment are handled correctly |  |
+| fact | tests basic fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
+| anti-fact | tests basic anti fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
+| goal | tests basic goal syntax | (R1) The structure of the goal class has changed. |
+| prediction | tests basic prediction syntax | (R1) The structure of the prediction class has changed. |
+| ball-external | tests if inputs coming from the (mocked) environment are handled correctly |  (R1) Since we are in a unit test environment, we use the existing mocked I/O device "ball". |
 
 ### 1.2 Acting
 AERA acts upon the physical world by calling commands on devices. There are two types of devices: internal (the executive, e.g.: inj, eje, mod, set, ...) and external (using custom commands).
