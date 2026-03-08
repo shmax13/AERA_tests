@@ -8,7 +8,7 @@
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../test/tests/user.classes.replicode"
-	source_file_name="../test/tests/intelligence-requirements/3-cumulative-learning/3-2-online-learning/test-bathtub-online.replicode"
+	source_file_name="../test/tests/intelligence-requirements/3-cumulative-learning/3-1-multitask-learning/test-bathtub-hgs-sequence.replicode"
 	/>
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
@@ -48,7 +48,7 @@
       test_objects="no"
     />
   </Debug>
-  <Run run_time="1000" probe_level="2">
+  <Run run_time="2000" probe_level="2">
     <Models
       get_models="yes"
       decompile_models="yes"

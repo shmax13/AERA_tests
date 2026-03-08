@@ -1,5 +1,9 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; run_time=2000
+
+; The goal of this task is two tasks in sequence:
+; First the bathtub task.
+; Then, hand-grab-sphere.
+; Available Actions: open_valve / wait / move / grab / release
 
 ; ============================
 ; CONSTANTS
@@ -12,11 +16,13 @@
 !def V_CLOSED 0             ; valve closed
 !def V_OPEN 1               ; valve open
 
-!def DRIVE_START 300ms      ; when to start injecting the drive
-!def TIME_LIMIT 700ms       ; how long the agent has to achieve the goal. minimum time for task success is 600ms.
+!def TIME_LIMIT 600ms       ; how long the agent has to achieve the goal. minimum time for task success is 600ms.
 
 !def V_INIT V_CLOSED        ; initial value - valve
 !def WL_INIT WL_EMPTY       ; initial value - water level
+
+!def DRIVE_START_BATHTUB 300ms   ; when to start injecting the drive - bathtub task
+!def DRIVE_START_HGS 1300ms       ; when to start injecting the drive - hgs task
 
 !def p_zero 0
 !def pH0 25
@@ -134,7 +140,7 @@ pgm_inject_mk_vals_from_emulator:(pgm [] []
 pgm_before_drive:(pgm [] []
    (ptn (fact (mk.val e1 emulator_state_bathtub [waterLevel: valveState:] :) After: Before: ::) [])
 []
-   (< After (+ this.vw.ijt DRIVE_START))
+   (< After (+ this.vw.ijt DRIVE_START_BATHTUB))
 []
    ; All state variables keep the same value.
    (inj [Next_state:(mk.val e1 emulator_state_bathtub [waterLevel valveState] 1) []])
@@ -207,7 +213,7 @@ pgm_cmd_wait:(pgm [] []
 pgm_before_drive_hgs:(pgm [] []
    (ptn (fact (mk.val e2 emulator_state_hgs [Holding_obj: Pos_h: Pos_c: Pos_s:] :) After: Before: ::) [])
 []
-   (< After (+ this.vw.ijt DRIVE_START))
+   (< After (+ this.vw.ijt DRIVE_START_HGS))
 []
    ; All state variables keep the same value.
    (inj [Next_state:(mk.val e2 emulator_state_hgs [Holding_obj Pos_h Pos_c Pos_s] 1) []])
@@ -596,22 +602,25 @@ M6:(mdl [H: C: P0: (ti T0: T1:)] []
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 ; When hand H is holding some C and the hand moves to position P1, then C will also be at P1.
-; (commented out to allow multitask planning)
-;M7:(mdl [] []
-;   (fact (icst S2 [] [H: P: C: X:] : :) T0: T1: : :); X is also exposed from S2.
-;   (fact (imdl M6 [H: C: P: (ti T0: T1:)] [DeltaP: P1: T1_RHS: T3:] : :) T0: T1: : :); M6 template needs P. T0_M0 T1_M0, DeltaP, P1 and T1_RHS are exposed. T2 is not exposed from M6.
-;|[]
-;|[]
-;[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+M7:(mdl [] []
+   (fact (icst S2 [] [H: P: C: X:] : :) T0: T1: : :); X is also exposed from S2.
+   (fact (imdl M6 [H: C: P: (ti T0: T1:)] [DeltaP: P1: T1_RHS: T3:] : :) T0: T1: : :); M6 template needs P. T0_M0 T1_M0, DeltaP, P1 and T1_RHS are exposed. T2 is not exposed from M6.
+|[]
+|[]
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
 ; ============================
 ; DRIVE (aka GOAL)
 ; ============================
 
+; drive targets; drives are goals whose target fact points to an entity.
+run_bathtub:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
+run_hgs:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
+
 m_drive:(mdl [] []
    ; The goal target timings are the same as the drive timings.
    (fact (mk.val b water_level WL_PERFECT 1) T0: T1: 1 1)
-   (fact run T0: T1: ::)
+   (fact run_bathtub T0: T1: ::)
 |[]
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
@@ -622,25 +631,44 @@ m_drive:(mdl [] []
 m_drive_hgs:(mdl [] []
    ; The goal target timings are the same as the drive timings.
    (fact (mk.val s position pS1 1) T0: T1: 1 1)
-   (fact run T0: T1: ::)
+   (fact run_hgs T0: T1: ::)
 |[]
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-pgm_inject_drive:(pgm [] []
+pgm_inject_drive_bathtub:(pgm [] []
    ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
    (ptn (fact (mk.val b essence bathtub :) After: Before: ::) [])
 []
-   (>= After (+ this.vw.ijt DRIVE_START))
+   (>= After (+ this.vw.ijt DRIVE_START_BATHTUB))
+   (<= After (+ this.vw.ijt DRIVE_START_HGS))
 []
-   (inj [f_run:(fact run After (+ Before TIME_LIMIT) 1 1) []])
+   (inj [f_run:(fact run_bathtub After (+ Before TIME_LIMIT) 1 1) []])
    (inj [G:(goal f_run self nil 1) []])
    (inj []
       ; Delay a little to allow predictions for this sampling period before injecting the drive.
       (fact G T0:(+ After 10ms) T0 1 1)
       [SYNC_ONCE T0 1 forever primary nil]
    )
-   (prb [1 "print" "injected drive" []])
+   (prb [1 "print" "injected drive - bathtub" []])
 1) |[]
-(ipgm pgm_inject_drive [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+(ipgm pgm_inject_drive_bathtub [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever primary nil 1]
+
+pgm_inject_drive_hgs:(pgm [] []
+   ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
+   (ptn (fact (mk.val h essence hand :) After: Before: ::) [])
+[]
+   (>= After (+ this.vw.ijt DRIVE_START_HGS))
+[]
+   (inj [f_run:(fact run_hgs After (+ Before TIME_LIMIT) 1 1) []])
+   (inj [G:(goal f_run self nil 1) []])
+   (inj []
+      ; Delay a little to allow predictions for this sampling period before injecting the drive.
+      (fact G T0:(+ After 10ms) T0 1 1)
+      [SYNC_ONCE T0 1 forever primary nil]
+   )
+   (prb [1 "print" "injected drive - hgs" []])
+1) |[]
+(ipgm pgm_inject_drive_hgs [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever primary nil 1]

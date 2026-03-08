@@ -43,7 +43,7 @@
 		  test_objects="no"
     />
 	</Debug>
-	<Run run_time="1000" probe_level="2">
+	<Run run_time="{{DURATION}}" probe_level="2">
 		<Models
 		  get_models="yes"
 		  decompile_models="yes"
