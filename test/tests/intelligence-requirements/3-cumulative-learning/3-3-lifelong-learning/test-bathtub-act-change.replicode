@@ -1,3 +1,9 @@
+; The crucial part of this is the icmd (set [this.vw.act 0]).
+; This sets the activation value of the program pgm_cmd_wait to 0 on its first call,
+; after which the program cannot run anymore -> Emulation behaves different from models -> task should no longer be possible.
+; This could be interpreted as someone turning of the water supply elsewhere. 
+; We are unaware of this possibility, and thus unable to complete the task.
+
 ; The goal of this task is to fill a bathtub to a certain water level.
 ; Available Actions: open_valve / wait
 
@@ -167,7 +173,7 @@ pgm_cmd_wait:(pgm [] []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
    )
-   (set [this.vw.act 0])
+   (set [this.vw.act 0]) 
    (prb [1 "print" "pgm WAIT. new state:" [Next_state]])
 1) |[]
 (ipgm pgm_cmd_wait [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
