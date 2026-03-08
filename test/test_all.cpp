@@ -52,6 +52,29 @@ namespace AeraTests {
             FAIL() << "Failed to find source_file_name in XML template";
         }
 
+        // Replace {{DURATION}} in XML template
+        int duration = 1000; // default = 1000ms
+
+        std::ifstream input(inputFile);
+        if (input) {
+            std::string firstLine;
+            if (std::getline(input, firstLine)) {
+                const std::string prefix = "; run_time=";
+                if (firstLine.rfind(prefix, 0) == 0) { // starts with prefix
+                    duration = std::stoi(firstLine.substr(prefix.size()));
+                }
+            }
+        }
+        std::string durationStr = std::to_string(duration);
+        std::string durationKey = "{{DURATION}}";
+        size_t durPos = xmlContent.find(durationKey);
+        if (durPos != std::string::npos) {
+            xmlContent.replace(durPos, durationKey.length(), durationStr);
+        }
+        else {
+            FAIL() << "Failed to find DURATION in XML template";
+        }
+
         // Write modified XML to temp file for this test run
         std::ofstream outFile(settings_filled_path);
         outFile << xmlContent;

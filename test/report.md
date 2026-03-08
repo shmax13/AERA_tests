@@ -54,7 +54,8 @@ AERA achieves this through reactive programs and models, which are triggered whe
 | models | tests basic model syntax | No Remarks :white_check_mark: |
 | mediation-mod | tests the mediation of `mod` commands | No Remarks :white_check_mark: |
 | mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but there is a caveat (see test for details)|
-
+| bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | No Remarks :white_check_mark:|
+| bathtub-hgs-multitask | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
 
 ### 3.2 Online Learning
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.
