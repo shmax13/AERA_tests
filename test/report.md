@@ -22,21 +22,21 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | :--- | :--- | :--- |
 | inj | tests the icmd _inj | (R1) In decompiled_objects, the name of the injected object does not match what is provided.<br>(R2) If the object is injected to group "stdin", the object has no view in the decompilation file. |
 | eje | tests the icmd _eje | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
-| mod | tests the icmd _mod | No Remarks :white_check_mark: |
+| mod | tests the icmd _mod | - |
 | set | tests the icmd _set | (R1) The documentation states that -1 represents an infinite resilience, but this was changed to the keyword "forever". |
 | new-class | tests the icmd _new_class | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | del-class | tests the icmd _del_class | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | ldc | tests the icmd _ldc | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do. |
 | swp | tests the icmd _swp | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do.<br>(R2) Documentation states that only values in {0, 1} should be allowed as a parameter, but this is not the case. |
 | prb | tests the icmd _prb | (R1) This only ever been used in combination with "print"; which works as expected. |
-| stop | tests the icmd _stop | No Remarks :white_check_mark: |
+| stop | tests the icmd _stop | - |
 
 #### 1.2.2 Tests for external commands
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
-| bathtub | tests the use of commands to achieve a simple goal | No Remarks :white_check_mark: |
+| bathtub | tests the use of commands to achieve a simple goal | - |
 
 ## 2. Constructivism
 
@@ -44,18 +44,20 @@ TODO
 
 ## 3. Cumulative Learning
 
+This section could be expanded to include more detailed tests on the Reaction and Attention Control mechanisms.
+
 ### 3.1 Multitask Learning
 The ability to learn more than one task, either at once or in sequence.
 AERA achieves this through reactive programs and models, which are triggered whenever there is a left-side match and related saliency/activation values are high enough.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| programs | tests basic program syntax | No Remarks :white_check_mark: |
-| models | tests basic model syntax | No Remarks :white_check_mark: |
-| mediation-mod | tests the mediation of `mod` commands | No Remarks :white_check_mark: |
-| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but there is a caveat (see test for details)|
-| bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | No Remarks :white_check_mark:|
-| bathtub-hgs-multitask | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
+| programs | tests basic program syntax | -|
+| models | tests basic model syntax | -|
+| mediation-mod | tests the mediation of `mod` commands | -|
+| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but illegal values are rounded to 0 or 1 (see test for details)|
+| bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | - |
+| bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
 
 ### 3.2 Online Learning
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.
@@ -63,12 +65,18 @@ AERA can use new knowledge whenever it comes along.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-online |  | No Remarks :white_check_mark: |
+| bathtub-new-knowledge | tests if the system can use new knowledge whenever it comes along | - |
 
 
 ### 3.3 Lifelong Learning
 The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.
 AERA can use new knowledge (or react to changes in saliency/activation) even while/after achieving a more complex goal like hand-grab-sphere.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-act-change | tests the system's reaction to a control value change | - |
+| test-ball-external-new-models | tests model creation from facts observed by an external device during a task | - |
+
 
 ### 3.4 Robust Knowledge Acquisition
 The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).
