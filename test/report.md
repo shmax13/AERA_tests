@@ -44,7 +44,7 @@ TODO
 
 ## 3. Cumulative Learning
 
-This section could be expanded to include more detailed tests on the Reaction and Attention Control mechanisms.
+This section could be expanded to include more detailed tests on the Activation, Reaction and Attention Control mechanisms.
 
 ### 3.1 Multitask Learning
 The ability to learn more than one task, either at once or in sequence.
@@ -60,7 +60,9 @@ AERA achieves this through reactive programs and models, which are triggered whe
 | bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
 
 ### 3.2 Online Learning
-The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.
+The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.  
+This section also covers few-shot learning, which means to learn something from very few examples or very little data.
+
 AERA can use new knowledge whenever it comes along.
 
 | Test name | Description | Remarks |
@@ -80,12 +82,15 @@ AERA can use new knowledge (or react to changes in saliency/activation) even whi
 
 ### 3.4 Robust Knowledge Acquisition
 The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).
-AERA achieves this through control values (saliency, activation, resilience) that control which models are more reliable than others.
+AERA achieves this through control values (saliency, activation, resilience, model success rate) that control which knowledge is more reliable than others.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-success-rate-increase | tests model success rate update after correct predictions | - |
+| bathtub-success-rate-decrease | tests model success rate update after failed predictions | - |
+
+
 
 ### 3.5 Transfer Learning
 The ability to build new knowledge on top of old in a way that the old knowledge facilitates learning the new. While interference/forgetting should not occur, knowledge should still be defeasible.
 In AERA, models exist separately from tasks, so any learned model can be used for any task. 
-
-### 3.6 Few-shot Learning
-The ability to learn something from very few examples or very little data.
-AERA achieves this as a side effect from cause-effect learning, one piece of evidence is enough to take a model into consideration.
