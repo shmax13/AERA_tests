@@ -200,6 +200,7 @@
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-2-online-learning\test-bathtub-new-knowledge.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-3-lifelong-learning\test-ball-external-model-creation.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-3-lifelong-learning\test-bathtub-act-change.replicode" />
+    <None Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-increase.replicode" />
     <None Include="tests\intelligence-requirements\4-knowledge-of-causes\test.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
@@ -425,6 +426,7 @@
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-2-online-learning\test-bathtub-new-knowledge.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-3-lifelong-learning\test-ball-external-model-creation.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-3-lifelong-learning\test-bathtub-act-change.txt" />
+    <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-increase.txt" />
     <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\test.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\test.txt" />
