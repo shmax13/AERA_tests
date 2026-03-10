@@ -1,14 +1,10 @@
 ; The goal of this task is to fill a bathtub to a certain water level.
 ; Available Actions: open_valve / wait
 
-; For this test, the model M_WAIT starts with a low strength and success rate.
-; As it continuously predicts correctly, its success rate should increase.
-; success rate = correct predictions / total evidence
-; 0.45 -> 1.45 / 2 -> 2.45 / 3 -> 3.45 / 4 -> .... 
-; 0.45 ->  0.725   -> 0.816667 ->  0.8625  -> ....
-
-; Then, with 6 evidences and a success rate > 0.9 (specified in mdl_inertia_sr_thr and mdl_inertia_cnt_thr in the settings.xml),
-; the model should be marked as strong (see last paragraph in technical report 6.3)
+; same as test-bathtub-success-rate-decrease, except M_WAIT starts with a 
+; higher evidence count here. So its success_value should'nt decrease as much.
+; 0.45 -> 45 / 101
+; 0.45 -> 0.44554455...
 
 ; ============================
 ; CONSTANTS
@@ -154,8 +150,8 @@ pgm_cmd_open_valve:(pgm [] []
 (ipgm pgm_cmd_open_valve [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
-
 ; next emulation steps if the agent performed the action WAIT.
+; for this test, we changed this so the WL doesn't increase!
 pgm_cmd_wait:(pgm [] []
    (ptn (fact G:(goal (fact (cmd wait [b ] ::) Cmd_after: Cmd_before: ::) ::) ::) [])
    (ptn (fact (mk.val e1 emulator_state [waterLevel: valveState:] :) After: Before: ::) [])
@@ -172,7 +168,7 @@ pgm_cmd_wait:(pgm [] []
       [SYNC_ONCE After 1 1 stdin nil]
    )
    ; increase water_level
-   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel WL_DELTA) V_OPEN] 1) []])
+   (inj [Next_state:(mk.val e1 emulator_state [Next_water_level:(+ waterLevel 0) V_OPEN] 1) []])
    (inj []
       (fact Next_state (+ After sampling_period) (+ Before sampling_period) 1 1)
       [SYNC_PERIODIC (+ After sampling_period) 1 1 emulator nil]
@@ -181,7 +177,6 @@ pgm_cmd_wait:(pgm [] []
 1) |[]
 (ipgm pgm_cmd_wait [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever emulator nil 1]
-
 
 ; ============================
 ; MODELS
@@ -235,8 +230,7 @@ M_WAIT:(mdl [B: WL0: (ti T0: T1:)] []
    T1_cmd:(- T1_rhs 100ms)
    T0:(- T0_rhs 100ms)
    T1:(- T1_rhs 100ms)
-[stdin] 0 1 0.45 1 1) [[SYNC_ONCE now 0 forever primary nil 1]] 
-; start with lowered success rate (0.45), low strength (0) and low evidence cnt (1)
+[stdin] 0 100 0.45 1 1) [[SYNC_ONCE now 0 forever primary nil 1]] ; start with low success rate (0.45) and high evidence_count (100)
 
 ; If we observe S0 with OPEN, then if M0 predicts WAIT, it will be right.
 M_WAIT_PRECOND:(mdl [] []

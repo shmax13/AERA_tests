@@ -88,7 +88,7 @@ AERA achieves this through control values (saliency, activation, resilience, mod
 | :--- | :--- | :--- |
 | bathtub-success-rate-increase | tests model success rate update after correct predictions | - |
 | bathtub-success-rate-decrease | tests model success rate update after failed predictions | - |
-
+| bathtub-success-rate-reliable | tests model success rate update on reliable models | - |
 
 
 ### 3.5 Transfer Learning
