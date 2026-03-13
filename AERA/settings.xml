@@ -8,7 +8,7 @@
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../test/tests/user.classes.replicode"
-	source_file_name="../test/tests/intelligence-requirements/3-cumulative-learning/3-4-robust-knowledge-acquisition/test-bathtub-success-rate-reliable.replicode"
+	source_file_name="../test/tests/intelligence-requirements/4-knowledge-of-causes/4-1-forward-chaining/test-bathtub.replicode"
 	/>
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
