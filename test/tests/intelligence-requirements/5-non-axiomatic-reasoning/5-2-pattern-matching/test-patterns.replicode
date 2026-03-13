@@ -1,0 +1,7 @@
+; !class ( ptn skel:xpr guards:[::xpr])
+; !class (|ptn skel:xpr guards:[::xpr])
+
+; (R1) Patterns cannot exist on their own and are tested as part of other objects.
+; see other tests for instantiation. but the above syntax is valid.
+
+; same for anti-patterns.
