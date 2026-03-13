@@ -113,3 +113,16 @@ Required to produce predictions and plans. AERA achieves this through concatened
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-backward-chaining | tests the second part of planning: sub-goals | - |
+
+## 5. Non-axiomatic reasoning
+
+Required to operate on knowledge in worlds where the axioms are unknown, not guaranteed, and/or fallible. 
+
+### 5.1 Defeasible reasoning
+
+Reasoning where the system-produced output may be found to be incorrect, at any time, given additional data, reconsideration of background assumptions or discovery of logic errors. 
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | (R1) This test is similar to bathtub-success-rate-decrease in 3.4 |
+| bathtub-sim-defeated | checks output after a promoted simulation prediction is defeated  | (R1) This task is incomplete, but it suffices for the purpose here  |
