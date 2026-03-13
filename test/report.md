@@ -42,11 +42,11 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 
 TODO
 
-## 3. Cumulative Learning
+## 3. Cumulative learning
 
 This section could be expanded to include more detailed tests on the Activation, Reaction and Attention Control mechanisms.
 
-### 3.1 Multitask Learning
+### 3.1 Multitask learning
 The ability to learn more than one task, either at once or in sequence.
 AERA achieves this through reactive programs and models, which are triggered whenever there is a left-side match and related saliency/activation values are high enough.
 
@@ -59,7 +59,7 @@ AERA achieves this through reactive programs and models, which are triggered whe
 | bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | - |
 | bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
 
-### 3.2 Online Learning
+### 3.2 Online learning
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.  
 This section also covers few-shot learning, which means to learn something from very few examples or very little data.
 
@@ -70,7 +70,7 @@ AERA can use new knowledge whenever it comes along.
 | bathtub-new-knowledge | tests if the system can use new knowledge whenever it comes along | - |
 
 
-### 3.3 Lifelong Learning
+### 3.3 Lifelong learning
 The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.
 AERA can use new knowledge (or react to changes in saliency/activation) even while/after achieving a more complex goal like hand-grab-sphere.
 
@@ -80,7 +80,7 @@ AERA can use new knowledge (or react to changes in saliency/activation) even whi
 | test-ball-external-new-models | tests model creation from facts observed by an external device during a task | - |
 
 
-### 3.4 Robust Knowledge Acquisition
+### 3.4 Robust knowledge acquisition
 The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).
 AERA achieves this through control values (saliency, activation, resilience, model success rate) that control which knowledge is more reliable than others.
 
@@ -91,6 +91,25 @@ AERA achieves this through control values (saliency, activation, resilience, mod
 | bathtub-success-rate-reliable | tests model success rate update on reliable models | - |
 
 
-### 3.5 Transfer Learning
+### 3.5 Transfer learning
 The ability to build new knowledge on top of old in a way that the old knowledge facilitates learning the new. While interference/forgetting should not occur, knowledge should still be defeasible.
 In AERA, models exist separately from tasks, so any learned model can be used for any task. 
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| sink | tests the models of the bathtub task on a different but similar task | - |
+
+## 4. Knowledge of causes
+
+Required to produce predictions and plans. AERA achieves this through concatened deduction and abduction (see sections 5.3 and 5.4)
+
+### 4.1 Forward chaining
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-forward-chaining | tests the first part of planning: predictions | - |
+
+
+### 4.2 Backward chaining
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-backward-chaining | tests the second part of planning: sub-goals | - |

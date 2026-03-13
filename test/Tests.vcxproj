@@ -203,7 +203,9 @@
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-decrease.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-increase.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-reliable.replicode" />
-    <None Include="tests\intelligence-requirements\4-knowledge-of-causes\test.replicode" />
+    <None Include="tests\intelligence-requirements\3-cumulative-learning\3-5-transfer-learning\test-sink.replicode" />
+    <None Include="tests\intelligence-requirements\4-knowledge-of-causes\4-1-forward-chaining\test-bathtub-forward-chaining.replicode" />
+    <None Include="tests\intelligence-requirements\4-knowledge-of-causes\4-2-backward-chaining\test-bathtub-backward-chaining.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\test.replicode" />
@@ -431,7 +433,9 @@
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-decrease.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-increase.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-4-robust-knowledge-acquisition\test-bathtub-success-rate-reliable.txt" />
-    <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\test.txt" />
+    <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-5-transfer-learning\test-sink.txt" />
+    <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\4-1-forward-chaining\test-bathtub-forward-chaining.txt" />
+    <Text Include="tests\intelligence-requirements\4-knowledge-of-causes\4-2-backward-chaining\test-bathtub-backward-chaining.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\test.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\test.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\test.txt" />
