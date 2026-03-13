@@ -126,3 +126,13 @@ Reasoning where the system-produced output may be found to be incorrect, at any 
 | :--- | :--- | :--- |
 | bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | (R1) This test is similar to bathtub-success-rate-decrease in 3.4 |
 | bathtub-sim-defeated | checks output after a promoted simulation prediction is defeated  | (R1) This task is incomplete, but it suffices for the purpose here  |
+
+### 5.2 Pattern matching
+
+Pattern matching is central in AERA, where all existing object classes can be matched.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| ptn | tests basic ptn syntax  | (R1) Patterns cannot exist on their own and are therefore tested as part of other objects. |
+| bathtub-pattern-matching | tests various instances of pattern matching ||
+
