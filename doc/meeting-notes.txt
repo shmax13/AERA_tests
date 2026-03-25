@@ -1296,6 +1296,9 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 * DONE. hand grab sphere: Check if AERA compares confidence levels of anti-requirement with positive requirement
 * DONE. Send link to Eric's "AERA watching AERA" video.
 
+2026-03-20
+* DONE. Merge Chole's Visualizer branch into dev https://github.com/IIIM-IS/AERA_Visualizer/pull/62
+
 next meeting
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
