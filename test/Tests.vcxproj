@@ -210,6 +210,8 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-1-defeasible-reasoning\test-bathtub-sim-defeated.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-bathtub-pattern-matching.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-patterns.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\test.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\test.replicode" />
@@ -443,6 +445,8 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-1-defeasible-reasoning\test-bathtub-sim-defeated.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-bathtub-pattern-matching.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-patterns.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\test.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\test.txt" />
