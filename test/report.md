@@ -134,5 +134,25 @@ Pattern matching is central in AERA, where all existing object classes can be ma
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | ptn | tests basic ptn syntax  | (R1) Patterns cannot exist on their own and are therefore tested as part of other objects. |
-| bathtub-pattern-matching | tests various instances of pattern matching ||
+| bathtub-pattern-matching | tests various instances of pattern matching | - |
 
+### 5.3 Deduction
+In Replicode, deduction is the production of predictions given an input fact (actual or predicted).
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-deduction | tests created predictions and their confidence values | - |
+
+
+### 5.4 Abduction
+In Replicode abduction refers to the production of sub-goals, given an input goal.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-abduction | tests created sub-goals and their confidence values | - |
+
+### 5.5 Induction
+Replicode offers three ways of acquiring models/states, by means of three different
+components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, Change TPX.
+
+### 5.6 Analogy
