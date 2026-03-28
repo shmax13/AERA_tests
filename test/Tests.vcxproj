@@ -212,9 +212,10 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-patterns.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.replicode" />
-    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-CTPX.replicode" />
-    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-GTPX.replicode" />
-    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-PTPX.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-CTPX.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\test.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\test.replicode" />
@@ -450,9 +451,10 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-2-pattern-matching\test-patterns.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.txt" />
-    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-CTPX.txt" />
-    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-GTPX.txt" />
-    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-PTPX.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-CTPX.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\test.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\test.txt" />

@@ -157,8 +157,15 @@ components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, 
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-GTPX | tests the GTPX mechanism | (R1) This has never been demonstrated in existing Replicode files, and I wasn't able to reproduce GTPX functionality. |
-| bathtub-PTPX | tests the PTPX mechanism | (R1) The PTPX creates several duplicate composite states and models. |
-| bathtub-CTPX | tests the CTPX mechanism | (R1) The induced model should eventually get added to the blacklist, but I could not verify this behaviour. <br> (R2) v7\*100ms seems to perform (* ts nb), which according to the list of Gotchas shouldn't be allowed.  |
+| ball-GTPX | tests the GTPX mechanism | (R1) This has never been demonstrated in existing Replicode files, and I wasn't able to reproduce GTPX functionality. |
+| ball-PTPX | tests the PTPX mechanism | (R1) The PTPX creates several duplicate composite states and models. |
+| ball-CTPX | tests the CTPX mechanism | (R1) The induced model should eventually get added to the blacklist, but I could not verify this behaviour. <br> (R2) v7\*100ms seems to perform (* ts nb), which according to the list of Gotchas shouldn't be allowed.  |
 
 ### 5.6 Analogy
+Figuring out how things are similar or different. Making inferences about how something X may be (or is) through a comparison to something else Y, where X and Y share some observed properties.
+
+**Note:** The analogy feature, developed [here](https://github.com/IIIM-IS/AERA/commit/2173fc4a3871a4497494248bf9d923bad3e87073) , is not merged to the main branch, and thus not tested here.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| analogy | - | - |
