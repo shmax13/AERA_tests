@@ -145,14 +145,20 @@ In Replicode, deduction is the production of predictions given an input fact (ac
 
 
 ### 5.4 Abduction
-In Replicode abduction refers to the production of sub-goals, given an input goal.
+In Replicode, abduction refers to the production of sub-goals, given an input goal.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-abduction | tests created sub-goals and their confidence values | - |
 
 ### 5.5 Induction
-Replicode offers three ways of acquiring models/states, by means of three different
+Figuring out the general case. Making general rules from a (small) set of examples. Replicode offers three ways of acquiring models/states, by means of three different
 components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, Change TPX.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-GTPX | tests the GTPX mechanism | (R1) This has never been demonstrated in existing Replicode files, and I wasn't able to reproduce GTPX functionality. |
+| bathtub-PTPX | tests the PTPX mechanism | (R1) The PTPX creates several duplicate composite states and models. |
+| bathtub-CTPX | tests the CTPX mechanism | (R1) The induced model should eventually get added to the blacklist, but I could not verify this behaviour. <br> (R2) v7\*100ms seems to perform (* ts nb), which according to the list of Gotchas shouldn't be allowed.  |
 
 ### 5.6 Analogy
