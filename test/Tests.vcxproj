@@ -190,7 +190,6 @@
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-set.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.replicode" />
     <None Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.replicode" />
-    <None Include="tests\intelligence-requirements\2-constructivism\test.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-parallel.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-sequence.replicode" />
     <None Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-mod.replicode" />
@@ -216,7 +215,9 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.replicode" />
-    <None Include="tests\intelligence-requirements\6-generality\test.replicode" />
+    <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test.replicode" />
+    <None Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\test.replicode" />
+    <None Include="tests\intelligence-requirements\6-generality\6-4-goal-diversity\test.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\test.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\test.replicode" />
     <None Include="tests\intelligence-requirements\9-robustness\test.replicode" />
@@ -429,7 +430,6 @@
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-set.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-stop.txt" />
     <Text Include="tests\intelligence-requirements\1-embodiment\1-2-acting\test-swp.txt" />
-    <Text Include="tests\intelligence-requirements\2-constructivism\test.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-parallel.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-bathtub-hgs-sequence.txt" />
     <Text Include="tests\intelligence-requirements\3-cumulative-learning\3-1-multitask-learning\test-mediation-mod.txt" />
@@ -455,7 +455,9 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.txt" />
-    <Text Include="tests\intelligence-requirements\6-generality\test.txt" />
+    <Text Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test.txt" />
+    <Text Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\test.txt" />
+    <Text Include="tests\intelligence-requirements\6-generality\6-4-goal-diversity\test.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\test.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\test.txt" />
