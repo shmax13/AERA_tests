@@ -39,8 +39,22 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | bathtub | tests the use of commands to achieve a simple goal | - |
 
 ## 2. Constructivism
+Required so that a system can autonomously amass the vast majority of its knowledge (except for a small seed), in a way that infuses meaning into information structures. "Autonomous" means that this can be done without interference / help from others / the need to “call home”.
 
-TODO
+**Note:** This is so fundamental to AERA that it is achieved per design.
+All other tests I can think of would capture these properties to some extent.
+Therefore, Requirement 2 contains no tests.
+
+### 2.1 Generate knowledge autonomously
+
+The system acquires the vast majority of its knowledge on its own (except for a small seed).
+
+### 2.2 Manage knowledge autonomously 
+
+The system manages its own GROWTH on its own.
+
+### 2.3 Use knowledge autonomously
+´The system may change its own architecture over time, due to experience and learning. 
 
 ## 3. Cumulative learning
 
@@ -169,3 +183,24 @@ Figuring out how things are similar or different. Making inferences about how so
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | analogy | - | - |
+
+
+## 6. Generality (or Domain Independence)
+
+Required as all requirements in this list must be independent of the subject of learning. Any system X that exceeds system Y on one or more of the points below is considered more general than system Y.
+
+### 6.1 Flexibility
+Breadth of task-environments: If a system X can operate in more diverse task-environments than system Y, system X is more flexible than system Y. 
+
+**Note:** Similar to Requirement 2, this is achieved per design - "architectural principles do not make any assumption on the target domain" (cite)
+Testing this doesn't make sense, as there is no way this is not the case, unless AERA's design is fundamentally changed.
+Therefore, Requirement 6.1 contains no tests.
+
+### 6.2 Solution diversity
+Breadth of solutions: If a system X can reliably generate a larger variation of acceptable solutions to problems than system Y, system X is more powerful than system Y. 
+
+### 6.3 Constraint diversity
+Breadth of constraints on solutions: If a system X can reliably produce acceptable solutions under a higher number of solution constraints than system Y, system X is more powerful than system Y. 
+
+### 6.4 Goal diversity
+Breadth of goals: If a system X can meet a wider range of goals than system Y, system X is more powerful than system Y. Multiple goals should also be achieved concurrently.
