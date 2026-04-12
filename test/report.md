@@ -202,13 +202,59 @@ Breadth of solutions: If a system X can reliably generate a larger variation of 
 ### 6.3 Constraint diversity
 Breadth of constraints on solutions: If a system X can reliably produce acceptable solutions under a higher number of solution constraints than system Y, system X is more powerful than system Y. 
 
-| Test name | Description | Remarks |
-| :--- | :--- | :--- |
-| constraint-diversity | - | - |
+**Note:** This is achieved per design, as any Replicode object can be a solution constraint for AERA to plan around. 
+Testing this doesn't make sense, as there is no way this is not the case, unless AERA's design is fundamentally changed.
+Therefore, Requirement 6.3 contains no tests.
+
 
 ### 6.4 Goal diversity
 Breadth of goals: If a system X can meet a wider range of goals than system Y, system X is more powerful than system Y. Multiple goals should also be achieved concurrently.
 
-| Test name | Description | Remarks |
-| :--- | :--- | :--- |
-| goal-diversity | - | - |
+**Note:** This is achieved per design, as any Replicode object can be a goal for AERA to plan towards. 
+Testing this doesn't make sense, as there is no way this is not the case, unless AERA's design is fundamentally changed.
+Therefore, Requirement 6.4 contains no tests.
+But we refer to Requirement 3.1 - Multitask learning - and its tests for sequential and parallel goal achievement.
+
+
+
+## 7 Transversal functions
+
+### 7.1 Transversal handling of time
+
+### 7.2 Transversal handling of resources
+
+### 7.3 Preemptibility
+
+## 8 Reflection
+
+### 8.1 Meta-cognition
+
+### 8.2 Self-programming
+
+
+## 9 Robustness
+
+### 9.1 Graceful degredation
+
+### 9.2 Scalability
+
+### 9.3 Predictability
+
+The ability of an outsider to predict the behavior of a controller based on some information.
+
+**Note:** This is too broad to write specific tests. But the purpose of all other tests is precisely this, to verify the behavior of AERA based on some information.
+Therefore, Requirement 9.3 contains no tests.
+
+### 9.4 Reliability
+
+The ability of a machine to always return the same - or similar - answer to the same input. Requires predictability.
+
+**Note:** This is too broad to write specific tests. But the purpose of all other tests is precisely this, to verify that AERA behaves - to a point - deterministically in my test cases.
+Therefore, Requirement 9.4 contains no tests.
+
+### 9.5 Trustworthiness
+
+The ability of a machine's owner to trust that the machine will do what it is supposed to do. Requires predictability and reliability at multiple levels of operation.
+
+**Note:** This is too broad to write specific tests. See 9.3 - Predictability and 9.4 - Reliability.
+Therefore, Requirement 9.5 contains no tests.
