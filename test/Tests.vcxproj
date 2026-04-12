@@ -215,7 +215,7 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.replicode" />
-    <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test.replicode" />
+    <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test-solution-diversity.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\test.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\6-4-goal-diversity\test.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\test.replicode" />
@@ -459,7 +459,7 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-1-flexibility\note.txt" />
-    <Text Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test.txt" />
+    <Text Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test-solution-diversity.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\test.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-4-goal-diversity\test.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\test.txt" />

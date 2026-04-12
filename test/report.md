@@ -178,11 +178,7 @@ components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, 
 ### 5.6 Analogy
 Figuring out how things are similar or different. Making inferences about how something X may be (or is) through a comparison to something else Y, where X and Y share some observed properties.
 
-**Note:** The analogy feature, developed [here](https://github.com/IIIM-IS/AERA/commit/2173fc4a3871a4497494248bf9d923bad3e87073) , is not merged to the main branch, and thus not tested here.
-
-| Test name | Description | Remarks |
-| :--- | :--- | :--- |
-| analogy | - | - |
+**Note:** The analogy feature, developed [here](https://github.com/IIIM-IS/AERA/commit/2173fc4a3871a4497494248bf9d923bad3e87073), is not merged to the main branch, and thus not tested here.
 
 
 ## 6. Generality (or Domain Independence)
@@ -199,8 +195,20 @@ Therefore, Requirement 6.1 contains no tests.
 ### 6.2 Solution diversity
 Breadth of solutions: If a system X can reliably generate a larger variation of acceptable solutions to problems than system Y, system X is more powerful than system Y. 
 
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| solution-diversity | tests if AERA can find multiple available plans to the goal state | (R1) This task leads to a "prediction explosion" at 0s:500ms:0us, which can be inspected in the Visualizer after loading for a while. |
+
 ### 6.3 Constraint diversity
 Breadth of constraints on solutions: If a system X can reliably produce acceptable solutions under a higher number of solution constraints than system Y, system X is more powerful than system Y. 
 
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| constraint-diversity | - | - |
+
 ### 6.4 Goal diversity
 Breadth of goals: If a system X can meet a wider range of goals than system Y, system X is more powerful than system Y. Multiple goals should also be achieved concurrently.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| goal-diversity | - | - |
