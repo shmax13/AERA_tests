@@ -6,13 +6,11 @@
 fact_521:(fact success17 0s:900ms:0us 0s:900ms:0us 1 1) []
    [0 0s:900ms:0us 1 1000 stdin primary]
 
-====================
 
 ; fact.after, fact.before from pgm injection
 fact_250:(fact mk_val30 0s:500ms:0us 0s:600ms:0us 1 1) |[]
 fact_174:(fact cmd8 0s:420ms:0us 0s:400ms:0us 1 1) |[]
 
-====================
 
 ; !class (ti after:ts before:ts)
 ; should match the instantiated arguments calculated as part of M_OPEN_VALVE_PRECOND

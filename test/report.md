@@ -233,10 +233,12 @@ Time is relevant to every object; completely ingrained in the system. It was cha
 
 ### 7.2 Transversal handling of resources
 Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.
+ If AERA starts taking too long to process reductions, three measures can be taken (one example is to raise group activation/saliency thresholds).
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-real-time | Switches away from "diagnostic mode" and checks the attention mechanism | ; (R1) AERA does not complete the planning in time, and does not commit to the deduction path it partially explored. |
+| bathtub-real-time | Checks the bathtub task in real-time mode | (R1) If AERA does not complete planning in time, it does not commit to the deduction path it partially explored. |
+| bathtub-perf | Checks perf object created in real-time mode | - |
 
 ### 7.3 Preemptibility
 
