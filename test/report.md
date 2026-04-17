@@ -228,16 +228,15 @@ Time is relevant to every object; completely ingrained in the system. It was cha
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-timestamps | Checks that the bathtub task also succeeds with different timestamps.  | |
-| objects-timestamps | Checks that different objects show correct behavior regarding their timestamps. | |
-| time-ranges | Checks that time ranges work as expected | |
+| bathtub-timestamps | Checks that the bathtub task also succeeds with different timestamps.  | - |
+| time-ranges | Checks that different time-related values are injected correctly. | (R1) It is possible to inject facts with fact.after > fact.before, which seems to have zero entropy.  |
 
 ### 7.2 Transversal handling of resources
 Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-real-time | Switches away from "diagnostic mode" and checks the attention mechanism | |
+| bathtub-real-time | Switches away from "diagnostic mode" and checks the attention mechanism | ; (R1) AERA does not complete the planning in time, and does not commit to the deduction path it partially explored. |
 
 ### 7.3 Preemptibility
 

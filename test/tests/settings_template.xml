@@ -8,16 +8,16 @@
 	  source_file_name="../test/tests/{{SOURCE_FILE_NAME}}"
   />
 	<Init
-	  base_period="50000"
-	  reduction_core_count="0"
-	  time_core_count="0"
+	  base_period="{{BASE_PERIOD}}"
+	  reduction_core_count="{{REDUCTION_CORE_COUNT}}"
+	  time_core_count="{{TIME_CORE_COUNT}}"
   />
 	<System
 	  mdl_inertia_sr_thr="0.9"
 	  mdl_inertia_cnt_thr="6"
 	  tpx_dsr_thr="0.1"
 	  min_sim_time_horizon="0"
-	  max_sim_time_horizon="50000"
+	  max_sim_time_horizon="{{MAX_SIM_TIME_HORIZON}}"
 	  sim_time_horizon_factor="0.3"
 	  tpx_time_horizon="300000"
 	  perf_sampling_period="250000"

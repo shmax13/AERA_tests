@@ -216,8 +216,9 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test-solution-diversity.replicode" />
-    <None Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test.replicode" />
-    <None Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test.replicode" />
+    <None Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-bathtub-timestamps.replicode" />
+    <None Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-objects-timestamps.replicode" />
+    <None Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-real-time.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemtibility\test.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test.replicode" />
     <None Include="tests\std.replicode" />
@@ -461,8 +462,9 @@
     <Text Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test-solution-diversity.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\note.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-4-goal-diversity\note.txt" />
-    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test.txt" />
-    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test.txt" />
+    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-bathtub-timestamps.txt" />
+    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-objects-timestamps.txt" />
+    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-real-time.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemtibility\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-2-self-programming\note.txt" />
