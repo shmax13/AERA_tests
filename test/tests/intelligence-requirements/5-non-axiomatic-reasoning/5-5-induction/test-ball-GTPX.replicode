@@ -1,9 +1,15 @@
-; AGI-13 Summer School - AERA 6. Example by Eric Nivel.
-; https://www.youtube.com/watch?v=LDbOHxUtVlU&t=5561
-; A robotic arm is holding a cube and needs to put a sphere somewhere.
-; It has only one hand; effectors: move, grab, release.
-; ontology: essence ("is a"), position, holding.
-; inputs: position, holding, efferent copies of commands.
+; Here, we specifically observe a model induced by changes in the environment
+; through the Goal Targeted Pattern Extractor (GTPX).
+
+; The task is a variation on hgs-learn.
+; In this version, a goal of a |fact is injected at 900ms.
+; It states the negation of what is true at that point in time.
+
+; In more detail, the injected goal is for the hand to NOT be at position 0.
+; This is the case, so the goal is achieved, but AERA doesn't know why! 
+; So the GTPX tries to find a reason for unexpected goal achievement,
+; and stores it in the newly created models. See .txt file for details
+
 
 h:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
 h_is_a_hand:(mk.val h essence hand 1) |[]
