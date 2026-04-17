@@ -215,8 +215,6 @@ Testing this doesn't make sense, as there is no way this is not the case, unless
 Therefore, Requirement 6.4 contains no tests.
 But we refer to Requirement 3.1 - Multitask learning - and its tests for sequential and parallel goal achievement.
 
-
-
 ## 7 Transversal functions
 
 The system must have pan-architectural characteristics that enable it to operate consistently as a whole, to be highly adaptive (yet robust) in its own operation across the board, including metacognitive abilities.
@@ -228,8 +226,8 @@ Time is relevant to every object; completely ingrained in the system. It was cha
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-timestamps | Checks that the bathtub task also succeeds with different timestamps.  | - |
-| time-ranges | Checks that different time-related values are injected correctly. | (R1) It is possible to inject facts with fact.after > fact.before, which seems to have zero entropy.  |
+| bathtub-timestamps | checks that the bathtub task also succeeds with different timestamps.  | - |
+| time-ranges | checks that different time-related values are injected correctly. | (R1) It is possible to inject facts with fact.after > fact.before, which seems to have zero entropy.  |
 
 ### 7.2 Transversal handling of resources
 Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.
@@ -237,17 +235,19 @@ Resource management (i.e., attention) involves management of knowledge, time, en
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-real-time | Checks the bathtub task in real-time mode | (R1) If AERA does not complete planning in time, it does not commit to the deduction path it partially explored. |
-| bathtub-perf | Checks perf object created in real-time mode | - |
+| bathtub-real-time | checks the bathtub task in real-time mode | (R1) If AERA does not complete planning in time, it does not commit to the deduction path it partially explored. |
+| bathtub-perf | checks perf object created in real-time mode | - |
 
 ### 7.3 Preemptibility
-
-Attention Control in AERA is implemented via the "auto-focus", which is recomputed every cognitive cycle. It is responsible for directing the system's attention with regards to its internal input.  
+The system has to be able to suspend its current operation in favor of more urgent tasks, and resume the former when possible, if it is still desired.  
+Attention Control in AERA is implemented via the "auto-focus", which is recomputed every cognitive cycle. It is responsible for directing the system's attention with regards to its internal input.    
+**Note:** Testing the specifics of the auto-focus mechanism would have to test C++ code directly, which is not our goal here.
+Further, a blackbox test of the mechanism is blocked by the parallel task problem from section 3.1.
+Therefore, the test below is an incomplete attempt to run the bathtub and hgs tasks in real-time mode, in parallel, with varying importance.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-auto-focus | Checks that the auto-focus mechanism acts on the system  | |
-| bathtub-hgs-preemtibility | that when a really important goal is injected while another is being pursued, the more important goal is pursued. | |
+| bathtub-hgs-preemptibility | checks that when a more important goal is injected while another is being pursued, the former is pursued. | (R1) AERA is unable to complete this task, as it cannot find a plan in real time.  |
 
 ## 8 Reflection
 
@@ -259,8 +259,8 @@ This is so central to AERA that I would argue it achieves this per design. But w
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| notifications | Checks that notifications work as described in the report | |
-| anything-as-input | Checks that different objects (including models, programs, act/sln/res values) can be used as input for models. | |
+| notifications | checks that notifications work as described in the report | |
+| anything-as-input | checks that different objects (including models, programs, act/sln/res values) can be used as input for models. | |
 
 ### 8.2 Self-programming
 
@@ -281,7 +281,7 @@ However, we include a test for goal failure specifically
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-hgs-ball-failure | Checks the system's output after failing to achieve several goals. | |
+| bathtub-hgs-ball-failure | checks the system's output after failing to achieve several goals. | |
 
 ### 9.2 Scalability
 
@@ -290,7 +290,7 @@ AERA identifies stable paths of subgoals/predictions. These are compacted for mo
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-compaction | Checks the system's output after failing to achieve several goals. | |
+| bathtub-compaction | checks the system's output after failing to achieve several goals. | |
 
 
 ### 9.3 Predictability
