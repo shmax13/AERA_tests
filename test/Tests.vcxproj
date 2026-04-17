@@ -220,7 +220,7 @@
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-objects-timestamps.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-perf.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-real-time.replicode" />
-    <None Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemtibility\test.replicode" />
+    <None Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemptibility\test-bathtub-hgs-preemptibility.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test.replicode" />
     <None Include="tests\std.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-atoms.replicode" />
@@ -467,7 +467,7 @@
     <Text Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\test-objects-timestamps.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-perf.txt" />
     <Text Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\test-bathtub-real-time.txt" />
-    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemtibility\test.txt" />
+    <Text Include="tests\intelligence-requirements\7-transversal-functions\7-3-preemptibility\test-bathtub-hgs-preemptibility.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-2-self-programming\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-3-predictability\note.txt" />
