@@ -3,27 +3,20 @@
 ; reduction_core_count=6
 ; time_core_count=2
 ; run_time=5000
+!def rt_sampling_period 500ms
 
 ; The goal of this task is to fill a bathtub to a certain water level.
 ; Available Actions: open_valve / wait
 
-; For this task, we switch from diagnostic to real-time mode by changing to the following in settings.xml:
-; 	  reduction_core_count="6"
-;	  time_core_count="2"
+; For this task, we switch from diagnostic to real-time mode, and analyze 
+; AERA's self-monitoring of resources by inspecting "perf" objects.
+; note the syntax of performance counters (latencies):
+; !class (perf (_obj {rj_ltcy:nb d_rj_ltcy:nb tj_ltcy:nb d_tj_ltcy:nb})); latencies and derivatives in us encoded as floats.
 
-; Now, a remark:
-; (R1) If AERA does not complete planning in time, it does not commit to the deduction path it partially explored.
-; The above can be shown by simply running the default bathtub task (see 1.2) in real-time mode.
-
-; So we have to make several changes for the task to be achievable:
-; changes in settings.xml: (see top of file)
-;       base_period="250000"
-;       max_sim_time_horizon="250000"
-;       run_time="10000"
-
-; and then, we have to redefine the sampling period from user.classes.replicode to our new one:
-!def rt_sampling_period 500ms ; (used to be 100ms)
-
+; rj_ltcy: reduction jobs latency;
+; d_rj_ltcy: reduction job latency at the last sampling time;
+; tj_ltcy: time job latency;
+; d_tj_ltcy: time job latency at the last sampling time.
 
 ; ============================
 ; CONSTANTS
