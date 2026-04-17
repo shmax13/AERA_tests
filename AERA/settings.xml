@@ -8,7 +8,7 @@
   <Load
     usr_operator_path="./usr_operators.dll"
     usr_class_path="../test/tests/user.classes.replicode"
-	source_file_name="../test/tests/intelligence-requirements/6-generality/6-3-constraint-diversity/test-constraint-diversity.replicode"
+	source_file_name="../test/tests/intelligence-requirements/6-generality/6-2-solution-diversity/test-solution-diversity.replicode"
 	/>
   <!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
