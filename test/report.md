@@ -66,8 +66,8 @@ AERA achieves this through reactive programs and models, which are triggered whe
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| programs | tests basic program syntax | -|
-| models | tests basic model syntax | -|
+| programs | tests basic program syntax | - |
+| models | tests basic model syntax | - |
 | mediation-mod | tests the mediation of `mod` commands | -|
 | mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but illegal values are rounded to 0 or 1 (see test for details)|
 | bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | - |
@@ -219,24 +219,78 @@ But we refer to Requirement 3.1 - Multitask learning - and its tests for sequent
 
 ## 7 Transversal functions
 
+The system must have pan-architectural characteristics that enable it to operate consistently as a whole, to be highly adaptive (yet robust) in its own operation across the board, including metacognitive abilities.
+
 ### 7.1 Transversal handling of time
 
+Time is a semantic property, and the system must be able to understand – and be able to learn to understand – time as a real-world phenomenon in relation to its own skills and architectural operation.
+Time is relevant to every object; completely ingrained in the system. It was changed from exact moments to a range.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-timestamps | Checks that the bathtub task also succeeds with different timestamps.  | |
+| objects-timestamps | Checks that different objects show correct behavior regarding their timestamps. | |
+| time-ranges | Checks that time ranges work as expected | |
+
 ### 7.2 Transversal handling of resources
+Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-real-time | Switches away from "diagnostic mode" and checks the attention mechanism | |
 
 ### 7.3 Preemptibility
 
+Attention Control in AERA is implemented via the "auto-focus", which is recomputed every cognitive cycle. It is responsible for directing the system's attention with regards to its internal input.  
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-auto-focus | Checks that the auto-focus mechanism acts on the system  | |
+| bathtub-hgs-preemtibility | that when a really important goal is injected while another is being pursued, the more important goal is pursued. | |
+
 ## 8 Reflection
+
+Required for a system to learn, over time, about its own fallacies, shortcomings, and lack of knowledge.
 
 ### 8.1 Meta-cognition
 
+This is so central to AERA that I would argue it achieves this per design. But we can still write tests for it. Notably, some important parts are Notifications (to evaluate itself) and using any reductions and knowledge about knowledge as input (to reason about itself)
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| notifications | Checks that notifications work as described in the report | |
+| anything-as-input | Checks that different objects (including models, programs, act/sln/res values) can be used as input for models. | |
+
 ### 8.2 Self-programming
 
+Self-programming is the creation of models through induction, therefore here we only refer to the tests in 5.5.
+Furthermore, we refer to the basic syntax tests of models and programs in 3.1.  
+**Note:** Therefore, this section contains no tests.
 
 ## 9 Robustness
 
+When the system achieves consistently a set of goals within some constraints, it shall continue to do so despite novelty occurring in the environment, provided this novelty changes the initial goals and constraints only marginally and provided the system can possibly remain in its (fixed) operational boundaries.
+
 ### 9.1 Graceful degredation
 
+Knowledge representation in AERA is based around causal relations, which are essential for mapping out “how the world works”. Because AERA's knowledge processing is organized around goals, with increased knowledge AERA will get closer and closer to “perfect operation” (i.e. meeting its top-level drives/goals, for which each instance was created). Furthermore, AERA can do reflection, so it gets better at evaluating its own performance over time, meaning it makes (causal) models of its own failure modes, increasing its chances of graceful degradation.
+
+We therefore refer here to section 4 - causal relations and section 8 - reflection. 
+However, we include a test for goal failure specifically
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-hgs-ball-failure | Checks the system's output after failing to achieve several goals. | |
+
 ### 9.2 Scalability
+
+(see C - 8.2.7 for detail)   
+AERA identifies stable paths of subgoals/predictions. These are compacted for more efficiency. The original models are still saved, in case it is later necessary to reinject them after the compact structure proves instable.
+
+| Test name | Description | Remarks |
+| :--- | :--- | :--- |
+| bathtub-compaction | Checks the system's output after failing to achieve several goals. | |
+
 
 ### 9.3 Predictability
 
