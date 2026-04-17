@@ -52,28 +52,61 @@ namespace AeraTests {
             FAIL() << "Failed to find source_file_name in XML template";
         }
 
-        // Replace {{DURATION}} in XML template
-        int duration = 1000; // default = 1000ms
+        // Replace {{WHATEVER}} in XML template
+        // first, the defaults
+        int duration = 1000;
+        int base_period = 50000;
+        int reduction_core_count = 0;
+        int time_core_count = 0;
+        int max_sim_time_horizon = 50000;
 
+        // parse file once
         std::ifstream input(inputFile);
         if (input) {
-            std::string firstLine;
-            if (std::getline(input, firstLine)) {
-                const std::string prefix = "; run_time=";
-                if (firstLine.rfind(prefix, 0) == 0) { // starts with prefix
-                    duration = std::stoi(firstLine.substr(prefix.size()));
+            std::string line;
+
+            const std::string p_duration = "; run_time=";
+            const std::string p_base = "; base_period=";
+            const std::string p_max = "; max_sim_time_horizon=";
+            const std::string p_reduction = "; reduction_core_count=";
+            const std::string p_time = "; time_core_count=";
+
+            while (std::getline(input, line)) {
+                if (line.rfind(p_duration, 0) == 0) {
+                    duration = std::stoi(line.substr(p_duration.size()));
+                }
+                else if (line.rfind(p_base, 0) == 0) {
+                    base_period = std::stoi(line.substr(p_base.size()));
+                }
+                else if (line.rfind(p_max, 0) == 0) {
+                    max_sim_time_horizon = std::stoi(line.substr(p_max.size()));
+                }
+                else if (line.rfind(p_reduction, 0) == 0) {
+                    reduction_core_count = std::stoi(line.substr(p_reduction.size()));
+                }
+                else if (line.rfind(p_time, 0) == 0) {
+                    time_core_count = std::stoi(line.substr(p_time.size()));
                 }
             }
         }
-        std::string durationStr = std::to_string(duration);
-        std::string durationKey = "{{DURATION}}";
-        size_t durPos = xmlContent.find(durationKey);
-        if (durPos != std::string::npos) {
-            xmlContent.replace(durPos, durationKey.length(), durationStr);
-        }
-        else {
-            FAIL() << "Failed to find DURATION in XML template";
-        }
+
+        // helper lambda
+        auto replaceKey = [&](const std::string& key, int value) {
+            size_t pos = xmlContent.find(key);
+            if (pos != std::string::npos) {
+                xmlContent.replace(pos, key.length(), std::to_string(value));
+            }
+            else {
+                FAIL() << "Failed to find " << key << " in XML template";
+            }
+        };
+
+        // replace all
+        replaceKey("{{DURATION}}", duration);
+        replaceKey("{{BASE_PERIOD}}", base_period);
+        replaceKey("{{REDUCTION_CORE_COUNT}}", reduction_core_count);
+        replaceKey("{{TIME_CORE_COUNT}}", time_core_count);
+        replaceKey("{{MAX_SIM_TIME_HORIZON}}", max_sim_time_horizon);
 
         // Write modified XML to temp file for this test run
         std::ofstream outFile(settings_filled_path);
