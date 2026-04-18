@@ -254,12 +254,21 @@ Therefore, the test below is an incomplete attempt to run the bathtub and hgs ta
 Required for a system to learn, over time, about its own fallacies, shortcomings, and lack of knowledge.
 
 ### 8.1 Meta-cognition
-
+The ability of a system to generate its own programs using fixed design-time principles while deciding the specific details at runtime based on its experience.  
 This is so central to AERA that I would argue it achieves this per design. But we can still write tests for it. Notably, some important parts are Notifications (to evaluate itself) and using any reductions and knowledge about knowledge as input (to reason about itself)
+Except for the final test, this section consists of basic tests for different notifications.  
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| notifications | checks that notifications work as described in the report | |
+| mk-rdx | checks the notification mk.rdx | - |
+| mk-new | checks the notification mk.new | - |
+| mk-low-sln | checks the notification mk.low_sln | - |
+| mk-high-sln | checks the notification mk.high_sln | - |
+| mk-low-act | checks the notification mk.low_act | - |
+| mk-high-act | checks the notification mk.high_act | - |
+| mk-low-res | checks the notification mk.low_res | - |
+| mk-sln-chg | checks the notification mk.sln_chg | - |
+| mk-act-chg | checks the notification mk.act_chg | - |
 | anything-as-input | checks that different objects (including models, programs, act/sln/res values) can be used as input for models. | |
 
 ### 8.2 Self-programming
