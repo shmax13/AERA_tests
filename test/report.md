@@ -285,8 +285,8 @@ When the system achieves consistently a set of goals within some constraints, it
 
 Knowledge representation in AERA is based around causal relations, which are essential for mapping out “how the world works”. Because AERA's knowledge processing is organized around goals, with increased knowledge AERA will get closer and closer to “perfect operation” (i.e. meeting its top-level drives/goals, for which each instance was created). Furthermore, AERA can do reflection, so it gets better at evaluating its own performance over time, meaning it makes (causal) models of its own failure modes, increasing its chances of graceful degradation.
 
-We therefore refer here to section 4 - causal relations and section 8 - reflection. 
-However, we include a test for goal failure specifically
+We therefore refer here to section 4 - causal relations, and section 8 - reflection. 
+However, we include a test that checks AERA's output while failing to achieve 3 sequential goals.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
