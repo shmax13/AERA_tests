@@ -297,10 +297,9 @@ However, we include a test that checks AERA's output while failing to achieve 3 
 (see C - 8.2.7 for detail)   
 AERA identifies stable paths of subgoals/predictions. These are compacted for more efficiency. The original models are still saved, in case it is later necessary to reinject them after the compact structure proves instable.
 
-| Test name | Description | Remarks |
-| :--- | :--- | :--- |
-| bathtub-compaction | checks the system's output after failing to achieve several goals. | |
-
+**Note:** The compaction mechanism has only been described in theory, and is not implemented:   
+"We have also left the Compaction mechanism for future work, and this mechanism has not been implemented in the prototype."  
+Therefore, Requirement 9.2 contains no tests.
 
 ### 9.3 Predictability
 
