@@ -626,9 +626,6 @@ m_drive:(mdl [] []
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
-; (R1) Commenting the following model (m_drive_hgs) in causes AERA to run indefinitely after 300ms (which is 1st time commands should be executed)
-; I assume this is because we try to run two different commands (open_valve and move) at the same time?
-; So I had to block AERA from finding a plan for one task by commenting out the model M7 above.
 m_drive_hgs:(mdl [] []
    ; The goal target timings are the same as the drive timings.
    (fact (mk.val s position pS1 1) T0: T1: 1 1)
