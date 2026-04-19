@@ -1,9 +1,17 @@
-; run_time=2000
+; run_time=3000
 
-; The goal of this task is two tasks in sequence:
-; First the bathtub task.
+; For this test, we run three tasks in sequence:
+; First, the bathtub task.
 ; Then, hand-grab-sphere.
-; Available Actions: open_valve / wait / move / grab / release
+; Then, ball-external.
+; Available Actions: open_valve / wait / move / grab / release / set_velocity_y
+
+; However! we manipulate each task slightly, implying no task can succeed:
+; For hgs & bathtub, we reduced the time limit to 300ms.
+; For ball-external, we never inject the required cmd ready ["ball" o].
+
+; The goal here is to check that new goals are pursued even if previous ones failed.
+; Further, we check the decompiled output for failure-related knowledge.
 
 ; ============================
 ; CONSTANTS
@@ -16,13 +24,14 @@
 !def V_CLOSED 0             ; valve closed
 !def V_OPEN 1               ; valve open
 
-!def TIME_LIMIT 600ms       ; how long the agent has to achieve the goal. minimum time for task success is 600ms.
+!def TIME_LIMIT 300ms       ; how long the agent has to achieve the goal. minimum time for task success is 600ms.
 
 !def V_INIT V_CLOSED        ; initial value - valve
 !def WL_INIT WL_EMPTY       ; initial value - water level
 
 !def DRIVE_START_BATHTUB 300ms   ; when to start injecting the drive - bathtub task
 !def DRIVE_START_HGS 1300ms       ; when to start injecting the drive - hgs task
+!def DRIVE_START_BALL 2500ms
 
 !def p_zero 0
 !def pH0 25
@@ -51,6 +60,15 @@ s_is_a_sphere:(mk.val s essence sphere 1) |[]
 s_is_a_hand:(mk.val s essence hand 1) |[]
 ; This is needed for S3.
 (|fact s_is_a_hand 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
+
+; ball is the ontology class of all balls.
+ball:(ont 1) [[SYNC_ONCE now 0 forever root nil]]
+; Name an entity o.
+o:(ent 1) [[SYNC_ONCE now 1 forever root nil]]
+; The statement that o is a ball.
+o_is_a_ball:(mk.val o essence ball 1) |[]
+; Make o_is_a_ball a fact from now to the maximum time. 
+f_o_is_a_ball:(fact o_is_a_ball 0s:0ms:0us GIGASEC 1 1) [[SYNC_AXIOM now 1 forever stdin nil]]
 
 ; ============================
 ; HEARTBEAT
@@ -417,6 +435,21 @@ pgm_inject_mk_vals_not_holding:(pgm [] []
    [SYNC_ONCE now 0 forever emulator nil 1]
 
 
+
+; This program intercepts a goal to run a command and directly
+; calls the command, which will call the override of _Mem::eject().
+pgm_cmd_set_velocity_y:(pgm |[]
+[]
+   (ptn (fact g:(goal (fact c:(cmd set_velocity_y [obj: velocity_y:] ::) ::) ::) ::) |[])
+[]
+   (= (is_sim g) false)
+[]
+   (prb [1 "print" "cmd set_velocity_y..." [c]])
+   (cmd set_velocity_y [obj velocity_y] 1)
+1) |[]
+i_pgm_cmd_set_velocity_y:(ipgm pgm_cmd_set_velocity_y |[] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever primary nil 1]
+
 ; ============================
 ; MODELS
 ; ============================
@@ -609,6 +642,41 @@ M7:(mdl [] []
 |[]
 [stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
+ball_position:(cst |[]
+[]
+   (fact (mk.val B: essence ball :) T0: T1: : :)
+   (fact (mk.val B: position_y P: :) T0: T1: : :)
+|[]
+|[]
+[stdin] 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; This model says that a command to set the velocity to a value causes the position to have a
+; value in the next frame based on the new velocity.
+mdl_set_velocity_y:(mdl [B: P0: (ti T0: T1:)]
+[]
+   (fact (cmd set_velocity_y [B: V:] 1) T0_cmd: T1_cmd: : :)
+   (fact (mk.val B: position_y P1: :) T2: T3: : :)
+[]
+   T2:(add T0 100ms)
+   T3:(add T1 100ms)
+   P1:(+ P0 (mul V 100ms))
+[]
+   V:(/ (- P1 P0) 100ms)
+   T0:(sub T2 100ms)
+   T1:(sub T3 100ms)
+   T0_cmd:(sub T2 80ms)
+   T1_cmd:(sub T3 100ms)
+[stdin] 0 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; requirement for the above model
+mdl_set_velocity_y_req:(mdl |[]
+[]
+   (fact (icst ball_position |[] [B: P0:] : :) T0: T1: : :)
+   (fact (imdl mdl_set_velocity_y [B: P0: (ti T0: T1:)] [V: P1: T2: T3:] : :) T0: T1: : :)
+|[]
+|[]
+[stdin] 1 1 1 1 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
 ; ============================
 ; DRIVE (aka GOAL)
 ; ============================
@@ -616,6 +684,7 @@ M7:(mdl [] []
 ; drive targets; drives are goals whose target fact points to an entity.
 run_bathtub:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
 run_hgs:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
+run_ball:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
 
 m_drive:(mdl [] []
    ; The goal target timings are the same as the drive timings.
@@ -633,12 +702,22 @@ m_drive_hgs:(mdl [] []
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
+mdl_run_position:(mdl |[] []
+   ; The goal target timings are the same as the drive timings.
+   (fact (mk.val o position_y 100 1) t0: t1: 1 1)
+   (fact run_ball t0: t1: ::)
+|[]
+|[]
+[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
+; This program runs once at DRIVE_START_BALL to inject the drive which activates mdl_run_position.
+
 pgm_inject_drive_bathtub:(pgm [] []
    ; This fact repeats periodically (bcs of SYNC_AXIOM in f1). We use it as a "heartbeat".
    (ptn (fact (mk.val b essence bathtub :) After: Before: ::) [])
 []
    (>= After (+ this.vw.ijt DRIVE_START_BATHTUB))
-   (<= After (+ this.vw.ijt DRIVE_START_HGS))
+   (< After (+ this.vw.ijt DRIVE_START_HGS))
 []
    (inj [f_run:(fact run_bathtub After (+ Before TIME_LIMIT) 1 1) []])
    (inj [G:(goal f_run self nil 1) []])
@@ -657,6 +736,7 @@ pgm_inject_drive_hgs:(pgm [] []
    (ptn (fact (mk.val h essence hand :) After: Before: ::) [])
 []
    (>= After (+ this.vw.ijt DRIVE_START_HGS))
+   (< After (+ this.vw.ijt DRIVE_START_BALL))
 []
    (inj [f_run:(fact run_hgs After (+ Before TIME_LIMIT) 1 1) []])
    (inj [G:(goal f_run self nil 1) []])
@@ -668,4 +748,30 @@ pgm_inject_drive_hgs:(pgm [] []
    (prb [1 "print" "injected drive - hgs" []])
 1) |[]
 (ipgm pgm_inject_drive_hgs [] RUN_ALWAYS MAX_TIME VOLATILE NOTIFY 1) []
+   [SYNC_ONCE now 0 forever primary nil 1]
+
+pgm_inject_drive_ball:(pgm |[]
+[]
+   ; This fact repeats periodically. We use it as a "heartbeat".
+   (ptn (fact (mk.val o essence ball :) after: before: ::) |[])
+[]
+   (>= after (+ this.vw.ijt DRIVE_START_BALL))
+[]
+   (inj []
+      ; Delay a little to allow predictions for this sampling period before injecting the drive.
+      ; The end of the time interval will be used in mdl_run_position as the end of the goal interval.
+      f_run:(fact run_ball (+ after 10ms) (+ (+ this.vw.ijt DRIVE_START_BALL) 400ms) 1 1)
+      |[]
+   )
+   (inj []
+      g:(goal f_run self nil 1)
+      |[]
+   )
+   (inj []
+      (fact g t1:(+ after 10ms) t1 1 1)
+      [SYNC_ONCE t1 1 forever primary nil]
+   )
+   (prb [1 "print" "injected drive - ball" |[]])
+1) |[]
+i_pgm_inject_drive_ball:(ipgm pgm_inject_drive_ball |[] RUN_ONCE MAX_TIME VOLATILE NOTIFY 1) []
    [SYNC_ONCE now 0 forever primary nil 1]

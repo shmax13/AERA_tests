@@ -231,6 +231,8 @@
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test-mk-new.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test-mk-rdx.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test-mk-sln-chg.replicode" />
+    <None Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degredation\test-bathtub-hgs-ball-failure.replicode" />
+    <None Include="tests\intelligence-requirements\9-robustness\9-2-scalability\test-compaction.replicode" />
     <None Include="tests\std.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-atoms.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-misc.replicode" />
@@ -488,6 +490,8 @@
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test-mk-rdx.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\test-mk-sln-chg.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-2-self-programming\note.txt" />
+    <Text Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degredation\test-bathtub-hgs-ball-failure.txt" />
+    <Text Include="tests\intelligence-requirements\9-robustness\9-2-scalability\test-compaction.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-3-predictability\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-4-reliability\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-5-trustworthiness\note.txt" />
