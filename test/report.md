@@ -171,7 +171,7 @@ components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, 
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| ball-GTPX | tests the GTPX mechanism | (R1) This has never been demonstrated in existing Replicode files, and I wasn't able to reproduce GTPX functionality. |
+| hgs-GTPX | tests the GTPX mechanism | - |
 | ball-PTPX | tests the PTPX mechanism | (R1) The PTPX creates several duplicate composite states and models. |
 | ball-CTPX | tests the CTPX mechanism | (R1) The induced model should eventually get added to the blacklist, but I could not verify this behaviour. <br> (R2) v7\*100ms seems to perform (* ts nb), which according to the list of Gotchas shouldn't be allowed.  |
 

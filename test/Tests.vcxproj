@@ -212,7 +212,7 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-CTPX.replicode" />
-    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.replicode" />
+    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-hgs-GTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\test-solution-diversity.replicode" />
@@ -467,7 +467,7 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-3-deduction\test-bathtub-deduction.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-4-abduction\test-bathtub-abduction.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-CTPX.txt" />
-    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-GTPX.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-hgs-GTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\test-ball-PTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\test-analogy.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-1-flexibility\note.txt" />
