@@ -269,7 +269,7 @@ Except for the final test, this section consists of basic tests for different no
 | mk-low-res | checks the notification mk.low_res | - |
 | mk-sln-chg | checks the notification mk.sln_chg | - |
 | mk-act-chg | checks the notification mk.act_chg | - |
-| anything-as-input | checks that different objects (including models, programs, act/sln/res values) can be used as input for models. | |
+| anything-as-input | checks that different objects (e.g.,  models, programs, act/sln/res notifications) can be used as input for models. | (R1) CSTs and ICSTs occasionally cause read-access violations. <br> (R2) Visualizer fails to parse icmd in models, even though this seems to work fine in the decompiled output.|
 
 ### 8.2 Self-programming
 

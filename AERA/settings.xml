@@ -8,7 +8,7 @@
 	<Load
 	  usr_operator_path="./usr_operators.dll"
 	  usr_class_path="../test/tests/user.classes.replicode"
-	  source_file_name="../test/tests/intelligence-requirements/5-non-axiomatic-reasoning/5-5-induction/test-ball-GTPX.replicode"
+	  source_file_name="../test/tests/intelligence-requirements/8-reflection/8-1-meta-cognition/test-anything-as-input.replicode"
 	/>
 	<!--Init is set to diagnostic time by default. 
       For real time, set reduction_core_count to "6" and time_core_count to "2" . -->
