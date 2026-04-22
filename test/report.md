@@ -1,10 +1,16 @@
 # AERA Test Documentation
 
+TODO: description
+
 ## 1. Embodiment
 
+An embodiment (i.e., sensing and acting) is required to find out what the current status of the world is by generating models of it, with respect to one's goals.
+This is also a requirement for **4 - Knowledge of causes**.
+
 ### 1.1 Sensing
-Inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment). 
-This section includes tests for Goals and Predictions, which are both pointers to facts.
+i.e., perceiving and making measurements of the physical world through sensors.  
+In AERA, inputs coming from the environment (technically, data produced by the I/O devices) come in the form of facts for which the time interval is reduced to a single point in time (the time the input was produced) and for which the confidence value is one (since the fact represents an observation in the environment).   
+This section includes tests for Goals and Predictions, which are both pointers to Facts.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -15,9 +21,10 @@ This section includes tests for Goals and Predictions, which are both pointers t
 | ball-external | tests if inputs coming from the (mocked) environment are handled correctly |  (R1) Since we are in a unit test environment, we use the existing mocked I/O device "ball". |
 
 ### 1.2 Acting
-AERA acts upon the physical world by calling commands on devices. There are two types of devices: internal (the executive, e.g.: inj, eje, mod, set, ...) and external (using custom commands).
+i.e., acting upon the physical world to achieve goals.  
+AERA acts upon the physical world by calling commands on devices.   
+There are two types of devices: internal (the executive, e.g.: inj, eje, mod, set, ...) and external (using custom commands).
 
-#### 1.2.1 Tests for internal commands (icmd) of the executive
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | inj | tests the icmd _inj | (R1) In decompiled_objects, the name of the injected object does not match what is provided.<br>(R2) If the object is injected to group "stdin", the object has no view in the decompilation file. |
@@ -30,38 +37,33 @@ AERA acts upon the physical world by calling commands on devices. There are two 
 | swp | tests the icmd _swp | (R1) This has never been used in existing Replicode files, and I wasn't able to reproduce all that the icmd should be able to do.<br>(R2) Documentation states that only values in {0, 1} should be allowed as a parameter, but this is not the case. |
 | prb | tests the icmd _prb | (R1) This only ever been used in combination with "print"; which works as expected. |
 | stop | tests the icmd _stop | - |
-
-#### 1.2.2 Tests for external commands
-
-| Test name | Description | Remarks |
-| :--- | :--- | :--- |
 | cmd | tests basic command syntax | (R1) The parameter device:did (as specified in the documentation) does not exist anymore. |
-| bathtub | tests the use of commands to achieve a simple goal | - |
+| bathtub | tests the use of external commands to achieve a simple goal | - |
 
 ## 2. Constructivism
 Required so that a system can autonomously amass the vast majority of its knowledge (except for a small seed), in a way that infuses meaning into information structures. "Autonomous" means that this can be done without interference / help from others / the need to “call home”.
 
 **Note:** This is so fundamental to AERA that it is achieved per design.
-All other tests I can think of would capture these properties to some extent.
+All other tests created as part of this work capture the following properties to some extent.
 Therefore, Requirement 2 contains no tests.
 
 ### 2.1 Generate knowledge autonomously
 
-The system acquires the vast majority of its knowledge on its own (except for a small seed).
+AERA acquires the vast majority of its knowledge on its own (except for a small seed).
 
 ### 2.2 Manage knowledge autonomously 
 
-The system manages its own GROWTH on its own.
+AERA manages its own growth on its own.
 
 ### 2.3 Use knowledge autonomously
-´The system may change its own architecture over time, due to experience and learning. 
+AERA may change its own architecture over time, due to experience and learning. 
 
 ## 3. Cumulative learning
-
-This section could be expanded to include more detailed tests on the Activation, Reaction and Attention Control mechanisms.
+Required to unify new information and knowledge that is already acquired, in a coherent, efficient and effective manner. Unifies several separate research tracks.  
+**Note:** This section could be expanded to include more detailed tests on the Activation, Reaction and Attention Control mechanisms.
 
 ### 3.1 Multitask learning
-The ability to learn more than one task, either at once or in sequence.
+The ability to learn more than one task, either at once or in sequence.  
 AERA achieves this through reactive programs and models, which are triggered whenever there is a left-side match and related saliency/activation values are high enough.
 
 | Test name | Description | Remarks |
@@ -69,15 +71,14 @@ AERA achieves this through reactive programs and models, which are triggered whe
 | programs | tests basic program syntax | - |
 | models | tests basic model syntax | - |
 | mediation-mod | tests the mediation of `mod` commands | -|
-| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but illegal values are rounded to 0 or 1 (see test for details)|
+| mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but illegal values are rounded to 0 or 1. |
 | bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | - |
-| bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely (see test for details)|
+| bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely. |
 
 ### 3.2 Online learning
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.  
-This section also covers few-shot learning, which means to learn something from very few examples or very little data.
-
-AERA can use new knowledge whenever it comes along.
+This section also covers few-shot learning, which means to learn something from very few examples or very little data.  
+AERA achieves this by using new knowledge whenever it comes along.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -85,17 +86,17 @@ AERA can use new knowledge whenever it comes along.
 
 
 ### 3.3 Lifelong learning
-The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.
+The ability of an AI system to keep learning and integrating knowledge throughout its operational lifetime: learning is “always on”.  
 AERA can use new knowledge (or react to changes in saliency/activation) even while/after achieving a more complex goal like hand-grab-sphere.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-act-change | tests the system's reaction to a control value change | - |
-| test-ball-external-new-models | tests model creation from facts observed by an external device during a task | - |
+| ball-external-new-models | tests model creation from facts observed by an external device during a task | - |
 
 
 ### 3.4 Robust knowledge acquisition
-The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).
+The antithesis of which is brittle learning, where new knowledge results in catastrophic perturbations of prior knowledge (and behavior).  
 AERA achieves this through control values (saliency, activation, resilience, model success rate) that control which knowledge is more reliable than others.
 
 | Test name | Description | Remarks |
@@ -106,7 +107,7 @@ AERA achieves this through control values (saliency, activation, resilience, mod
 
 
 ### 3.5 Transfer learning
-The ability to build new knowledge on top of old in a way that the old knowledge facilitates learning the new. While interference/forgetting should not occur, knowledge should still be defeasible.
+The ability to build new knowledge on top of old in a way that the old knowledge facilitates learning the new. While interference/forgetting should not occur, knowledge should still be defeasible.  
 In AERA, models exist separately from tasks, so any learned model can be used for any task. 
 
 | Test name | Description | Remarks |
@@ -115,15 +116,25 @@ In AERA, models exist separately from tasks, so any learned model can be used fo
 
 ## 4. Knowledge of causes
 
-Required to produce predictions and plans. AERA achieves this through concatened deduction and abduction (see sections 5.3 and 5.4)
+Required to guide action. Without knowledge about causal relations it is impossible to get anything systematically done.  
+The only known method for creating causal models is combined forward-backward chaining.
 
 ### 4.1 Forward chaining
+Required to produce predictions. 
+Uses matching to produce what might happen next, after a particular state is reached, starting with existing data, until an endpoint (typically a goal) is reached.  
+AERA achieves this through concatenated deduction (see section 5.3).
+
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-forward-chaining | tests the first part of planning: predictions | - |
 
 
 ### 4.2 Backward chaining
+
+Required to produce plans. 
+Starts with a given goal or state to be achieved, and proceeds through matching to produce what could possibly have been the state just prior to that particular state.  
+AERA achieves this through concatenated abduction (see section 5.4).
+
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-backward-chaining | tests the second part of planning: sub-goals | - |
@@ -134,16 +145,18 @@ Required to operate on knowledge in worlds where the axioms are unknown, not gua
 
 ### 5.1 Defeasible reasoning
 
-Reasoning where the system-produced output may be found to be incorrect, at any time, given additional data, reconsideration of background assumptions or discovery of logic errors. 
+Reasoning where the system-produced output may be found to be incorrect, at any time, given additional data, reconsideration of background assumptions or discovery of logic errors.  
+Models that have repeatedly made poor predictions are removed from AERA. Activation values are used to monitor the system, to first deactivate and then entirely remove models/programs.
+
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | (R1) This test is similar to bathtub-success-rate-decrease in 3.4 |
-| bathtub-sim-defeated | checks output after a promoted simulation prediction is defeated  | (R1) This task is incomplete, but it suffices for the purpose here  |
+| bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | (R1) This test is similar to bathtub-success-rate-decrease in 3.4. |
+| bathtub-sim-defeated | checks output after a promoted simulation prediction is defeated  | (R1) This task is incomplete, but it suffices for the purpose here.  |
 
 ### 5.2 Pattern matching
-
-Pattern matching is central in AERA, where all existing object classes can be matched.
+Pattern matching is the main method that reasoning systems use in their operation.  
+It is central in AERA, where all existing object classes can be matched.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -151,6 +164,7 @@ Pattern matching is central in AERA, where all existing object classes can be ma
 | bathtub-pattern-matching | tests various instances of pattern matching | - |
 
 ### 5.3 Deduction
+Figuring out the implication of facts (or predicting what may come). Producing implications from premises.  
 In Replicode, deduction is the production of predictions given an input fact (actual or predicted).
 
 | Test name | Description | Remarks |
@@ -159,6 +173,7 @@ In Replicode, deduction is the production of predictions given an input fact (ac
 
 
 ### 5.4 Abduction
+Figuring out how things came to be the way they are (or how particular outcomes could be made to come about, or how particular outcomes could be prevented).  
 In Replicode, abduction refers to the production of sub-goals, given an input goal.
 
 | Test name | Description | Remarks |
@@ -166,7 +181,8 @@ In Replicode, abduction refers to the production of sub-goals, given an input go
 | bathtub-abduction | tests created sub-goals and their confidence values | - |
 
 ### 5.5 Induction
-Figuring out the general case. Making general rules from a (small) set of examples. Replicode offers three ways of acquiring models/states, by means of three different
+Figuring out the general case. Making general rules from a (small) set of examples.   
+Replicode offers three ways of acquiring models/states, by means of three different
 components, called Targeted Pattern Extractors (TPX): Goal TPX, Prediction TPX, Change TPX.
 
 | Test name | Description | Remarks |
@@ -188,7 +204,7 @@ Required as all requirements in this list must be independent of the subject of 
 ### 6.1 Flexibility
 Breadth of task-environments: If a system X can operate in more diverse task-environments than system Y, system X is more flexible than system Y. 
 
-**Note:** Similar to Requirement 2, this is achieved per design - "architectural principles do not make any assumption on the target domain" (cite)
+**Note:** Similar to Requirement 2, this is achieved per design, as architectural principles do not make any assumption on the target domain.  
 Testing this doesn't make sense, as there is no way this is not the case, unless AERA's design is fundamentally changed.
 Therefore, Requirement 6.1 contains no tests.
 
@@ -222,7 +238,7 @@ The system must have pan-architectural characteristics that enable it to operate
 ### 7.1 Transversal handling of time
 
 Time is a semantic property, and the system must be able to understand – and be able to learn to understand – time as a real-world phenomenon in relation to its own skills and architectural operation.
-Time is relevant to every object; completely ingrained in the system. It was changed from exact moments to a range.
+In AERA, time is relevant to every object; completely ingrained in the system. At one point, it was changed from exact moments to a range.
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -230,8 +246,8 @@ Time is relevant to every object; completely ingrained in the system. It was cha
 | time-ranges | checks that different time-related values are injected correctly. | (R1) It is possible to inject facts with fact.after > fact.before, which seems to have zero entropy.  |
 
 ### 7.2 Transversal handling of resources
-Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.
- If AERA starts taking too long to process reductions, three measures can be taken (one example is to raise group activation/saliency thresholds).
+Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.  
+If AERA starts taking too long to process reductions, three measures can be taken (e.g., to raise group activation/saliency thresholds).
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
@@ -254,8 +270,8 @@ Therefore, the test below is an incomplete attempt to run the bathtub and hgs ta
 Required for a system to learn, over time, about its own fallacies, shortcomings, and lack of knowledge.
 
 ### 8.1 Meta-cognition
-The ability of a system to generate its own programs using fixed design-time principles while deciding the specific details at runtime based on its experience.  
-This is so central to AERA that I would argue it achieves this per design. But we can still write tests for it. Notably, some important parts are Notifications (to evaluate itself) and using any reductions and knowledge about knowledge as input (to reason about itself)
+The ability of a system to generate its own programs using fixed design-time principles while deciding the specific details at runtime based on its experience.    
+This is so central to AERA one could argue it achieves this per design. But we can still write tests for it. Notably, some important parts are Notifications (to evaluate itself) and using any reductions and knowledge about knowledge as input (to reason about itself)  
 Except for the final test, this section consists of basic tests for different notifications.  
 
 | Test name | Description | Remarks |
@@ -293,12 +309,10 @@ However, we include a test that checks AERA's output while failing to achieve 3 
 | bathtub-hgs-ball-failure | checks the system's output after failing to achieve several goals. | |
 
 ### 9.2 Scalability
-
-(see C - 8.2.7 for detail)   
 AERA identifies stable paths of subgoals/predictions. These are compacted for more efficiency. The original models are still saved, in case it is later necessary to reinject them after the compact structure proves instable.
 
 **Note:** The compaction mechanism has only been described in theory, and is not implemented:   
-"We have also left the Compaction mechanism for future work, and this mechanism has not been implemented in the prototype."  
+"We have also left the Compaction mechanism for future work, and this mechanism has not been implemented in the prototype."    
 Therefore, Requirement 9.2 contains no tests.
 
 ### 9.3 Predictability
