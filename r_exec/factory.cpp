@@ -426,6 +426,8 @@ bool _Fact::CounterEvidence(const Code *lhs, const Code *rhs) {
 
     if (lhs->get_reference(0) != rhs->get_reference(0)) // check if the icsts instantiate the same cst.
       return false;
+    if (((ICST*)lhs)->components_.size() != ((ICST*)rhs)->components_.size())
+      return false;
 
     for (uint32 i = 0; i < ((ICST *)lhs)->components_.size(); ++i) { // compare all components 2 by 2.
 

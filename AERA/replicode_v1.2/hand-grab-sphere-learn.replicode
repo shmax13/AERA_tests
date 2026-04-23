@@ -85,6 +85,15 @@ m_drive:(mdl [] []
 |[]
 [stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
 
+anti_position_drive:(ent 1) [[SYNC_ONCE now 0 forever root nil]]
+m_anti_position_drive:(mdl [H: P:] []
+   ; The goal target timings are the same as the drive timings.
+   (|fact (mk.val H: position P: 1) T0: T1: 1 1)
+   (fact anti_position_drive T0: T1: ::)
+|[]
+|[]
+[stdin drives] 1 1 1 0 1) [[SYNC_ONCE now 0 forever primary nil 1]]
+
 pgm_babbleA_1:(pgm [] []
    ; This fact repeats periodically. We use it as a "heartbeat".
    (ptn (fact (mk.val h essence hand :) After: Before: ::) [])
@@ -227,10 +236,18 @@ pgm_babbleA_7:(pgm [] []
 
 pgm_babbleA_8:(pgm [] []
    ; This fact repeats periodically. We use it as a "heartbeat".
-   (ptn (fact (mk.val h essence hand :) After: Before: ::) [])
+   (ptn (fact Mkval:(mk.val h position P: :) After: Before: ::) [])
 []
    (>= After (+ this.vw.ijt 800ms))
 []
+   ; To demonstrate GTPX, make a goal for h to not have the position.
+   (inj [Drive:(imdl m_anti_position_drive [h P] [] false 1) []])
+   (inj [F_Drive:(fact Drive (+ After 100ms) (+ Before 100ms) 1 1) []])
+   (inj [G_F_Drive:(goal F_Drive self nil 1) []])
+   (inj []
+      (fact G_F_Drive T0:(+ After 10ms) T0 1 1)
+      [SYNC_ONCE T0 1 forever primary nil]
+   )
    ; Move to the cube.
    (inj [Command:(cmd move [h 10] 1) []])
    (inj [F_Command:(fact Command After Before 1 1) []])
