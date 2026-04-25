@@ -1,10 +1,14 @@
+; REQUIREMENT:	9.1 - Graceful degradation
+; PARAMETERS:	
 ; run_time=3000
+; BASE TASK:	bathtub / hgs / ball-external
+; ACTIONS:		open_valve / wait / move / grab / release / set_velocity_y
+
 
 ; For this test, we run three tasks in sequence:
 ; First, the bathtub task.
 ; Then, hand-grab-sphere.
 ; Then, ball-external.
-; Available Actions: open_valve / wait / move / grab / release / set_velocity_y
 
 ; However! we manipulate each task slightly, implying no task can succeed:
 ; For hgs & bathtub, we reduced the time limit to 300ms.

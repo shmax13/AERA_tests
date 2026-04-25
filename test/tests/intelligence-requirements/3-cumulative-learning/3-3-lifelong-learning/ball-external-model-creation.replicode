@@ -1,3 +1,8 @@
+; REQUIREMENT:	3.3 - Lifelong learning
+; PARAMETERS:	-
+; BASE TASK:	ball-external
+; ACTIONS:		set_velocity_y
+
 ; This is the standard ball-external test. 
 ; Here, we are verifying that new models are being created from observed facts
 ; while the system is working on a task.

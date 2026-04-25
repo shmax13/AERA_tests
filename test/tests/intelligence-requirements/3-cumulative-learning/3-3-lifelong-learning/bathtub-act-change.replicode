@@ -1,11 +1,13 @@
+; REQUIREMENT:	3.3 - Lifelong learning
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
+
 ; The crucial part of this is the icmd (set [this.vw.act 0]).
 ; This sets the activation value of the program pgm_cmd_wait to 0 on its first call,
 ; after which the program cannot run anymore -> Emulation behaves different from models -> task should no longer be possible.
 ; This could be interpreted as someone turning of the water supply elsewhere. 
 ; We are unaware of this possibility, and thus unable to complete the task.
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
 
 ; ============================
 ; CONSTANTS

@@ -214,7 +214,6 @@
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\ball-CTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\ball-PTPX.replicode" />
     <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\hgs-GTPX.replicode" />
-    <None Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\analogy.replicode" />
     <None Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\solution-diversity.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-1-time\bathtub-timestamps.replicode" />
     <None Include="tests\intelligence-requirements\7-transversal-functions\7-2-resources\bathtub-perf.replicode" />
@@ -230,8 +229,7 @@
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\mk-new.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\mk-rdx.replicode" />
     <None Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\mk-sln-chg.replicode" />
-    <None Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degredation\bathtub-hgs-ball-failure.replicode" />
-    <None Include="tests\intelligence-requirements\9-robustness\9-2-scalability\compaction.replicode" />
+    <None Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degradation\bathtub-hgs-ball-failure.replicode" />
     <None Include="tests\std.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-atoms.replicode" />
     <None Include="tests\technical-report\annex1\2.1\test-misc.replicode" />
@@ -468,7 +466,7 @@
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\ball-CTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\ball-PTPX.txt" />
     <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-5-induction\hgs-GTPX.txt" />
-    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\analogy.txt" />
+    <Text Include="tests\intelligence-requirements\5-non-axiomatic-reasoning\5-6-analogy\note.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-1-flexibility\note.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-2-solution-diversity\solution-diversity.txt" />
     <Text Include="tests\intelligence-requirements\6-generality\6-3-constraint-diversity\note.txt" />
@@ -488,8 +486,8 @@
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\mk-rdx.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-1-meta-cognition\mk-sln-chg.txt" />
     <Text Include="tests\intelligence-requirements\8-reflection\8-2-self-programming\note.txt" />
-    <Text Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degredation\bathtub-hgs-ball-failure.txt" />
-    <Text Include="tests\intelligence-requirements\9-robustness\9-2-scalability\compaction.txt" />
+    <Text Include="tests\intelligence-requirements\9-robustness\9-1-graceful-degradation\bathtub-hgs-ball-failure.txt" />
+    <Text Include="tests\intelligence-requirements\9-robustness\9-2-scalability\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-3-predictability\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-4-reliability\note.txt" />
     <Text Include="tests\intelligence-requirements\9-robustness\9-5-trustworthiness\note.txt" />

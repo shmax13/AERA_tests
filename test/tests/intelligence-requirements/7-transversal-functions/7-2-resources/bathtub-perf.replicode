@@ -1,12 +1,12 @@
+; REQUIREMENT:	7.2 - Transversal resources
+; PARAMETERS:	
 ; base_period=250000 
 ; max_sim_time_horizon=250000
 ; reduction_core_count=6
 ; time_core_count=2
 ; run_time=5000
-!def rt_sampling_period 500ms
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; For this task, we switch from diagnostic to real-time mode, and analyze 
 ; AERA's self-monitoring of resources by inspecting "perf" objects.
@@ -17,6 +17,8 @@
 ; d_rj_ltcy: reduction job latency at the last sampling time;
 ; tj_ltcy: time job latency;
 ; d_tj_ltcy: time job latency at the last sampling time.
+
+!def rt_sampling_period 500ms
 
 ; ============================
 ; CONSTANTS

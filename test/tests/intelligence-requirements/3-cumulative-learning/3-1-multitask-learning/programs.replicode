@@ -1,3 +1,10 @@
+; REQUIREMENT:	3.1 - Multitask learning
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; Here, we test basic PROGRAM syntax.
+
 ; PROGRAMS
 ; !class (pgm (_obj {tpl:[::ptn] inputs:[] guards:[::xpr] prods:}))
 

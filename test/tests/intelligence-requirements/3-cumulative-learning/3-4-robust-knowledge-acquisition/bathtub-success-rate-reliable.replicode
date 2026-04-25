@@ -1,7 +1,9 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; REQUIREMENT:	3.4 - Robust knowledge acquisition
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
-; same as test-bathtub-success-rate-decrease, except M_WAIT starts with a 
+; This is the same as test-bathtub-success-rate-decrease, except M_WAIT starts with a 
 ; higher evidence count here. So its success_value should'nt decrease as much.
 ; 0.45 -> 45 / 101
 ; 0.45 -> 0.44554455...

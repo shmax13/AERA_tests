@@ -1,3 +1,10 @@
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; This is a basic syntax test for EXTERNAL COMMANDS.
+
 ; EXTERNAL COMMANDS
 ; !class (cmd (_obj {function:fid args:[]}))
 

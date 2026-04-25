@@ -1,3 +1,10 @@
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; This is a basic syntax test for the icmd MODIFY.
+
 ; M O D
 ; !dfn (_mod : :nb)
 ; !def (mod args) (icmd _mod args)

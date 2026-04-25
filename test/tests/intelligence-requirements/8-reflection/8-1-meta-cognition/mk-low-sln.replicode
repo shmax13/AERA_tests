@@ -1,3 +1,8 @@
+; REQUIREMENT:	8.1 - Meta-cognition
+; PARAMETERS:   -
+; BASE TASK:	-
+; ACTIONS:		-
+
 ; !class (mk.low_sln (_obj obj:))
 
 ;setup grp with custom params

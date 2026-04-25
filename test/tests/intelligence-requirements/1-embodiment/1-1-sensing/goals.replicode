@@ -1,4 +1,9 @@
-; GOALS
+; REQUIREMENT:	1.1 - Sensing
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; Here, we test GOAL syntax.
 ; !class (goal (_obj {obj: actr:ent sim:}))
 
 ; (R1) The structure of the goal class has changed, to now include sim:.

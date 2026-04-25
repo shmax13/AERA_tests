@@ -1,4 +1,9 @@
-; PREDICTIONS
+; REQUIREMENT:	1.1 - Sensing
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; Here, we test PREDICTION syntaxe
 ; !class (pred (_obj {obj: sims:[::sim]}))
 
 ; (R1) The structure of the prediction class has changed, to now include sims:.

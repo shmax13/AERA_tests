@@ -1,3 +1,10 @@
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; This is a basic syntax test for the icmd SWAP CODE.
+
 ; S W P
 ; !dfn (_swp :nb)
 ; !def (swp args) (icmd _swp args)

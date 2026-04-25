@@ -1,5 +1,10 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; REQUIREMENT:	3.1 - Multitask learning
+; PARAMETERS:	-
+; BASE TASK:	hgs / bathtub
+; ACTIONS:		open_valve / wait / move / release / grab 
+ 
+; Here, we run two tasks in parallel:
+; The bathtub task, and hand-grab-sphere.
 
 ; ============================
 ; CONSTANTS

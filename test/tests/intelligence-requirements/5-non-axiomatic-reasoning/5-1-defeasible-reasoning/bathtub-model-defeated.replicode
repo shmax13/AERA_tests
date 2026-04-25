@@ -1,13 +1,14 @@
-; (R1) This test is similar to bathtub-success-rate-decrease in 3.4.
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; REQUIREMENT:	5.1 - Defeasible reasoning
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; For this test, the model M_WAIT starts with a low strength and success rate.
 ; However, we changed pgm_cmd_wait so now the emulator state does not update as expected by the models.
 ; When M_WAIT makes the false prediction, its success rate should decrease.
 ; Then, as the models success_rate gets too low (< 0.4 for primary group), 
 ; its views in the group should be removed (which can be interpreted as the model being defeated by new knowledge)
+; Note that this test is similar to bathtub-success-rate-decrease in 3.4.
 
 ; ============================
 ; CONSTANTS

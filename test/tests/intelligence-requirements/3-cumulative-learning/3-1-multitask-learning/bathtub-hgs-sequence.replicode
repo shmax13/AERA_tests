@@ -1,9 +1,12 @@
+; REQUIREMENT:	3.1 - Multitask learning
+; PARAMETERS:
 ; run_time=2000
+; BASE TASK:	hgs / bathtub
+; ACTIONS:		open_valve / wait / move / release / grab 
 
-; The goal of this task is two tasks in sequence:
+; Here, we run two tasks in sequence.
 ; First the bathtub task.
 ; Then, hand-grab-sphere.
-; Available Actions: open_valve / wait / move / grab / release
 
 ; ============================
 ; CONSTANTS

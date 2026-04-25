@@ -1,3 +1,8 @@
+; REQUIREMENT:	5.5 - Induction
+; PARAMETERS:	-
+; BASE TASK:	hgs
+; ACTIONS:		move / release / grab
+
 ; Here, we specifically observe a model induced by changes in the environment
 ; through the Goal Targeted Pattern Extractor (GTPX).
 
