@@ -5,6 +5,8 @@ This report documents the test cases created for each intelligence requirement. 
 
 Each test consists of a paired `.replicode` and `.txt` file. The `.replicode` file serves as the seed for the AERA run, and the `.txt` file contains the expected output, which is validated against the decompiled results of that run.
 
+Each `.replicode` file also contains a header documenting the agent's available actions, how it differs from its base task, and any deviations from the `settings.xml` parameter defaults.
+
 ## 1. Embodiment
 
 An embodiment (i.e., sensing and acting) is required to find out what the current status of the world is by generating models of it, with respect to one's goals.
