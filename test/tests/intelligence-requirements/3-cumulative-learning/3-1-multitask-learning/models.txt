@@ -1,4 +1,4 @@
-54(65) mdl1:(mdl [] []
+mdl1:(mdl [] []
    (ptn v0: |[])
    (ptn v1: |[])
 |[]
@@ -6,7 +6,7 @@
 [] 1 1 1 1 1 ) []
    [0 0s:0ms:0us 0 forever stdin nil 1]
 
-55(66) mdl2:(mdl [v0: v1: v2:] []
+mdl2:(mdl [v0: v1: v2:] []
    (ptn v3: |[])
    (ptn v4: |[])
 []

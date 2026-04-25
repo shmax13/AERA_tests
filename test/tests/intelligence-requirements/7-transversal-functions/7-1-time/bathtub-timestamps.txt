@@ -7,7 +7,7 @@ success2:(success fact_481 fact_502 mk_rdx_483 1) |[]
 mk_val168:(mk.val b water_level 50 1) |[]
 fact_873:(fact mk_val168 3s:700ms:0us 3s:800ms:0us 1 1) |[]
 success17:(success fact_865 fact_873 mk_rdx_867 1) |[]
-877(178803) fact_877:(fact success17 3s:700ms:0us 3s:700ms:0us 1 1) []
+fact_877:(fact success17 3s:700ms:0us 3s:700ms:0us 1 1) []
    [0 3s:700ms:0us 1 838 stdin primary]
 
 ; finally, check AERA ran for 20s
