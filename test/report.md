@@ -1,6 +1,9 @@
 # AERA Test Documentation
 
-TODO: description
+
+This report documents the test cases created for each intelligence requirement. For every testable requirement, a table lists the associated test cases, with a name, a brief description, and any remarks (e.g., found bugs or inconsistencies in the documentation).
+
+Each test consists of a paired `.replicode` and `.txt` file. The `.replicode` file serves as the seed for the AERA run, and the `.txt` file contains the expected output, which is validated against the decompiled results of that run.
 
 ## 1. Embodiment
 
@@ -14,10 +17,10 @@ This section includes tests for Goals and Predictions, which are both pointers t
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| fact | tests basic fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
-| anti-fact | tests basic anti fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
-| goal | tests basic goal syntax | (R1) The structure of the goal class has changed. |
-| prediction | tests basic prediction syntax | (R1) The structure of the prediction class has changed. |
+| facts | tests basic fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
+| antifacts | tests basic anti fact syntax | (R1) The parameters `after` and `before` use timestamps, not microseconds. |
+| goals | tests basic goal syntax | (R1) The structure of the goal class has changed. |
+| predictions | tests basic prediction syntax | (R1) The structure of the prediction class has changed. |
 | ball-external | tests if inputs coming from the (mocked) environment are handled correctly |  (R1) Since we are in a unit test environment, we use the existing mocked I/O device "ball". |
 
 ### 1.2 Acting
@@ -73,7 +76,7 @@ AERA achieves this through reactive programs and models, which are triggered whe
 | mediation-mod | tests the mediation of `mod` commands | -|
 | mediation-set | tests the mediation of `set` commands | (R1) Setting and averaging works, but illegal values are rounded to 0 or 1. |
 | bathtub-hgs-sequence | runs the bathtub and hand-grab-sphere tasks in sequence | - |
-| bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Commenting in the 2nd drive in causes AERA to run indefinitely. |
+| bathtub-hgs-parallel | runs the bathtub and hand-grab-sphere tasks in parallel | (R1) Enabling model M7 causes AERA to run indefinitely. |
 
 ### 3.2 Online learning
 The ability to learn continuously, uninterrupted, and in real-time from experience as it comes, and without specifically iterating over it many times.  
@@ -151,7 +154,7 @@ Models that have repeatedly made poor predictions are removed from AERA. Activat
 
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
-| bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | (R1) This test is similar to bathtub-success-rate-decrease in 3.4. |
+| bathtub-model-defeated | tests the system's behavior after a model's prediction is defeated  | - |
 | bathtub-sim-defeated | checks output after a promoted simulation prediction is defeated  | (R1) This task is incomplete, but it suffices for the purpose here.  |
 
 ### 5.2 Pattern matching
@@ -243,7 +246,6 @@ In AERA, time is relevant to every object; completely ingrained in the system. A
 | Test name | Description | Remarks |
 | :--- | :--- | :--- |
 | bathtub-timestamps | checks that the bathtub task also succeeds with different timestamps.  | - |
-| time-ranges | checks that different time-related values are injected correctly. | (R1) It is possible to inject facts with fact.after > fact.before, which seems to have zero entropy.  |
 
 ### 7.2 Transversal handling of resources
 Resource management (i.e., attention) involves management of knowledge, time, energy, and computing power.  
@@ -297,7 +299,7 @@ Furthermore, we refer to the basic syntax tests of models and programs in 3.1.
 
 When the system achieves consistently a set of goals within some constraints, it shall continue to do so despite novelty occurring in the environment, provided this novelty changes the initial goals and constraints only marginally and provided the system can possibly remain in its (fixed) operational boundaries.
 
-### 9.1 Graceful degredation
+### 9.1 Graceful degradation
 
 Knowledge representation in AERA is based around causal relations, which are essential for mapping out “how the world works”. Because AERA's knowledge processing is organized around goals, with increased knowledge AERA will get closer and closer to “perfect operation” (i.e. meeting its top-level drives/goals, for which each instance was created). Furthermore, AERA can do reflection, so it gets better at evaluating its own performance over time, meaning it makes (causal) models of its own failure modes, increasing its chances of graceful degradation.
 

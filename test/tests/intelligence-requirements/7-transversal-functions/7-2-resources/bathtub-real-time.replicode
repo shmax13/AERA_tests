@@ -1,11 +1,12 @@
+; REQUIREMENT:	7.2 - Transversal resources
+; PARAMETERS:	
 ; base_period=250000 
 ; max_sim_time_horizon=250000
 ; reduction_core_count=6
 ; time_core_count=2
 ; run_time=5000
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; For this task, we switch from diagnostic to real-time mode by changing to the following in settings.xml:
 ; 	  reduction_core_count="6"

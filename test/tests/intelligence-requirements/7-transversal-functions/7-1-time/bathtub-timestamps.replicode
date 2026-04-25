@@ -1,7 +1,8 @@
+; REQUIREMENT:	7.1 - Transversal time
+; PARAMETERS:	
 ; run_time=20000
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; For this task, we modify different time stamps like the DRIVE_START, total run-time,
 ; and the time it takes a command to have an effect in the environment.

@@ -1,7 +1,9 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait / stall
+; REQUIREMENT:	6.2 - Solution diversity
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait / stall
 
-; here, we add an action STALL that is similar to WAIT, with some remarks:
+; Here, we add an action STALL that is similar to WAIT, with some remarks:
 ; WAIT causes a +20 water level increase.
 ; STALL causes a +30 water level increase
 ; WL_PERFECT has been decreased to 60

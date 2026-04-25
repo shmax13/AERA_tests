@@ -1,6 +1,11 @@
-; The goal of this task is to get a ball to a certain position.
-; An external device is mocked, see test_mem.cpp
-; Available Actions: set_velocity_y
+; REQUIREMENT:	1.1 - Sensing
+; PARAMETERS:	-
+; BASE TASK:	ball-external
+; ACTIONS:		set_velocity_y
+
+; This is the base BALL-EXTERNAL task.
+; An external device is mocked, see test_mem.cpp.
+
 ; (R1): Since we are in a unit test environment, we use the existing mocked I/O device "ball".
 
 ; ============================

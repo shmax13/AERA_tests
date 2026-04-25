@@ -1,6 +1,10 @@
+; REQUIREMENT:	3.5 - Transfer learning
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
+
 ; For this task, we made the models of the bathtub task more generic to work on any sort of container.
-; The models are therefore copied as-is. The task environment is changed.
-; Available Actions: open_valve / wait
+; The models are therefore copied as-is.
 
 ; ============================
 ; CONSTANTS

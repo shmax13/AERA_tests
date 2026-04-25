@@ -1,10 +1,13 @@
-; (R1) This task is incomplete, but it suffices for the purpose of checking promoted simulation prediction defeat.
+; REQUIREMENT:	5.1 - Defeasible reasoning
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; The bathtub task has been expanded here to include temperature in the emulation.
 ; There is now a hot water valve. (and a non-functional cold water valve)
-; and we pushed the DRIVE_START back to 900ms so this test doesn't run longer than it needs to
+; Also, we pushed the DRIVE_START back to 900ms so this test doesn't run longer than it needs to.
 
-; Available Actions: open_hot_valve / wait
+; (R1) This task is incomplete, but it suffices for the purpose of checking promoted simulation prediction defeat.
 
 ; ============================
 ; CONSTANTS

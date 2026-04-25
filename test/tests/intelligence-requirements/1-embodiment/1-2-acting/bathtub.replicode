@@ -1,5 +1,9 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
+
+; This is the base BATHTUB task.
 
 ; ============================
 ; CONSTANTS

@@ -1,12 +1,13 @@
+; REQUIREMENT:	3.2 - Online learning
+; PARAMETERS:	
 ; run_time=2000
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait 
 
 ; In this task, the goal/drive is injected a few moments before the emulator state.
 ; This means that at first, finding a plan is impossible.
 ; After we inject the initial emulator state (see TIME_NEW_KNOWLEDGE), a plan should be found and the goal achieved.
 ; The point of this is to test if AERA can use new knowledge whenever it comes along.
-
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
 
 ; ============================
 ; CONSTANTS

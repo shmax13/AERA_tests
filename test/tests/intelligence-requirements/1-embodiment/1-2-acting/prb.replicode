@@ -1,3 +1,10 @@
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; This is a basic syntax test for the icmd PROBE.
+
 ; P R O B E
 ; !dfn (_prb :nb :st :st :[])
 ; !def (prb args) (icmd _prb args)

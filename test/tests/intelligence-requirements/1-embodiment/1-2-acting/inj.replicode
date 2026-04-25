@@ -1,3 +1,10 @@
+; REQUIREMENT:	1.2 - Acting
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; This is a basic syntax test for the icmd INJECT.
+
 ; I N J
 ; !dfn (_inj : :)
 ; !def (inj args) (icmd _inj args)

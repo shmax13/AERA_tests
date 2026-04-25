@@ -1,7 +1,14 @@
-; !class ( ptn skel:xpr guards:[::xpr])
-; !class (|ptn skel:xpr guards:[::xpr])
+; REQUIREMENT:	5.2 - Pattern matching
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		-
 
+; Here, we would like to check the syntax of patterns. But:
 ; (R1) Patterns cannot exist on their own and are tested as part of other objects.
-; see other tests for instantiation. but the above syntax is valid.
+; see other tests for instantiation. but the syntax below is valid.
 
-; same for anti-patterns.
+; !class ( ptn skel:xpr guards:[::xpr])
+
+; same for anti-patterns:
+
+; !class (|ptn skel:xpr guards:[::xpr])

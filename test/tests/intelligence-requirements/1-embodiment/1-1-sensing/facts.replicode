@@ -1,4 +1,9 @@
-; FACTS
+; REQUIREMENT:	1.1 - Sensing
+; PARAMETERS:	-
+; BASE TASK:	-
+; ACTIONS:		- 
+
+; Here, we test FACT syntax.
 ; !class (fact (_fact nil))
 ; !class (_fact (_obj {obj: after:ts before:ts cfd:nb :~}))
 

@@ -1,5 +1,7 @@
-; The goal of this task is to fill a bathtub to a certain water level.
-; Available Actions: open_valve / wait
+; REQUIREMENT:	3.4 - Robust knowledge acquisition
+; PARAMETERS:	-
+; BASE TASK:	bathtub
+; ACTIONS:		open_valve / wait
 
 ; For this test, the model M_WAIT starts with a low strength and success rate.
 ; As it continuously predicts correctly, its success rate should increase.
