@@ -28,7 +28,7 @@ pred8:(pred fact23 [sim6] 1) |[]
 fact24:(fact pred8 0s:335ms:0us 0s:335ms:0us 1 1) |[]
 
 ; now, M_WAIT should predict the increased water level. 
- mk_val12:(mk.val b water_level 10 :) |[]
+mk_val12:(mk.val b water_level 10 :) |[]
 fact26:(fact mk_val12 0s:500ms:0us 0s:600ms:0us 1 :) |[]
 pred10:(pred fact26 [sim6] 1) |[]
 fact_136:(fact pred10 0s:335ms:0us 0s:335ms:0us 1 1) |[]
