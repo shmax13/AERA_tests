@@ -104,6 +104,7 @@
     <ClCompile Include="test_all.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="replicode_report_annotated.pdf" />
     <None Include="tests\existing\replicode_v1.1\helgi.replicode" />
     <None Include="tests\existing\replicode_v1.1\rgrp.user.classes.replicode" />
     <None Include="tests\existing\replicode_v1.1\std.replicode" />
