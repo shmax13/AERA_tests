@@ -145,12 +145,14 @@ bool Compiler::compile(istream *stream, r_comp::Image *image, r_comp::Metadata *
   image_ = image;
   metadata_ = metadata;
   current_object_index_ = image->object_map_.objects_.size();
+  auto save_global_references = global_references_;
   while (!in_stream_->eof()) {
 
     switch (in_stream_->peek()) {
     case '!':
       set_error("error: found preprocessor directive");
       error = error_;
+      global_references_ = save_global_references;
       return false;
     default:
       if (in_stream_->eof())
@@ -158,6 +160,7 @@ bool Compiler::compile(istream *stream, r_comp::Image *image, r_comp::Metadata *
       if (!read_sys_object()) {
 
         error = error_;
+        global_references_ = save_global_references;
         return false;
       }
       current_object_index_++;
