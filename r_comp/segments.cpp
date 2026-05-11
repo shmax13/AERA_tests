@@ -681,32 +681,32 @@ void Image::build_references(SysObject *sys_object, Code *object) {
   object->rel_views();
 }
 
-void Image::get_objects(Mem *mem, resized_vector<Code *> &ram_objects) {
+void Image::get_objects(Mem *mem, resized_vector<Code *> &ram_objects, size_t startIndex) {
 
-  for (uint16 i = 0; i < code_segment_.objects_.size(); ++i)
+  for (size_t i = startIndex; i < code_segment_.objects_.size(); ++i)
     ram_objects[i] = mem->build_object(code_segment_.objects_[i]);
-  unpack_objects(ram_objects);
+  unpack_objects(ram_objects, startIndex);
 }
 
-void Image::unpack_objects(resized_vector<Code *> &ram_objects) {
+void Image::unpack_objects(resized_vector<Code *> &ram_objects, size_t startIndex) {
 
   // For each object, translate its reference indices into pointers; build its views; for each view translate its reference indices into pointers.
-  for (uint16 i = 0; i < code_segment_.objects_.size(); ++i) {
+  for (size_t i = startIndex; i < code_segment_.objects_.size(); ++i) {
 
     SysObject *sys_object = code_segment_.objects_[i];
     Code *ram_object = ram_objects[i];
 
-    for (uint16 j = 0; j < sys_object->views_.size(); ++j) {
+    for (size_t j = 0; j < sys_object->views_.size(); ++j) {
 
       SysView *sys_v = sys_object->views_[j];
       _View *v = ram_object->build_view(sys_v);
-      for (uint16 k = 0; k < sys_v->references_.size(); ++k)
+      for (size_t k = 0; k < sys_v->references_.size(); ++k)
         v->references_[k] = ram_objects[sys_v->references_[k]];
 
       ram_object->views_.insert(v);
     }
 
-    for (uint16 j = 0; j < sys_object->references_.size(); ++j)
+    for (size_t j = 0; j < sys_object->references_.size(); ++j)
       ram_object->set_reference(j, ram_objects[sys_object->references_[j]]);
   }
 }

@@ -184,7 +184,7 @@ private:
   uint32 get_reference_count(const r_code::Code *object) const;
   void build_references();
   void build_references(r_code::SysObject *sys_object, r_code::Code *object);
-  void unpack_objects(r_code::resized_vector<r_code::Code *> &ram_objects);
+  void unpack_objects(r_code::resized_vector<r_code::Code *> &ram_objects, size_t startIndex = 0);
 public:
   ObjectMap object_map_;
   CodeSegment code_segment_;
@@ -198,7 +198,7 @@ public:
   void add_sys_object(r_code::SysObject *object, std::string name); // called by the compiler.
   void add_sys_object(r_code::SysObject *object); // called by add_object().
 
-  void get_objects(r_code::Mem *mem, r_code::resized_vector<r_code::Code *> &ram_objects);
+  void get_objects(r_code::Mem *mem, r_code::resized_vector<r_code::Code *> &ram_objects, size_t startIndex = 0);
   template<class O> void get_objects(r_code::resized_vector<r_code::Code *> &ram_objects) {
 
     for (uint32 i = 0; i < code_segment_.objects_.size(); ++i) {
