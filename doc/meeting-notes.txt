@@ -1305,8 +1305,11 @@ DONE. Fix Arash's analogy example in Webots. https://github.com/IIIM-IS/AERA/com
 2026-04-30
 * DONE. Visualizer: Merge pull request to fix showing initial models https://github.com/IIIM-IS/AERA_Visualizer/pull/64
 
+2026-05-28
+* DONE. Visualizer: Check if simulated predicted command links to its actual requirement 
+* DONE. Visualizer: Update the Raw Data panel https://github.com/IIIM-IS/AERA_Visualizer/issues/63
+
 next meeting
-* Visualizer: Update the Raw Data panel https://github.com/IIIM-IS/AERA_Visualizer/issues/63
 * Visualizer: Dynamically load protobuf.dll
 * Open issues from Leonard
   * Is allowed_shared_timing_vars still necessary? https://github.com/IIIM-IS/AERA/pull/110#issuecomment-1734308936
