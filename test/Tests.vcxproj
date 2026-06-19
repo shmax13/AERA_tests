@@ -580,7 +580,7 @@
     <Text Include="report.md" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="settings_template.xml" />
+    <Xml Include="tests\settings_template.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
