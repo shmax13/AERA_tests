@@ -49,4 +49,4 @@
 /packages/
 
 # temporary settings file for blackbox tests
-/test/settings_filled.xml
+/test/tests/settings_filled.xml
