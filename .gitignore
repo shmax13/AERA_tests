@@ -45,6 +45,8 @@
 *.bak
 *.obj
 
-# temp file for blackbox tests
-# TODO: refactor
+# NuGet packages
+/packages/
+
+# temporary settings file for blackbox tests
 /test/settings_filled.xml
