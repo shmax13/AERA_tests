@@ -6,13 +6,13 @@
 namespace fs = std::filesystem;
 
 const fs::path sln_path = fs::current_path().parent_path();
-const fs::path aera_exe_path = sln_path / "Debug" / "AERA.exe";
+const fs::path aera_exe_path = sln_path / "Release" / "AERA.exe";
 const fs::path prj_path = sln_path / "test";
 const fs::path test_path = prj_path / "tests";
 const fs::path settings_template_path = test_path / "settings_template.xml";
 const fs::path settings_filled_path = test_path / "settings_filled.xml";
 const fs::path output_log_path = test_path / "AERA_output.log";
-const fs::path decompiled_objects_path = sln_path / "Debug" / "decompiled_objects.txt";
+const fs::path decompiled_objects_path = sln_path / "Release" / "decompiled_objects.txt";
 
 namespace AeraTests { 
 
